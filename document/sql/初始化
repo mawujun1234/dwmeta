@@ -1,0 +1,48 @@
+drop user hr cascade;
+create user hr identified by hr;
+grant dba,connect,resource to hr;
+
+alter table T_CONSTANTITEM add constraint constantitem_constant_id foreign key (CONSTANT_ID) references t_constant (ID);
+alter table HR_ORG add constraint org_orgtype_id foreign key (ORGTYPE_ID) references t_constantitem (ID);
+alter table HR_POSITION add constraint positiontype_id_1 foreign key (POSITIONTYPE_ID) references t_constantitem (ID);
+alter table HR_POSITION add constraint org_id_1 foreign key (ORG_ID) references hr_org (ID);
+
+insert into hr.t_role(id,name,roletype) values('admin','admin','role');
+insert into hr.t_user(id,loginname,name,pwd,candel,state) values('admin','admin','admin','admin',0,1);
+insert into hr.t_role_user(user_id,role_id) values('admin','admin');
+Insert into hr.T_ROLE (ID,NAME,PARENT_ID,REMARK,ROLETYPE) values ('c2977910-8a4f-49a7-a04e-01d7dc3198c2','作业单位',null,null,'role');
+
+--组织单元根节点
+insert into hr_org (ID, ADDRESS, CODE, CREATEDATE, EMAIL, ENDDATE, FAX, INTRODUCTION, ISDEL, ISROOT, LAYER, NAME, OPERATETIME, OPERATOR_ID, ORGTYPE_ID, PARENT_ID, PHONENUMBER, POSTALCODE, SORT, STATUS, WEB)
+values ('root', null, 'root', null, null, null, null, null, 0, 1, 0, '根节点', null, null, null, null, null, null, 0, 1, null);
+
+
+--菜单
+insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL)
+values ('ca51fe5d-6e24-4388-8249-f8f1ac6f4feb', null, 1, 'menu', '常数维护', '1eb1d9ea-075c-43c6-baa3-d36004f4d4b7', null, 0, '/constant/ConstantApp.jsp');
+insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL)
+values ('1eb1d9ea-075c-43c6-baa3-d36004f4d4b7', null, 0, 'menu', '基础维护', null, null, 0, null);
+insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL)
+values ('539ea37c-a286-4ae2-8a0b-cb4dab321515', null, 1, 'menu', '菜单管理', '1eb1d9ea-075c-43c6-baa3-d36004f4d4b7', null, 0, '/permission/MenuApp.jsp');
+insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL)
+values ('e35d2b7f-58c2-4e61-a50d-bc6112779b4c', null, 1, 'menu', '角色管理', '1eb1d9ea-075c-43c6-baa3-d36004f4d4b7', null, 0, '/permission/RoleApp.jsp');
+insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL)
+values ('a124a5f1-70a3-4dba-a014-68385edd922b', null, 1, 'menu', '组织岗位管理', '1eb1d9ea-075c-43c6-baa3-d36004f4d4b7', null, 0, '/org/OrgApp.jsp');
+insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL)
+values ('a7439ed8-ad09-452f-9860-27157c9027d9', null, 1, 'menu', '用户管理', '1eb1d9ea-075c-43c6-baa3-d36004f4d4b7', null, 0, '/permission/UserApp.jsp');
+
+--角色访问的基础菜单
+insert into t_role_menu (ROLE_ID, MENU_ID)
+values ('admin', '1eb1d9ea-075c-43c6-baa3-d36004f4d4b7');
+insert into t_role_menu (ROLE_ID, MENU_ID)
+values ('admin', '539ea37c-a286-4ae2-8a0b-cb4dab321515');
+insert into t_role_menu (ROLE_ID, MENU_ID)
+values ('admin', 'a124a5f1-70a3-4dba-a014-68385edd922b');
+insert into t_role_menu (ROLE_ID, MENU_ID)
+values ('admin', 'a7439ed8-ad09-452f-9860-27157c9027d9');
+insert into t_role_menu (ROLE_ID, MENU_ID)
+values ('admin', 'ca51fe5d-6e24-4388-8249-f8f1ac6f4feb');
+insert into t_role_menu (ROLE_ID, MENU_ID)
+values ('admin', 'e35d2b7f-58c2-4e61-a50d-bc6112779b4c');
+
+
