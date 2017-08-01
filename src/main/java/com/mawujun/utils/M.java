@@ -12,6 +12,41 @@ public static final class ConstantItem {
 	public static final String status="status";
 	public static final String constant_id="constant_id";
 }
+public static final class Classify {
+	public static final String id="id";
+	public static final String name="name";
+	public static final String remark="remark";
+	public static final String dwlayer_id="dwlayer_id";
+	public static final String parent_id="parent_id";
+}
+public static final class Colmeta {
+	public static final String id="id";
+	public static final String colname="colname";
+	public static final String name="name";
+	public static final String coltype="coltype";
+	public static final String collen="collen";
+	public static final String ispk="ispk";
+	public static final String nullable="nullable";
+	public static final String defaultvalue="defaultvalue";
+	public static final String desc="desc";
+	public static final String tablemeta_id="tablemeta_id";
+}
+public static final class DWLayer {
+	public static final String id="id";
+	public static final String name="name";
+	public static final String jdbc_driver="jdbc_driver";
+	public static final String jdbc_url="jdbc_url";
+	public static final String jdbc_username="jdbc_username";
+	public static final String jdbc_password="jdbc_password";
+	public static final String remark="remark";
+}
+public static final class Tablemeta {
+	public static final String id="id";
+	public static final String tablename="tablename";
+	public static final String name="name";
+	public static final String remark="remark";
+	public static final String classify_id="classify_id";
+}
 public static final class Org {
 	public static final String id="id";
 	public static final String name="name";

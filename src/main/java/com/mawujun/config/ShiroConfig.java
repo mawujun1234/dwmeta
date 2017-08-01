@@ -121,6 +121,7 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/**/*.html", "anon");
 		filterChainDefinitionMap.put("/main/login.jsp*", "anon");
 		filterChainDefinitionMap.put("/menu/queryElementPermission.do*", "anon");
+		filterChainDefinitionMap.put("/menu/queryByUser.do*", "anon");
 		//filterChainDefinitionMap.put("/ord/mobile/yxgs/getOrstat.do*", "anon");
 
 		

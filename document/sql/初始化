@@ -1,16 +1,12 @@
-drop user hr cascade;
-create user hr identified by hr;
-grant dba,connect,resource to hr;
+drop user dwmeta cascade;
+create user dwmeta identified by dwmeta;
+grant dba,connect,resource to dwmeta;
 
-alter table T_CONSTANTITEM add constraint constantitem_constant_id foreign key (CONSTANT_ID) references t_constant (ID);
-alter table HR_ORG add constraint org_orgtype_id foreign key (ORGTYPE_ID) references t_constantitem (ID);
-alter table HR_POSITION add constraint positiontype_id_1 foreign key (POSITIONTYPE_ID) references t_constantitem (ID);
-alter table HR_POSITION add constraint org_id_1 foreign key (ORG_ID) references hr_org (ID);
 
-insert into hr.t_role(id,name,roletype) values('admin','admin','role');
-insert into hr.t_user(id,loginname,name,pwd,candel,state) values('admin','admin','admin','admin',0,1);
-insert into hr.t_role_user(user_id,role_id) values('admin','admin');
-Insert into hr.T_ROLE (ID,NAME,PARENT_ID,REMARK,ROLETYPE) values ('c2977910-8a4f-49a7-a04e-01d7dc3198c2','作业单位',null,null,'role');
+insert into dwmeta.t_role(id,name,roletype) values('admin','admin','role');
+insert into dwmeta.t_user(id,loginname,name,pwd,candel,state) values('admin','admin','admin','admin',0,1);
+insert into dwmeta.t_role_user(user_id,role_id) values('admin','admin');
+Insert into dwmeta.T_ROLE (ID,NAME,PARENT_ID,REMARK,ROLETYPE) values ('c2977910-8a4f-49a7-a04e-01d7dc3198c2','作业单位',null,null,'role');
 
 --组织单元根节点
 insert into hr_org (ID, ADDRESS, CODE, CREATEDATE, EMAIL, ENDDATE, FAX, INTRODUCTION, ISDEL, ISROOT, LAYER, NAME, OPERATETIME, OPERATOR_ID, ORGTYPE_ID, PARENT_ID, PHONENUMBER, POSTALCODE, SORT, STATUS, WEB)
@@ -30,6 +26,14 @@ insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL
 values ('a124a5f1-70a3-4dba-a014-68385edd922b', null, 1, 'menu', '组织岗位管理', '1eb1d9ea-075c-43c6-baa3-d36004f4d4b7', null, 0, '/org/OrgApp.jsp');
 insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL)
 values ('a7439ed8-ad09-452f-9860-27157c9027d9', null, 1, 'menu', '用户管理', '1eb1d9ea-075c-43c6-baa3-d36004f4d4b7', null, 0, '/permission/UserApp.jsp');
+insert into T_MENU (id, code, leaf, menutype, name, parent_id, remark, sort, url)
+values ('0ec73c74-a105-4cd6-840c-f2021acdd6aa', null, 1, 'menu', '元数据综合查询', null, null, 1, null);
+insert into T_MENU (id, code, leaf, menutype, name, parent_id, remark, sort, url)
+values ('972d70ac-fe0e-4963-8ad3-67b01bca28ad', null, 1, 'menu', '元数据管理', null, null, 2, '/dwmeta/DwmetaApp.jsp');
+insert into T_MENU (id, code, leaf, menutype, name, parent_id, remark, sort, url)
+values ('f517b889-ca57-4894-ae40-5c839dc7a362', null, 1, 'menu', 'DW层', null, null, 3, '/dwmeta/DWLayerApp.jsp');
+insert into T_MENU (id, code, leaf, menutype, name, parent_id, remark, sort, url)
+values ('8bd386e1-781c-44f9-af88-a43623c13c0b', null, 1, 'menu', 'kpi指标库管理', null, null, 0, '/kpi/KpiApp.jsp');
 
 --角色访问的基础菜单
 insert into t_role_menu (ROLE_ID, MENU_ID)
@@ -44,5 +48,9 @@ insert into t_role_menu (ROLE_ID, MENU_ID)
 values ('admin', 'ca51fe5d-6e24-4388-8249-f8f1ac6f4feb');
 insert into t_role_menu (ROLE_ID, MENU_ID)
 values ('admin', 'e35d2b7f-58c2-4e61-a50d-bc6112779b4c');
+
+
+insert into T_CONSTANT (id, name, sort)
+values ('kpi_type', '指标类型', 0);
 
 

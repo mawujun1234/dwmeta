@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<!-- mawujun qq:16064988 e-mail:16064988@qq.com-->
+<mapper namespace="com.mawujun.dwmeta.kpi.KpiRepository">
+	<!-- 查询语句，会自动分页-->
+	<sql id="queryAll_where">
+	<where>
+		<if test="code!=null and code!=''">
+    	 	and a.code like '%${code}%'
+    	</if>
+		<if test="name!=null and name!=''">
+    	 	and a.name like '%${name}%'
+    	</if>
+    	<if test="kpi_type_id!=null and kpi_type_id!=''">
+    	 	and a.kpi_type_id = #{kpi_type_id}
+    	</if>
+    	<if test="status!=null and status=='true'">
+    	 	and a.status = 1
+    	</if>
+    	<if test="status!=null and status=='false'">
+    	 	and a.status = 0
+    	</if>
+	</where>
+	</sql>
+    <select id="queryAll" resultType="com.mawujun.dwmeta.kpi.Kpi" parameterType="map">
+    	select * from dw_kpi a
+    	<include refid="queryAll_where" />	
+    </select> 
+     <!-- 名称模式为：****_count,也可以不写，但如果查询叫复杂的话，自己写有助于控制查询性能
+    <select id="queryPage_count" resultType="int" parameterType="map">
+    	select count(a.id)
+		from dw_kpi a
+		<include refid="queryPage_where" />	
+    </select>-->
+</mapper>
+

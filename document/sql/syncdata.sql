@@ -1,15 +1,23 @@
-prompt PL/SQL Developer import file
-prompt Created on 2017年6月28日 by mawujun
+﻿prompt PL/SQL Developer import file
+prompt Created on 2017年8月1日 by mawujun
 set feedback off
 set define off
-prompt Disabling triggers for T_CONSTANT...
-alter table T_CONSTANT disable all triggers;
-prompt Disabling triggers for T_CONSTANTITEM...
-alter table T_CONSTANTITEM disable all triggers;
+prompt Disabling triggers for DW_CLASSIFY...
+alter table DW_CLASSIFY disable all triggers;
+prompt Disabling triggers for DW_DWLAYER...
+alter table DW_DWLAYER disable all triggers;
+prompt Disabling triggers for DW_KPI...
+alter table DW_KPI disable all triggers;
+prompt Disabling triggers for DW_TABLEMETA...
+alter table DW_TABLEMETA disable all triggers;
 prompt Disabling triggers for HR_ORG...
 alter table HR_ORG disable all triggers;
 prompt Disabling triggers for HR_POSITION...
 alter table HR_POSITION disable all triggers;
+prompt Disabling triggers for T_CONSTANT...
+alter table T_CONSTANT disable all triggers;
+prompt Disabling triggers for T_CONSTANTITEM...
+alter table T_CONSTANTITEM disable all triggers;
 prompt Disabling triggers for T_MENU...
 alter table T_MENU disable all triggers;
 prompt Disabling triggers for T_ROLE...
@@ -20,6 +28,12 @@ prompt Disabling triggers for T_USER...
 alter table T_USER disable all triggers;
 prompt Disabling triggers for T_ROLE_USER...
 alter table T_ROLE_USER disable all triggers;
+prompt Disabling foreign key constraints for T_ROLE_MENU...
+alter table T_ROLE_MENU disable constraint FKHAYG4IB6V7H1WYEYXHQ6XLDDQ;
+alter table T_ROLE_MENU disable constraint FKSONB0RBT2U99HBRQQVV3R0WSE;
+prompt Disabling foreign key constraints for T_ROLE_USER...
+alter table T_ROLE_USER disable constraint FK22EEVO9IWSJ83BG5T8QTPVC3B;
+alter table T_ROLE_USER disable constraint FK7VPGDV8N0P61TSPKGG833AFHI;
 prompt Truncating T_ROLE_USER...
 truncate table T_ROLE_USER;
 prompt Truncating T_USER...
@@ -30,46 +44,44 @@ prompt Truncating T_ROLE...
 truncate table T_ROLE;
 prompt Truncating T_MENU...
 truncate table T_MENU;
-prompt Truncating HR_POSITION...
-truncate table HR_POSITION;
-prompt Truncating HR_ORG...
-truncate table HR_ORG;
 prompt Truncating T_CONSTANTITEM...
 truncate table T_CONSTANTITEM;
 prompt Truncating T_CONSTANT...
 truncate table T_CONSTANT;
-prompt Loading T_CONSTANT...
-insert into T_CONSTANT (id, name, sort)
-values ('orgtype', '组织类型', 0);
-insert into T_CONSTANT (id, name, sort)
-values ('positiontype', '职位类型', 0);
-commit;
-prompt 2 records loaded
-prompt Loading T_CONSTANTITEM...
-insert into T_CONSTANTITEM (id, constant_id, name, sort, status)
-values ('orgtype-2', 'orgtype', '公司', 0, 1);
-insert into T_CONSTANTITEM (id, constant_id, name, sort, status)
-values ('orgtype-1', 'orgtype', '部门', 0, 1);
-insert into T_CONSTANTITEM (id, constant_id, name, sort, status)
-values ('positiontype-1', 'positiontype', '职员', 0, 1);
-commit;
-prompt 3 records loaded
+prompt Truncating HR_POSITION...
+truncate table HR_POSITION;
+prompt Truncating HR_ORG...
+truncate table HR_ORG;
+prompt Truncating DW_TABLEMETA...
+truncate table DW_TABLEMETA;
+prompt Truncating DW_KPI...
+truncate table DW_KPI;
+prompt Truncating DW_DWLAYER...
+truncate table DW_DWLAYER;
+prompt Truncating DW_CLASSIFY...
+truncate table DW_CLASSIFY;
+prompt Loading DW_CLASSIFY...
+prompt Table is empty
+prompt Loading DW_DWLAYER...
+prompt Table is empty
+prompt Loading DW_KPI...
+prompt Table is empty
+prompt Loading DW_TABLEMETA...
+prompt Table is empty
 prompt Loading HR_ORG...
 insert into HR_ORG (id, address, code, createdate, email, enddate, fax, introduction, isdel, isroot, layer, name, operatetime, operator_id, orgtype_id, parent_id, phonenumber, postalcode, sort, status, web)
 values ('root', null, 'root', null, null, null, null, null, 0, 1, 0, '根节点', null, null, null, null, null, null, 0, 1, null);
-insert into HR_ORG (id, address, code, createdate, email, enddate, fax, introduction, isdel, isroot, layer, name, operatetime, operator_id, orgtype_id, parent_id, phonenumber, postalcode, sort, status, web)
-values ('7095dec1-3fc1-4153-86cc-0e250c0efdf0', null, '122', null, null, null, null, null, 0, 0, 0, '12', to_timestamp('26-06-2017 10:28:00.462000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'admin', 'orgtype-1', 'root', null, null, 0, 1, null);
-insert into HR_ORG (id, address, code, createdate, email, enddate, fax, introduction, isdel, isroot, layer, name, operatetime, operator_id, orgtype_id, parent_id, phonenumber, postalcode, sort, status, web)
-values ('368be4b3-5c29-47c2-83ae-c325b98d7ff5', null, '22', null, null, null, '22', null, 0, 0, 0, '22', to_timestamp('26-06-2017 13:05:20.670000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'admin', 'orgtype-1', 'root', '22', null, 1, 1, null);
-insert into HR_ORG (id, address, code, createdate, email, enddate, fax, introduction, isdel, isroot, layer, name, operatetime, operator_id, orgtype_id, parent_id, phonenumber, postalcode, sort, status, web)
-values ('76c5af24-f7e5-4276-ba8b-bc1c968afeaa', '1', '222', null, '3', null, '1', '5', 0, 0, 0, '222', to_timestamp('26-06-2017 15:00:06.391000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'admin', 'orgtype-1', '7095dec1-3fc1-4153-86cc-0e250c0efdf0', '1', '2', 0, 1, '4');
-commit;
-prompt 4 records loaded
-prompt Loading HR_POSITION...
-insert into HR_POSITION (id, name, org_id, positiontype_id, remark)
-values ('98ef5c7d-a20f-4a3c-ac7d-3ef56502c8eb', '11', '7095dec1-3fc1-4153-86cc-0e250c0efdf0', 'positiontype-1', '111');
 commit;
 prompt 1 records loaded
+prompt Loading HR_POSITION...
+prompt Table is empty
+prompt Loading T_CONSTANT...
+insert into T_CONSTANT (id, name, sort)
+values ('kpi_type', '指标类型', 0);
+commit;
+prompt 1 records loaded
+prompt Loading T_CONSTANTITEM...
+prompt Table is empty
 prompt Loading T_MENU...
 insert into T_MENU (id, code, leaf, menutype, name, parent_id, remark, sort, url)
 values ('ca51fe5d-6e24-4388-8249-f8f1ac6f4feb', null, 1, 'menu', '常数维护', '1eb1d9ea-075c-43c6-baa3-d36004f4d4b7', null, 0, '/constant/ConstantApp.jsp');
@@ -83,8 +95,16 @@ insert into T_MENU (id, code, leaf, menutype, name, parent_id, remark, sort, url
 values ('a124a5f1-70a3-4dba-a014-68385edd922b', null, 1, 'menu', '组织岗位管理', '1eb1d9ea-075c-43c6-baa3-d36004f4d4b7', null, 0, '/org/OrgApp.jsp');
 insert into T_MENU (id, code, leaf, menutype, name, parent_id, remark, sort, url)
 values ('a7439ed8-ad09-452f-9860-27157c9027d9', null, 1, 'menu', '用户管理', '1eb1d9ea-075c-43c6-baa3-d36004f4d4b7', null, 0, '/permission/UserApp.jsp');
+insert into T_MENU (id, code, leaf, menutype, name, parent_id, remark, sort, url)
+values ('0ec73c74-a105-4cd6-840c-f2021acdd6aa', null, 1, 'menu', '元数据综合查询', null, null, 1, null);
+insert into T_MENU (id, code, leaf, menutype, name, parent_id, remark, sort, url)
+values ('972d70ac-fe0e-4963-8ad3-67b01bca28ad', null, 1, 'menu', '元数据管理', null, null, 2, '/dwmeta/DwmetaApp.jsp');
+insert into T_MENU (id, code, leaf, menutype, name, parent_id, remark, sort, url)
+values ('f517b889-ca57-4894-ae40-5c839dc7a362', null, 1, 'menu', 'DW层', null, null, 3, '/dwmeta/DWLayerApp.jsp');
+insert into T_MENU (id, code, leaf, menutype, name, parent_id, remark, sort, url)
+values ('8bd386e1-781c-44f9-af88-a43623c13c0b', null, 1, 'menu', 'kpi指标库管理', null, null, 0, '/kpi/KpiApp.jsp');
 commit;
-prompt 6 records loaded
+prompt 10 records loaded
 prompt Loading T_ROLE...
 insert into T_ROLE (id, name, parent_id, remark, roletype)
 values ('admin', 'admin', null, null, 'role');
@@ -94,9 +114,15 @@ commit;
 prompt 2 records loaded
 prompt Loading T_ROLE_MENU...
 insert into T_ROLE_MENU (role_id, menu_id)
+values ('admin', '0ec73c74-a105-4cd6-840c-f2021acdd6aa');
+insert into T_ROLE_MENU (role_id, menu_id)
 values ('admin', '1eb1d9ea-075c-43c6-baa3-d36004f4d4b7');
 insert into T_ROLE_MENU (role_id, menu_id)
 values ('admin', '539ea37c-a286-4ae2-8a0b-cb4dab321515');
+insert into T_ROLE_MENU (role_id, menu_id)
+values ('admin', '8bd386e1-781c-44f9-af88-a43623c13c0b');
+insert into T_ROLE_MENU (role_id, menu_id)
+values ('admin', '972d70ac-fe0e-4963-8ad3-67b01bca28ad');
 insert into T_ROLE_MENU (role_id, menu_id)
 values ('admin', 'a124a5f1-70a3-4dba-a014-68385edd922b');
 insert into T_ROLE_MENU (role_id, menu_id)
@@ -105,11 +131,13 @@ insert into T_ROLE_MENU (role_id, menu_id)
 values ('admin', 'ca51fe5d-6e24-4388-8249-f8f1ac6f4feb');
 insert into T_ROLE_MENU (role_id, menu_id)
 values ('admin', 'e35d2b7f-58c2-4e61-a50d-bc6112779b4c');
+insert into T_ROLE_MENU (role_id, menu_id)
+values ('admin', 'f517b889-ca57-4894-ae40-5c839dc7a362');
 commit;
-prompt 6 records loaded
+prompt 10 records loaded
 prompt Loading T_USER...
-insert into T_USER (id, email, lastlogintime, loginname, mobile, name, phone, pwd, remark, state, candel)
-values ('admin', null, to_timestamp('28-06-2017 08:04:10.611000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'admin', null, 'admin', null, 'admin', null, 1, 0);
+insert into T_USER (id, candel, email, lastlogintime, loginname, mobile, name, phone, pwd, remark, state)
+values ('admin', 0, null, to_timestamp('01-08-2017 16:36:42.887000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'admin', null, 'admin', null, 'admin', null, 1);
 commit;
 prompt 1 records loaded
 prompt Loading T_ROLE_USER...
@@ -117,14 +145,28 @@ insert into T_ROLE_USER (user_id, role_id)
 values ('admin', 'admin');
 commit;
 prompt 1 records loaded
-prompt Enabling triggers for T_CONSTANT...
-alter table T_CONSTANT enable all triggers;
-prompt Enabling triggers for T_CONSTANTITEM...
-alter table T_CONSTANTITEM enable all triggers;
+prompt Enabling foreign key constraints for T_ROLE_MENU...
+alter table T_ROLE_MENU enable constraint FKHAYG4IB6V7H1WYEYXHQ6XLDDQ;
+alter table T_ROLE_MENU enable constraint FKSONB0RBT2U99HBRQQVV3R0WSE;
+prompt Enabling foreign key constraints for T_ROLE_USER...
+alter table T_ROLE_USER enable constraint FK22EEVO9IWSJ83BG5T8QTPVC3B;
+alter table T_ROLE_USER enable constraint FK7VPGDV8N0P61TSPKGG833AFHI;
+prompt Enabling triggers for DW_CLASSIFY...
+alter table DW_CLASSIFY enable all triggers;
+prompt Enabling triggers for DW_DWLAYER...
+alter table DW_DWLAYER enable all triggers;
+prompt Enabling triggers for DW_KPI...
+alter table DW_KPI enable all triggers;
+prompt Enabling triggers for DW_TABLEMETA...
+alter table DW_TABLEMETA enable all triggers;
 prompt Enabling triggers for HR_ORG...
 alter table HR_ORG enable all triggers;
 prompt Enabling triggers for HR_POSITION...
 alter table HR_POSITION enable all triggers;
+prompt Enabling triggers for T_CONSTANT...
+alter table T_CONSTANT enable all triggers;
+prompt Enabling triggers for T_CONSTANTITEM...
+alter table T_CONSTANTITEM enable all triggers;
 prompt Enabling triggers for T_MENU...
 alter table T_MENU enable all triggers;
 prompt Enabling triggers for T_ROLE...

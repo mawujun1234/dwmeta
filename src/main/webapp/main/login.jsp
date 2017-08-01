@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body style="background-image: url(bg.jpg);background-position:center;background-repeat:no-repeat;background-attachment:fixed;">
   <div id="title">
    <h1 id="h1">xxxxx有限公司</h1>
-   <h2 id="h2">人力资源管理系统</h2>
+   <h2 id="h2">数据仓库元数据管理系统</h2>
    <div>
   </body>
 </html>
