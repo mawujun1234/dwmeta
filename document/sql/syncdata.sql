@@ -69,8 +69,8 @@ prompt Table is empty
 prompt Loading DW_TABLEMETA...
 prompt Table is empty
 prompt Loading HR_ORG...
-insert into HR_ORG (id, address, code, createdate, email, enddate, fax, introduction, isdel, isroot, layer, name, operatetime, operator_id, orgtype_id, parent_id, phonenumber, postalcode, sort, status, web)
-values ('root', null, 'root', null, null, null, null, null, 0, 1, 0, '根节点', null, null, null, null, null, null, 0, 1, null);
+insert into HR_ORG (id, address, code, createdate, email, enddate, fax, introduction, isdel, isroot, layer, name, operatetime, operator_id, orgtype_id, parent_id, phonenumber, postalcode, status, web)
+values ('root', null, 'root', null, null, null, null, null, 0, 1, 0, '根节点', null, null, null, null, null, null, 1, null);
 commit;
 prompt 1 records loaded
 prompt Loading HR_POSITION...

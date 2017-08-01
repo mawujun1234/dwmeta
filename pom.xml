@@ -49,13 +49,13 @@
 				<finalName>dev</finalName>
 				<jdbc.dbType>oracle</jdbc.dbType>
 				<jdbc.driver>oracle.jdbc.driver.OracleDriver</jdbc.driver>
-				<jdbc.url>jdbc:oracle:thin:@localhost:dwmeta</jdbc.url>
+				<jdbc.url>jdbc:oracle:thin:@localhost:1521:dwmeta</jdbc.url>
 				<jdbc.username>dwmeta</jdbc.username>
 				<jdbc.password>dwmeta</jdbc.password>
 				<hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
-				<reble.classes.dir>C:\Users\mawujun\git\dwmeta\target\classes</reble.classes.dir>
-				<reble.web-resources.dir>C:\Users\mawujun\git\dwmeta\target\m2e-wtp\web-resources</reble.web-resources.dir>
-				<reble.webapp.dir>C:\Users\mawujun\git\dwmeta\src\main\webapp</reble.webapp.dir>
+				<reble.classes.dir>D:\mawujun\workspace\dwmeta\target\classes</reble.classes.dir>
+				<reble.web-resources.dir>D:\mawujun\workspace\dwmeta\target\m2e-wtp\web-resources</reble.web-resources.dir>
+				<reble.webapp.dir>D:\mawujun\workspace\dwmeta\src\main\webapp</reble.webapp.dir>
 			</properties>
 		</profile>
 		<profile>
