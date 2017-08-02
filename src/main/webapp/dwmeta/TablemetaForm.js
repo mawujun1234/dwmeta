@@ -1,7 +1,7 @@
-Ext.define('Ems.dwmeta.ClassifyForm',{
+Ext.define('Ems.dwmeta.TablemetaForm',{
 	extend:'Ext.form.Panel',
 	requires: [
-	     'Ems.dwmeta.Classify'
+	     'Ems.dwmeta.Tablemeta'
 	],
 	
     frame: true,
@@ -20,11 +20,17 @@ Ext.define('Ems.dwmeta.ClassifyForm',{
        var me = this;
        me.items= [
 		{
-	        fieldLabel: '名称',
-	        name: 'name',
+	        fieldLabel: '表名',
+	        name: 'tablename',
             allowBlank: false,
             afterLabelTextTpl: Ext.required,
-            blankText:"名称不允许为空",
+            blankText:"表名不允许为空",
+            selectOnFocus:true,
+	        xtype:'textfield'
+	    },
+		{
+	        fieldLabel: '中文名称',
+	        name: 'name',
             selectOnFocus:true,
 	        xtype:'textfield'
 	    },
@@ -42,15 +48,8 @@ Ext.define('Ems.dwmeta.ClassifyForm',{
 	        xtype:'textfield'
 	    },
 		{
-	        fieldLabel: 'dwlayer_id',
-	        name: 'dwlayer_id',
-            hidden:true,
-            selectOnFocus:true,
-	        xtype:'textfield'
-	    },
-		{
-	        fieldLabel: '父id',
-	        name: 'parent_id',
+	        fieldLabel: '所属分类',
+	        name: 'classify_id',
             hidden:true,
             selectOnFocus:true,
 	        xtype:'textfield'
@@ -59,6 +58,7 @@ Ext.define('Ems.dwmeta.ClassifyForm',{
 	  
 	  
 	  this.buttons = [];
+	  this.buttonAlign='center';
 		this.buttons.push({
 			text : '保存',
 			itemId : 'save',
@@ -73,7 +73,7 @@ Ext.define('Ems.dwmeta.ClassifyForm',{
 				    },
 				    success: function(record, operation) {
 				    	formpanel.fireEvent("saved",record);
-						button.up('window').close();
+						//button.up('window').close();
 				    }
 				});			
 				
@@ -83,7 +83,12 @@ Ext.define('Ems.dwmeta.ClassifyForm',{
 				itemId : 'close',
 				glyph : 0xf00d,
 				handler : function(button){
-					button.up('window').close();
+					var aa=button.up('window');
+					if(aa){
+						aa.close();
+					} else {
+						button.up('dwmeta_tablepanel').close();
+					}
 				}
 	    });
       me.callParent();

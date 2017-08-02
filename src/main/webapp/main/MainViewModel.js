@@ -44,7 +44,7 @@ Ext.define('Ems.main.MainViewModel', {
 
 				// 系统信息
 				system : {
-					name : '数据仓库元数据管理系统',
+					name : '数据仓库元数据监控管理系统',
 					version : '1.0.0',
 					iconUrl : ''
 				},

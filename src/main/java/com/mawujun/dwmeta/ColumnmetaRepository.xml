@@ -4,28 +4,21 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
 <!-- mawujun qq:16064988 e-mail:16064988@qq.com-->
-<mapper namespace="com.mawujun.dwmeta.DWLayerRepository">
+<mapper namespace="com.mawujun.dwmeta.ColumnmetaRepository">
 	<!-- 查询语句，会自动分页-->
 	<sql id="queryPage_where">
 	<where>
-		<if test="name!=null and name!=''">
-    	 	and a.name = #{name}
-    	</if>
 	</where>
 	</sql>
-    <select id="queryPage" resultType="com.mawujun.dwmeta.DWLayer" parameterType="map">
-    	select * from dw_dwlayer a
+    <select id="queryPage" resultType="com.mawujun.dwmeta.Columnmeta" parameterType="map">
+    	select * from dw_columnmeta a
     	<include refid="queryPage_where" />	
     </select> 
      <!-- 名称模式为：****_count,也可以不写，但如果查询叫复杂的话，自己写有助于控制查询性能-->
     <select id="queryPage_count" resultType="int" parameterType="map">
     	select count(a.id)
-		from dw_dwlayer a
+		from dw_columnmeta a
 		<include refid="queryPage_where" />	
     </select>
-    
-    <select id="query4tree" resultType="com.mawujun.dwmeta.ClassifyNode" parameterType="map">
-    	select id,name as text,0 as leaf,'dwmeta' as type,id as dwlayer_id,1 as expanded from dw_dwlayer a
-    </select> 
 </mapper>
 

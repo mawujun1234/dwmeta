@@ -19,7 +19,7 @@ public static final class Classify {
 	public static final String dwlayer_id="dwlayer_id";
 	public static final String parent_id="parent_id";
 }
-public static final class Colmeta {
+public static final class Columnmeta {
 	public static final String id="id";
 	public static final String colname="colname";
 	public static final String name="name";
@@ -28,7 +28,9 @@ public static final class Colmeta {
 	public static final String ispk="ispk";
 	public static final String nullable="nullable";
 	public static final String defaultvalue="defaultvalue";
-	public static final String desc="desc";
+	public static final String comments="comments";
+	public static final String sorted="sorted";
+	public static final String reasons="reasons";
 	public static final String tablemeta_id="tablemeta_id";
 }
 public static final class DWLayer {
@@ -39,6 +41,15 @@ public static final class DWLayer {
 	public static final String jdbc_username="jdbc_username";
 	public static final String jdbc_password="jdbc_password";
 	public static final String remark="remark";
+}
+public static final class Kpi {
+	public static final String id="id";
+	public static final String code="code";
+	public static final String name="name";
+	public static final String definition="definition";
+	public static final String status="status";
+	public static final String remark="remark";
+	public static final String kpi_type_id="kpi_type_id";
 }
 public static final class Tablemeta {
 	public static final String id="id";

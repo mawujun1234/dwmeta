@@ -32,7 +32,7 @@ public class Tablemeta {
 	@FieldDefine(title="表名",sort=6)
 	private String tablename;
 	@Column(length=30,nullable=true,unique=false)
-	@FieldDefine(title="名称",sort=6)
+	@FieldDefine(title="中文名称",sort=6)
 	private String name;//中文名称，易于理解的名称
 	@Column(length=150)
 	@FieldDefine(title="备注")
@@ -41,7 +41,7 @@ public class Tablemeta {
 	
 
 	@FieldDefine(title="所属分类",hidden=true)
-	@Column(length=36) 
+	@Column(length=36,nullable=false) 
 	@FK(cls=Classify.class,column="id")
 	private String classify_id;//
 

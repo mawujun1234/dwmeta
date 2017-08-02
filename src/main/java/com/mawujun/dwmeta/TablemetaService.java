@@ -1,10 +1,16 @@
 package com.mawujun.dwmeta;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import com.mawujun.service.AbstractService;
+
+
+import com.mawujun.dwmeta.Tablemeta;
+import com.mawujun.dwmeta.TablemetaRepository;
 
 
 /**
@@ -14,22 +20,14 @@ import com.mawujun.service.AbstractService;
  */
 @Service
 @Transactional(propagation=Propagation.REQUIRED)
-public class DWLayerService extends AbstractService<DWLayer, String>{
+public class TablemetaService extends AbstractService<Tablemeta, String>{
 
 	@Autowired
-	private DWLayerRepository dWLayerRepository;
-	@Autowired
-	private ClassifyService classifyService;
+	private TablemetaRepository tablemetaRepository;
 	
 	@Override
-	public DWLayerRepository getRepository() {
-		return dWLayerRepository;
-	}
-	@Override
-	public String create(DWLayer entity) {
-		String id= this.getRepository().create(entity);
-		classifyService.createDefault(id);
-		return id;
+	public TablemetaRepository getRepository() {
+		return tablemetaRepository;
 	}
 
 }

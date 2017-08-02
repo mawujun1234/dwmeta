@@ -1,19 +1,17 @@
 package com.mawujun.dwmeta;
 
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 import java.util.UUID;
 import com.mawujun.repository.IRepository;
 
-import com.mawujun.dwmeta.DWLayer;
+import com.mawujun.dwmeta.Columnmeta;
 /**
  * @author mawujun qq:16064988 e-mail:mawujun1234@163.com 
  * @version 1.0
  * @since 1.0
  */
 @Repository
-public interface DWLayerRepository extends IRepository<DWLayer, String>{
+public interface ColumnmetaRepository extends IRepository<Columnmeta, String>{
 
-	public List<ClassifyNode> query4tree();
+
 }

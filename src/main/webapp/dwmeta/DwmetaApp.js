@@ -1,4 +1,6 @@
 Ext.require('Ems.dwmeta.DwmetaTree');
+Ext.require('Ems.dwmeta.TablePanel');
+Ext.require('Ext.ux.TabCloseMenu');
 Ext.onReady(function(){
 	var dwmetaTree=Ext.create('Ems.dwmeta.DwmetaTree',{
 		region:'west'
@@ -6,10 +8,14 @@ Ext.onReady(function(){
 		,split:true
 		//title:'XXX表格'
 	});
+	var tableTabPanel=Ext.create('Ems.dwmeta.TableTabPanel',{
+		region:'center'
+	});
+	window.tableTabPanel=tableTabPanel;
 	
 	var viewPort=Ext.create('Ext.container.Viewport',{
 		layout:'border',
-		items:[dwmetaTree,{region:'center',html:'11111'}]
+		items:[dwmetaTree,tableTabPanel]
 	});
 
 

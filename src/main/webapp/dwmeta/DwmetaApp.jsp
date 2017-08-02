@@ -15,6 +15,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<%@include file="../common/init.jsp" %>
 	<script type="text/javascript" src="DwmetaApp.js"></script>
+	<style>
+	.greennode{
+		color:green;
+	}
+	</style>
   </head>
   
   <body>

@@ -17,8 +17,8 @@ import com.mawujun.generator.model.FieldDefine;
  *
  */
 @Entity
-@Table(name="dw_colmeta")
-public class Colmeta {
+@Table(name="dw_columnmeta")
+public class Columnmeta {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(
@@ -32,7 +32,7 @@ public class Colmeta {
 	@FieldDefine(title="列名",sort=6)
 	private String colname;
 	@Column(length=30,nullable=true,unique=false)
-	@FieldDefine(title="名称",sort=6)
+	@FieldDefine(title="中文名称",sort=6)
 	private String name;//中文名称，易于理解的名称
 	
 	@Column(length=30,nullable=false,unique=false)
@@ -50,7 +50,12 @@ public class Colmeta {
 	private String defaultvalue;
 	@Column(length=100,nullable=true,unique=false)
 	@FieldDefine(title="注释",sort=6)
-	private String desc;//写入到数据库中的值
+	private String comments;//写入到数据库的字段的注释
+	@FieldDefine(title="排序",sort=6)
+	private Integer sorted;//排序
+	@Column(length=200,nullable=true,unique=false)
+	@FieldDefine(title="修改原因",sort=6)
+	private String reasons;
 	
 	
 	@FieldDefine(title="所属表",hidden=true)
@@ -122,13 +127,7 @@ public class Colmeta {
 		this.defaultvalue = defaultvalue;
 	}
 
-	public String getDesc() {
-		return desc;
-	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
 
 	public String getTablemeta_id() {
 		return tablemeta_id;
@@ -137,6 +136,32 @@ public class Colmeta {
 	public void setTablemeta_id(String tablemeta_id) {
 		this.tablemeta_id = tablemeta_id;
 	}
+
+	public Integer getSorted() {
+		return sorted;
+	}
+
+	public void setSorted(Integer sorted) {
+		this.sorted = sorted;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+	public String getReasons() {
+		return reasons;
+	}
+
+	public void setReasons(String reasons) {
+		this.reasons = reasons;
+	}
+
+
 	
 
 }

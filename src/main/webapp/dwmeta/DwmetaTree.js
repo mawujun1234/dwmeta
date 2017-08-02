@@ -5,8 +5,12 @@
  */
 Ext.define('Ems.dwmeta.DwmetaTree', {
     extend: 'Ext.tree.Panel',
-    requires:[],
-    //rootVisible: false,
+    requires:[
+    	'Ems.dwmeta.Classify',
+    	'Ems.dwmeta.TableTabPanel'
+    	,'Ems.dwmeta.TablePanel'
+    ],
+    rootVisible: false,
     initComponent: function () {
 		var me = this;
 
@@ -25,8 +29,22 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
 			},
 			root: {
 			    expanded: true,
-			    text:"根节点" 
+			    text:"根节点" ,
+			    dwlayer_id:null,
+			    type:null
 			}
+		});
+		me.on("beforeitemexpand",function(node){
+			me.store.getProxy().extraParams=Ext.apply(me.store.getProxy().extraParams,{
+				type:node.get("type"),
+				dwlayer_id:node.get("dwlayer_id")
+			});
+		});
+		me.on("itemclick",function( view, record, item, index, e, eOpts ){
+			if(record.get("type")=="tablemeta"){
+				window.tableTabPanel.createTablemeta(record.get("id"),record.get("text"));
+			}
+			
 		});
 		me.initAction();
        
@@ -38,7 +56,7 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
      	var actions=[];
      	
        var create = new Ext.Action({
-		    text: '新建',
+		    text: '新建分类',
 		    itemId:'create',
 		    handler: function(b){
 		    	me.onCreate(null,b);
@@ -49,7 +67,7 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
 		actions.push(create);
 		
 		var update = new Ext.Action({
-		    text: '更新',
+		    text: '更新分类',
 		    itemId:'update',
 		    handler: function(){
 		    	me.onUpdate();
@@ -60,7 +78,7 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
 		actions.push(update);
 		
 		var destroy = new Ext.Action({
-		    text: '删除',
+		    text: '删除分类',
 		    itemId:'destroy',
 		    handler: function(){
 		    	me.onDelete();    
@@ -69,6 +87,25 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
 		});
 		//me.addAction(destroy);
 		actions.push(destroy)
+		
+		var createTable = new Ext.Action({
+		    text: '新建表',
+		    itemId:'createTable',
+		    handler: function(b){
+		    	me.onCreateTable(null,b);
+		    },
+		    iconCls: 'icon-plus'
+		});
+		actions.push(createTable);
+		var importTable = new Ext.Action({
+		    text: '导入表',
+		    itemId:'importTable',
+		    handler: function(b){
+		    	me.onImportTable(null,b);
+		    },
+		    iconCls: 'icon-plus'
+		});
+		actions.push(importTable);
 		
 		
 		var reload = new Ext.Action({
@@ -96,19 +133,42 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
     	var me=this;
 
     	var parent=me.getSelectionModel( ).getLastSelected( )||me.getRootNode( );    
+    	var type=parent.get("type");
+    	var parent_id=parent.get("id");
+    	var dwlayer_id=parent.get("dwlayer_id");
+    	
+    	//创建数据库连接
+    	if(!type){
+    		return;
+    	} else if("dwmeta"==type){//创建分类
+    		var title="新建分类";
+    		var child=Ext.create('Ems.dwmeta.Classify',{
+			    //'parent_id':null,
+			    dwlayer_id:dwlayer_id,
+			    type:'classify'
+			});
+			child.set("id",null);
+			
+			var formpanel=Ext.create('Ems.dwmeta.ClassifyForm',{});
+			formpanel.loadRecord(child);
+    	} else if("classify"==type){
+    		var title="新建分类";
+    		var child=Ext.create('Ems.dwmeta.Classify',{
+			    'parent_id':parent_id,
+			    dwlayer_id:dwlayer_id,
+			    type:'classify'
+			});
+			child.set("id",null);
+			
+			var formpanel=Ext.create('Ems.dwmeta.ClassifyForm',{});
+			formpanel.loadRecord(child);
+    	}
 		
-		var child=Ext.create(parent.self.getName(),{
-		    'parent_id':parent.get("id"),
-		    text:''
-		});
-		child.set("id",null);
 		
-		var formpanel=Ext.create('Ems.kpi.KpiForm',{});
-		formpanel.loadRecord(child);
 		
     	var win=Ext.create('Ext.window.Window',{
     		layout:'fit',
-    		title:'新增',
+    		title:title,
     		modal:true,
     		width:400,
     		height:300,
@@ -131,13 +191,34 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
     		Ext.Msg.alert("提醒","请选择一个不是根节点的节点!");
     		return;
     	}
-
-		var formpanel=Ext.create('Ems.kpi.KpiForm',{});
-		formpanel.loadRecord(node);
+    	var id=node.get("id");
+    	var type=node.get("type");
+    	var dwlayer_id=node.get("dwlayer_id");
+    	//创建数据库连接
+    	if(!type){
+    		return;
+    	} else if("dwmeta"==type){//创建分类
+    		return;
+    	} else if("classify"==type){
+			Ems.dwmeta.Classify.load(id, {
+			    success: function(child) {
+			        formpanel.loadRecord(child);
+			    }
+			});
+			var formpanel=Ext.create('Ems.dwmeta.ClassifyForm',{
+				listeners:{
+					saved:function(record){
+						node.set("text",record.get("name"))
+					}
+				}
+			});
+			
+			
+    	}
 		
     	var win=Ext.create('Ext.window.Window',{
     		layout:'fit',
-    		title:'更新',
+    		title:'更新分类',
     		modal:true,
     		width:400,
     		height:300,
@@ -160,24 +241,75 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
 			return;
 		}
 		var parent=node.parentNode;
+		var id=node.get("id");
+		var type=node.get("type");
+    	var dwlayer_id=node.get("dwlayer_id");
+    	if(type=="dwmeta" || type=="tablemeta"){
+    		Ext.Msg.alert("消息","不是分类，不能删除!");
+    		return;
+    	}
 		Ext.Msg.confirm("删除",'确定要删除吗?', function(btn, text){
-				if (btn == 'yes'){
-					node.erase({
-					    failure: function(record, operation) {
-			            	me.onReload(parent);
-					    },
-					    success:function(){
-					    	me.onReload(parent);
-					    }
+			if (btn == 'yes'){
+				Ext.Ajax.request({
+					url:Ext.ContextPath+'/classify/deleteById.do',
+					method:'POST',
+					params:{
+						id:id,
+						type:type,
+						dwlayer_id:dwlayer_id
+					},
+					success:function(response){
+						me.onReload(parent);
+					}
 				});
 			}
 		});
+    },
+    onCreateTable:function(){
+    	var me=this;
+    	var node=node||me.getSelectionModel( ).getLastSelected( );
+    	var id=node.get("id");
+		var type=node.get("type");
+    	var dwlayer_id=node.get("dwlayer_id");
+    	if(type=="dwmeta" || type=="tablemeta"){
+    		Ext.Msg.alert("消息","不是‘分类’，不能在这下面创建表!");
+    		return;
+    	}
+    	
+    	var tablePanel=Ext.create('Ems.dwmeta.TablePanel',{
+    		classify_id:id
+    	});
+    	tablePanel.loadTablemeta();
+    	var win=Ext.create('Ext.window.Window',{
+    		layout:'fit',
+    		title:'新建-表元数据',
+    		modal:true,
+    		maximized:true,
+    		//width:400,
+    		//height:300,
+    		//closeAction:'hide',
+    		items:[tablePanel]
+    	});
+    	win.show();
+    },
+    onImportTable:function(){
+    	var me=this;
+    	var node=node||me.getSelectionModel( ).getLastSelected( );
+    	var id=node.get("id");
+		var type=node.get("type");
+    	var dwlayer_id=node.get("dwlayer_id");
+    	if(type=="dwmeta" || type=="tablemeta"){
+    		Ext.Msg.alert("消息","不是‘分类’，不能在这下面创建表!");
+    		return;
+    	}
+    	
+    	
     },
     onReload:function(node){
     	var me=this;
     	var parent=node||me.getSelectionModel( ).getLastSelected( );
 		if(parent){
-		    me.getStore().reload({node:parent});
+		    me.getStore().load({node:parent});
 		} else {
 		    me.getStore().reload();	
 		}      
