@@ -9,6 +9,9 @@ Ext.define('Ems.dwmeta.ColumnmetaGrid',{
 	viewConfig:{
 		enableTextSelection:true
 	},
+	selModel: {
+          selType: 'checkboxmodel'
+      },
 	initComponent: function () {
       var me = this;
       me.columns=[
@@ -125,18 +128,24 @@ Ext.define('Ems.dwmeta.ColumnmetaGrid',{
 	onCreate:function(){
     	var me=this;
     	var tablepanel=me.up("dwmeta_tablepanel");
-    	var tablename=tablepanel.tablemetaForm.getForm().findField("id").getValue();
-    	if(!tablename){
-    		Ext.Msg.alert("消息","请先输入并保存表名!");
+    	var tablemeta_id=tablepanel.tablemetaForm.getForm().findField("id").getValue();
+    	if(!tablemeta_id){
+    		Ext.Msg.alert("消息","请先输入并保存表!");
     		return;
     	}
 		var child=Ext.create('Ems.dwmeta.Columnmeta',{
-			tablemeta_id:tablepanel.tablemeta_id
+			tablemeta_id:tablemeta_id
 			,sorted:tablepanel.columnmetaGrid.getStore().getCount()+1
 		});
 		child.set("id",null);
 		
-		var formpanel=Ext.create('Ems.dwmeta.ColumnmetaForm',{});
+		var formpanel=Ext.create('Ems.dwmeta.ColumnmetaForm',{
+			listeners:{
+    			saved:function(record){
+    				me.getStore().add(record);
+    			}
+    		}
+		});
 		formpanel.loadRecord(child);
 		
     	var win=Ext.create('Ext.window.Window',{
@@ -146,12 +155,12 @@ Ext.define('Ems.dwmeta.ColumnmetaGrid',{
     		width:400,
     		height:420,
     		closeAction:'hide',
-    		items:[formpanel],
-    		listeners:{
-    			close:function(){
-    				me.getStore().reload();
-    			}
-    		}
+    		items:[formpanel]
+//    		listeners:{
+//    			close:function(){
+//    				me.getStore().reload();
+//    			}
+//    		}
     	});
     	win.show();
     },
@@ -182,23 +191,27 @@ Ext.define('Ems.dwmeta.ColumnmetaGrid',{
     
     onDelete:function(){
     	var me=this;
-    	var record=me.getSelectionModel( ).getLastSelected( );
-
-		if(!record){
+    	//var record=me.getSelectionModel( ).getLastSelected( );
+		var records=me.getSelectionModel( ).getSelection( );
+		if(!records){
 		    Ext.Msg.alert("消息","请先选择一行数据");	
 			return;
 		}
-		var parent=record.parentNode;
+		//var parent=record.parentNode;
+		
 		Ext.Msg.confirm("删除",'确定要删除吗?', function(btn, text){
-				if (btn == 'yes'){
-					record.erase({
+			if (btn == 'yes'){
+				for(var i=0;i<records.length;i++){
+					records[i].erase({
 					    failure: function(record, operation) {
-			            	me.getStore().reload();
+			            	//me.getStore().reload();
+					    	alert("删除出错，请点击‘刷新’");
 					    },
 					    success:function(){
-					    	me.getStore().reload();
+					    	//me.getStore().reload();
 					    }
-				});
+					});
+				}
 			}
 		});
     },

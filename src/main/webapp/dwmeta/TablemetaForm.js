@@ -73,6 +73,7 @@ Ext.define('Ems.dwmeta.TablemetaForm',{
 				    },
 				    success: function(record, operation) {
 				    	formpanel.fireEvent("saved",record);
+				    	formpanel.loadRecord(record);
 						//button.up('window').close();
 				    }
 				});			

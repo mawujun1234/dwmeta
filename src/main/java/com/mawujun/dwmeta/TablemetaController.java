@@ -1,18 +1,15 @@
 package com.mawujun.dwmeta;
 import java.util.List;
-import java.util.UUID;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.mawujun.repository.cnd.Cnd;
-import com.mawujun.utils.M;
-import com.mawujun.utils.page.Pager;
 
-import com.mawujun.dwmeta.Tablemeta;
-import com.mawujun.dwmeta.TablemetaService;
+import com.mawujun.controller.spring.mvc.ResultModel;
+import com.mawujun.utils.page.Pager;
 /**
  * @author mawujun qq:16064988 e-mail:mawujun1234@163.com 
  * @version 1.0
@@ -60,6 +57,7 @@ public class TablemetaController {
 	public Tablemeta create(@RequestBody Tablemeta tablemeta) {
 		tablemetaService.create(tablemeta);
 		return tablemeta;
+		//return ResultModel.getInstance().setRoot(tablemeta);
 	}
 	
 	@RequestMapping("/tablemeta/update.do")

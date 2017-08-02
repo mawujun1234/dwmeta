@@ -127,8 +127,10 @@ Ext.define('Ems.dwmeta.ColumnmetaForm',{
 					failure: function(record, operation) {
 				    },
 				    success: function(record, operation) {
+				    	
 				    	formpanel.fireEvent("saved",record);
 						button.up('window').close();
+						
 				    }
 				});			
 				

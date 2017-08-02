@@ -19,6 +19,7 @@ Ext.define('Ems.dwmeta.TablePanel',{
 			listeners:{
 				saved:function(record){
 					me.tablemeta_id=record.get("id");
+					//me.columnmetaGrid.reloadByTablemeta_id(record.get("id"));
 				}
 			}
 		});

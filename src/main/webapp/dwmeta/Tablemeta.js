@@ -19,7 +19,7 @@ Ext.define("Ems.dwmeta.Tablemeta",{
 		},
 		reader:{
 			type:'json'
-			///rootProperty:'root',
+			//,rootProperty:'root'
 			//successProperty:'success',
 			//totalProperty:'total'		
 		},
