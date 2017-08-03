@@ -2,6 +2,10 @@ Ext.require('Ems.dwmeta.DwmetaTree');
 Ext.require('Ems.dwmeta.TablePanel');
 Ext.require('Ext.ux.TabCloseMenu');
 Ext.onReady(function(){
+	if(!window.db_id){
+		alert("请先设置数据库的id!");
+		return;
+	}
 	var dwmetaTree=Ext.create('Ems.dwmeta.DwmetaTree',{
 		region:'west'
 		,width:220

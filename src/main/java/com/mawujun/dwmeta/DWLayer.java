@@ -8,10 +8,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.mawujun.generator.model.FieldDefine;
+import com.mawujun.annotation.FK;
+import com.mawujun.annotation.FieldDefine;
 
 /**
- * 数据仓库的分层
+ * 数据仓库的分层，或者是数据库的用户
  * @author mawujun qq:16064988 mawujun1234@163.com
  *
  */
@@ -47,6 +48,11 @@ public class DWLayer {
 	@Column(length=150)
 	@FieldDefine(title="备注")
 	private String remark;
+	
+	@FieldDefine(title="所属数据库",hidden=true)
+	@Column(length=36,nullable=false) 
+	@FK(cls=DB.class,column="id")
+	private String db_id;//
 
 	public String getId() {
 		return id;
@@ -102,6 +108,14 @@ public class DWLayer {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getDb_id() {
+		return db_id;
+	}
+
+	public void setDb_id(String db_id) {
+		this.db_id = db_id;
 	}
 	
 }

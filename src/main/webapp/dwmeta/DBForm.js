@@ -1,7 +1,7 @@
-Ext.define('Ems.dwmeta.TablemetaForm',{
+Ext.define('Ems.dwmeta.DBForm',{
 	extend:'Ext.form.Panel',
 	requires: [
-	     'Ems.dwmeta.Tablemeta'
+	     'Ems.dwmeta.DB'
 	],
 	
     frame: true,
@@ -20,16 +20,7 @@ Ext.define('Ems.dwmeta.TablemetaForm',{
        var me = this;
        me.items= [
 		{
-	        fieldLabel: '表名',
-	        name: 'tablename',
-            allowBlank: false,
-            afterLabelTextTpl: Ext.required,
-            blankText:"表名不允许为空",
-            selectOnFocus:true,
-	        xtype:'textfield'
-	    },
-		{
-	        fieldLabel: '中文名称',
+	        fieldLabel: '数据库',
 	        name: 'name',
             selectOnFocus:true,
 	        xtype:'textfield'
@@ -46,24 +37,11 @@ Ext.define('Ems.dwmeta.TablemetaForm',{
             hidden:true,
             selectOnFocus:true,
 	        xtype:'textfield'
-	    },
-		{
-	        fieldLabel: '所属分类',
-	        name: 'classify_id',
-            hidden:true,
-            selectOnFocus:true,
-	        xtype:'textfield'
-	    },
-	    {
-	        fieldLabel: '数据库',
-	        name: 'db_id',
-	        xtype:'hiddenfield'
 	    }
 	  ];   
 	  
 	  
 	  this.buttons = [];
-	  this.buttonAlign='center';
 		this.buttons.push({
 			text : '保存',
 			itemId : 'save',
@@ -78,8 +56,7 @@ Ext.define('Ems.dwmeta.TablemetaForm',{
 				    },
 				    success: function(record, operation) {
 				    	formpanel.fireEvent("saved",record);
-				    	formpanel.loadRecord(record);
-						//button.up('window').close();
+						button.up('window').close();
 				    }
 				});			
 				
@@ -89,12 +66,7 @@ Ext.define('Ems.dwmeta.TablemetaForm',{
 				itemId : 'close',
 				glyph : 0xf00d,
 				handler : function(button){
-					var aa=button.up('window');
-					if(aa){
-						aa.close();
-					} else {
-						button.up('dwmeta_tablepanel').close();
-					}
+					button.up('window').close();
 				}
 	    });
       me.callParent();

@@ -76,6 +76,13 @@ Ext.define('Ems.dwmeta.DWLayerForm',{
             hidden:true,
             selectOnFocus:true,
 	        xtype:'textfield'
+	    },
+	    {
+	        fieldLabel: 'db_id',
+	        name: 'db_id',
+            hidden:true,
+            selectOnFocus:true,
+	        xtype:'textfield'
 	    }
 	  ];   
 	  

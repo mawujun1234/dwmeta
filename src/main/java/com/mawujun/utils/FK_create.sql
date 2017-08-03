@@ -7,6 +7,16 @@ alter table dw_classify add constraint fk_dw_classify_dwlayer_id foreign key (dw
 alter table dw_classify add constraint fk_dw_classify_parent_id foreign key (parent_id) references dw_classify (id);
 --alter table dw_columnmeta drop constraint fk_dw_columnmeta_tablemeta_id;
 alter table dw_columnmeta add constraint fk_dw_columnmeta_tablemeta_id foreign key (tablemeta_id) references dw_tablemeta (id);
+--alter table dw_dwlayer drop constraint fk_dw_dwlayer_db_id;
+alter table dw_dwlayer add constraint fk_dw_dwlayer_db_id foreign key (db_id) references dw_db (id);
+--alter table dw_tablemetahis drop constraint fk_dw_tablemetahis_tablemeta_id;
+alter table dw_tablemetahis add constraint fk_dw_tablemetahis_tablemeta_id foreign key (tablemeta_id) references dw_tablemeta (id);
+--alter table dw_tablemetahis drop constraint fk_dw_tablemetahis_history_id;
+alter table dw_tablemetahis add constraint fk_dw_tablemetahis_history_id foreign key (history_id) references com.mawujun.dwmeta.history.History (id);
+--alter table dw_tablemetahis drop constraint fk_dw_tablemetahis_classify_id;
+alter table dw_tablemetahis add constraint fk_dw_tablemetahis_classify_id foreign key (classify_id) references dw_classify (id);
+--alter table dw_tablemetahis drop constraint fk_dw_tablemetahis_history_id;
+alter table dw_tablemetahis add constraint fk_dw_tablemetahis_history_id foreign key (history_id) references com.mawujun.dwmeta.history.History (id);
 --alter table dw_kpi drop constraint fk_dw_kpi_kpi_type_id;
 alter table dw_kpi add constraint fk_dw_kpi_kpi_type_id foreign key (kpi_type_id) references t_constantitem (id);
 --alter table dw_tablemeta drop constraint fk_dw_tablemeta_classify_id;

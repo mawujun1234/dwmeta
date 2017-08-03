@@ -8,8 +8,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.mawujun.generator.model.FK;
-import com.mawujun.generator.model.FieldDefine;
+import com.mawujun.annotation.FK;
+import com.mawujun.annotation.FieldDefine;
 /**
  * 分类，对表进行分类进行查看,在DWLayer下面
  * @author mawujun qq:16064988 mawujun1234@163.com

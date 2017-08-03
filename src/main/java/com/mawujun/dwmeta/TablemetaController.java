@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mawujun.controller.spring.mvc.ResultModel;
 import com.mawujun.utils.page.Pager;
 /**
  * @author mawujun qq:16064988 e-mail:mawujun1234@163.com 
@@ -55,6 +54,7 @@ public class TablemetaController {
 	@RequestMapping("/tablemeta/create.do")
 	@ResponseBody
 	public Tablemeta create(@RequestBody Tablemeta tablemeta) {
+		
 		tablemetaService.create(tablemeta);
 		return tablemeta;
 		//return ResultModel.getInstance().setRoot(tablemeta);

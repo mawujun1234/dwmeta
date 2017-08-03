@@ -7,7 +7,8 @@ Ext.define("Ems.dwmeta.DWLayer",{
 		{name:'jdbc_username',type:'string'},
 		{name:'jdbc_password',type:'string'},
 		{name:'remark',type:'string'},
-		{name:'id',type:'string'}
+		{name:'id',type:'string'},
+		{name:'db_id',type:'string'}
 	],
 	proxy:{
 		type:'ajax',

@@ -25,6 +25,9 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
 			    actionMethods: { read: 'POST' },
 			    reader:{
 					type:'json'		
+				},
+				extraParams:{
+					db_id:window.db_id
 				}
 			},
 			root: {
@@ -36,6 +39,7 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
 		});
 		me.on("beforeitemexpand",function(node){
 			me.store.getProxy().extraParams=Ext.apply(me.store.getProxy().extraParams,{
+				db_id:window.db_id,
 				type:node.get("type"),
 				dwlayer_id:node.get("dwlayer_id")
 			});
@@ -278,6 +282,7 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
     	
     	var tablePanel=Ext.create('Ems.dwmeta.TablePanel',{
     		classify_id:id
+    		//,db_id:window.db_id
     	});
     	tablePanel.loadTablemeta();
     	var win=Ext.create('Ext.window.Window',{

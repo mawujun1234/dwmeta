@@ -1,4 +1,4 @@
-package com.mawujun.dwmeta;
+package com.mawujun.dwmeta.history;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,15 +10,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.mawujun.annotation.FK;
 import com.mawujun.annotation.FieldDefine;
+import com.mawujun.dwmeta.Tablemeta;
 
-/**
- * 列的元数据结构
- * @author mawujun qq:16064988 mawujun1234@163.com
- *
- */
 @Entity
-@Table(name="dw_columnmeta")
-public class Columnmeta {
+@Table(name="dw_tablemetahis")
+public class ColumnmetaHis {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(
@@ -62,106 +58,29 @@ public class Columnmeta {
 	@Column(length=36) 
 	@FK(cls=Tablemeta.class,column="id")
 	private String tablemeta_id;//
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getColname() {
-		return colname;
-	}
-
-	public void setColname(String colname) {
-		this.colname = colname;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getColtype() {
-		return coltype;
-	}
-
-	public void setColtype(String coltype) {
-		this.coltype = coltype;
-	}
-
-	public String getCollen() {
-		return collen;
-	}
-
-	public void setCollen(String collen) {
-		this.collen = collen;
-	}
-
-	public Boolean getIspk() {
-		return ispk;
-	}
-
-	public void setIspk(Boolean ispk) {
-		this.ispk = ispk;
-	}
-
-	public Boolean getNullable() {
-		return nullable;
-	}
-
-	public void setNullable(Boolean nullable) {
-		this.nullable = nullable;
-	}
-
-	public String getDefaultvalue() {
-		return defaultvalue;
-	}
-
-	public void setDefaultvalue(String defaultvalue) {
-		this.defaultvalue = defaultvalue;
-	}
-
-
-
-	public String getTablemeta_id() {
-		return tablemeta_id;
-	}
-
-	public void setTablemeta_id(String tablemeta_id) {
-		this.tablemeta_id = tablemeta_id;
-	}
-
-	public Integer getSorted() {
-		return sorted;
-	}
-
-	public void setSorted(Integer sorted) {
-		this.sorted = sorted;
-	}
-
-	public String getComments() {
-		return comments;
-	}
-
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
-
-	public String getReasons() {
-		return reasons;
-	}
-
-	public void setReasons(String reasons) {
-		this.reasons = reasons;
-	}
-
-
 	
-
+	
+	//=================================================历史要新增的内容
+	@FieldDefine(title="history_id",hidden=true)
+	@Column(length=36,nullable=false) 
+	@FK(cls=History.class,column="id")
+	private Long history_id;//也就是修改批次的id
+	@FieldDefine(title="修改内容",hidden=false)
+	@Column(length=36,nullable=false) 
+	private String content;
+	
+//	@FieldDefine(title="操作类型",hidden=false)
+//	@Column(length=36,nullable=false) 
+//	@Enumerated(EnumType.STRING)
+//	private OperateType operateType;
+//	@FieldDefine(title="操作时间",hidden=false)
+//	private Date operateTime;
+////	@FieldDefine(title="操作者",hidden=false)
+////	@Column(length=36,nullable=false) 
+////	private String operater;
+////	@FieldDefine(title="是否主动",hidden=false)
+////	private Boolean intiactive;//主动修改，还是被动修改。如果先在元数据管理修改的话就是主动修改
+//	@FieldDefine(title="修改内容",hidden=false)
+//	@Column(length=36,nullable=false) 
+//	private String content;
 }

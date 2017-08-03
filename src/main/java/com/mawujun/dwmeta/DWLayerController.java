@@ -1,18 +1,15 @@
 package com.mawujun.dwmeta;
 import java.util.List;
-import java.util.UUID;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.mawujun.repository.cnd.Cnd;
 import com.mawujun.utils.M;
-import com.mawujun.utils.page.Pager;
-
-import com.mawujun.dwmeta.DWLayer;
-import com.mawujun.dwmeta.DWLayerService;
 /**
  * @author mawujun qq:16064988 e-mail:mawujun1234@163.com 
  * @version 1.0
@@ -26,25 +23,25 @@ public class DWLayerController {
 	private DWLayerService dWLayerService;
 
 
-	/**
-	 * 这是基于分页的几种写法,的例子，请按自己的需求修改
-	 * @author mawujun email:16064988@163.com qq:16064988
-	 * @param start
-	 * @param limit
-	 * @param userName
-	 * @return
-	 */
-	@RequestMapping("/dWLayer/queryPager.do")
-	@ResponseBody
-	public Pager<DWLayer> queryPager(Pager<DWLayer> pager){
-		
-		return dWLayerService.queryPage(pager);
-	}
+//	/**
+//	 * 这是基于分页的几种写法,的例子，请按自己的需求修改
+//	 * @author mawujun email:16064988@163.com qq:16064988
+//	 * @param start
+//	 * @param limit
+//	 * @param userName
+//	 * @return
+//	 */
+//	@RequestMapping("/dWLayer/queryPager.do")
+//	@ResponseBody
+//	public Pager<DWLayer> queryPager(Pager<DWLayer> pager){
+//		
+//		return dWLayerService.queryPage(pager);
+//	}
 
 	@RequestMapping("/dWLayer/queryAll.do")
 	@ResponseBody
-	public List<DWLayer> queryAll() {	
-		List<DWLayer> dWLayeres=dWLayerService.queryAll();
+	public List<DWLayer> queryAll(String db_id) {	
+		List<DWLayer> dWLayeres=dWLayerService.query(Cnd.select().andEquals(M.DWLayer.db_id, db_id));
 		return dWLayeres;
 	}
 	

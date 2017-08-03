@@ -10,9 +10,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.mawujun.generator.model.FK;
-import com.mawujun.generator.model.FieldDefine;
-import com.mawujun.generator.model.ShowType;
+import com.mawujun.annotation.FK;
+import com.mawujun.annotation.FieldDefine;
+import com.mawujun.annotation.ShowType;
 
 @Entity
 @Table(name="t_menu")

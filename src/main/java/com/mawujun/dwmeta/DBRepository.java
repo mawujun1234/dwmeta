@@ -1,18 +1,17 @@
 package com.mawujun.dwmeta;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
+import java.util.UUID;
 import com.mawujun.repository.IRepository;
+
+import com.mawujun.dwmeta.DB;
 /**
  * @author mawujun qq:16064988 e-mail:mawujun1234@163.com 
  * @version 1.0
  * @since 1.0
  */
 @Repository
-public interface DWLayerRepository extends IRepository<DWLayer, String>{
+public interface DBRepository extends IRepository<DB, String>{
 
-	public List<ClassifyNode> query4tree(@Param("db_id")String db_id);
+
 }

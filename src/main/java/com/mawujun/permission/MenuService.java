@@ -53,8 +53,11 @@ public class MenuService extends AbstractService<Menu, String>{
 			Integer count=menuRepository.queryCount(Cnd.count().andEquals(M.Menu.parent_id, entity.getParent_id()));
 			if(count==null || count==0){
 				Menu parent=menuRepository.get(entity.getParent_id());
-				parent.setLeaf(true);
-				menuRepository.update(parent);
+				if(parent!=null){
+					parent.setLeaf(true);
+					menuRepository.update(parent);
+				}
+				
 			}
 		}
 		

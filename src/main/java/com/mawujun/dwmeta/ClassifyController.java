@@ -50,8 +50,8 @@ public class ClassifyController {
 	
 	@RequestMapping("/classify/query4tree.do")
 	@ResponseBody
-	public List<ClassifyNode> query4tree(String parent_id,String dwlayer_id,ClassifyNodeType type ) {	
-		List<ClassifyNode> classifyes=classifyService.query4tree(parent_id,type, dwlayer_id);
+	public List<ClassifyNode> query4tree(String db_id,String parent_id,String dwlayer_id,ClassifyNodeType type ) {	
+		List<ClassifyNode> classifyes=classifyService.query4tree(db_id,parent_id,type, dwlayer_id);
 		return classifyes;
 	}
 	

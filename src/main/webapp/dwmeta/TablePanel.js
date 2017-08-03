@@ -9,6 +9,7 @@ Ext.define('Ems.dwmeta.TablePanel',{
 	
 	classify_id:null,//当新建的时候
 	tablemeta_id:null,//当更新的时候
+
 	
 	initComponent: function(){
 		var me = this;
@@ -16,6 +17,7 @@ Ext.define('Ems.dwmeta.TablePanel',{
 		me.tablemetaForm=Ext.create('Ems.dwmeta.TablemetaForm',{
 			region:'north',
 			height:130,
+			//db_id:window.db_id,
 			listeners:{
 				saved:function(record){
 					me.tablemeta_id=record.get("id");
@@ -24,9 +26,17 @@ Ext.define('Ems.dwmeta.TablePanel',{
 			}
 		});
 		me.columnmetaGrid=Ext.create('Ems.dwmeta.ColumnmetaGrid',{
-			region:'center'
+			//region:'center'
+			title:'列结构'
 		});
-		me.items=[me.tablemetaForm,me.columnmetaGrid];
+		
+		var tabpanel=Ext.create('Ext.tab.Panel',{
+			region:'center',
+			items:[me.columnmetaGrid,{
+				title:'变更历史'
+			}]
+		});
+		me.items=[me.tablemetaForm,tabpanel];
 		
 		me.callParent();
 	},
@@ -35,6 +45,7 @@ Ext.define('Ems.dwmeta.TablePanel',{
 		if(!id){
 			var child=Ext.create('Ems.dwmeta.Tablemeta',{
 				classify_id:me.classify_id
+				,db_id:window.db_id
 			});
 			child.set("id",null);
 			

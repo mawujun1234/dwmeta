@@ -5,11 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.mawujun.generator.model.FK;
-import com.mawujun.generator.model.FieldDefine;
+import com.mawujun.annotation.FK;
+import com.mawujun.annotation.FieldDefine;
 
 /**
  * 表的元数据结构
@@ -45,7 +47,8 @@ public class Tablemeta {
 	@FK(cls=Classify.class,column="id")
 	private String classify_id;//
 
-
+	@Transient
+	private String db_id;
 
 	public String getId() {
 		return id;
@@ -103,6 +106,18 @@ public class Tablemeta {
 
 	public void setClassify_id(String classify_id) {
 		this.classify_id = classify_id;
+	}
+
+
+
+	public String getDb_id() {
+		return db_id;
+	}
+
+
+
+	public void setDb_id(String db_id) {
+		this.db_id = db_id;
 	}
 	
 

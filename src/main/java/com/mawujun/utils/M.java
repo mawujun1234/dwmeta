@@ -33,6 +33,11 @@ public static final class Columnmeta {
 	public static final String reasons="reasons";
 	public static final String tablemeta_id="tablemeta_id";
 }
+public static final class DB {
+	public static final String name="name";
+	public static final String remark="remark";
+	public static final String id="id";
+}
 public static final class DWLayer {
 	public static final String id="id";
 	public static final String name="name";
@@ -41,6 +46,32 @@ public static final class DWLayer {
 	public static final String jdbc_username="jdbc_username";
 	public static final String jdbc_password="jdbc_password";
 	public static final String remark="remark";
+	public static final String db_id="db_id";
+}
+public static final class ColumnmetaHis {
+	public static final String id="id";
+	public static final String colname="colname";
+	public static final String name="name";
+	public static final String coltype="coltype";
+	public static final String collen="collen";
+	public static final String ispk="ispk";
+	public static final String nullable="nullable";
+	public static final String defaultvalue="defaultvalue";
+	public static final String comments="comments";
+	public static final String sorted="sorted";
+	public static final String reasons="reasons";
+	public static final String tablemeta_id="tablemeta_id";
+	public static final String history_id="history_id";
+	public static final String content="content";
+}
+public static final class TablemetaHis {
+	public static final String id="id";
+	public static final String tablename="tablename";
+	public static final String name="name";
+	public static final String remark="remark";
+	public static final String classify_id="classify_id";
+	public static final String history_id="history_id";
+	public static final String content="content";
 }
 public static final class Kpi {
 	public static final String id="id";
