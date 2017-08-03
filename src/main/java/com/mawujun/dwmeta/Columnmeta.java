@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -62,6 +63,9 @@ public class Columnmeta {
 	@Column(length=36) 
 	@FK(cls=Tablemeta.class,column="id")
 	private String tablemeta_id;//
+	
+	@Transient
+	private String history_id;
 
 	public String getId() {
 		return id;
@@ -159,6 +163,14 @@ public class Columnmeta {
 
 	public void setReasons(String reasons) {
 		this.reasons = reasons;
+	}
+
+	public String getHistory_id() {
+		return history_id;
+	}
+
+	public void setHistory_id(String history_id) {
+		this.history_id = history_id;
 	}
 
 

@@ -3,17 +3,19 @@ package com.mawujun.dwmeta.history;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 
 import com.mawujun.annotation.FK;
 import com.mawujun.annotation.FieldDefine;
 import com.mawujun.dwmeta.Tablemeta;
 
-@MappedSuperclass
-public abstract class History {
+@Entity
+@Table(name="dw_history")
+public  class History {
 	@Id
 	@FieldDefine(title="id",sort=7,hidden=true)
 	private Long id;//以一个操作的批次为id
@@ -37,5 +39,41 @@ public abstract class History {
 //	@FieldDefine(title="修改内容",hidden=false)
 //	@Column(length=36,nullable=false) 
 //	private String content;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getTablemeta_id() {
+		return tablemeta_id;
+	}
+	public void setTablemeta_id(String tablemeta_id) {
+		this.tablemeta_id = tablemeta_id;
+	}
+	public OperateType getOperateType() {
+		return operateType;
+	}
+	public void setOperateType(OperateType operateType) {
+		this.operateType = operateType;
+	}
+	public Date getOperateTime() {
+		return operateTime;
+	}
+	public void setOperateTime(Date operateTime) {
+		this.operateTime = operateTime;
+	}
+	public String getOperater() {
+		return operater;
+	}
+	public void setOperater(String operater) {
+		this.operater = operater;
+	}
+	public Boolean getIntiactive() {
+		return intiactive;
+	}
+	public void setIntiactive(Boolean intiactive) {
+		this.intiactive = intiactive;
+	}
 
 }

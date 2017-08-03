@@ -3,7 +3,7 @@ package com.mawujun.generator;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import com.mawujun.dwmeta.DB;
+import com.mawujun.dwmeta.history.HistoryColmeta;
 
 import freemarker.template.TemplateException;
 /**
@@ -26,7 +26,7 @@ public class GeneratorCode {
 		aa.extjs_grid_enable_cellEditing=false;
 		generatorService.setExtenConfig(aa);
 		
-		generatorService.generatorAllFile(DB.class);
+		generatorService.generatorAllFile(HistoryColmeta.class);
 
 	}
 	

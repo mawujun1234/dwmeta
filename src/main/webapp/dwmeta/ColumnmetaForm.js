@@ -102,6 +102,11 @@ Ext.define('Ems.dwmeta.ColumnmetaForm',{
             selectOnFocus:true,
 	        xtype:'textfield'
 	    }
+//	    {
+//	        fieldLabel: '历史批次',
+//	        name: 'history_id',
+//	        xtype:'hiddenfield'
+//	    }
 	  ];   
 	  
 	  
@@ -123,6 +128,7 @@ Ext.define('Ems.dwmeta.ColumnmetaForm',{
 				var record=formpanel.getForm().getRecord();
 				record.set("ispk",formpanel.getForm().findField("ispk").getValue());
 				record.set("nullable",formpanel.getForm().findField("nullable").getValue());
+				record.set("history_id",window.history_id);
 				record.save({
 					failure: function(record, operation) {
 				    },

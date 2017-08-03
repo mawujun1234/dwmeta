@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -36,6 +35,9 @@ public class Tablemeta {
 	@Column(length=30,nullable=true,unique=false)
 	@FieldDefine(title="中文名称",sort=6)
 	private String name;//中文名称，易于理解的名称
+	@Column(length=20)
+	@FieldDefine(title="实体类型")
+	private String entitytype;//实体类型，表还是视图
 	@Column(length=150)
 	@FieldDefine(title="备注")
 	private String remark;
@@ -49,6 +51,8 @@ public class Tablemeta {
 
 	@Transient
 	private String db_id;
+	@Transient
+	private String history_id;
 
 	public String getId() {
 		return id;
@@ -119,6 +123,31 @@ public class Tablemeta {
 	public void setDb_id(String db_id) {
 		this.db_id = db_id;
 	}
-	
+
+
+
+	public String getEntitytype() {
+		return entitytype;
+	}
+
+
+
+	public void setEntitytype(String entitytype) {
+		this.entitytype = entitytype;
+	}
+
+
+
+	public String getHistory_id() {
+		return history_id;
+	}
+
+
+
+	public void setHistory_id(String history_id) {
+		this.history_id = history_id;
+	}
+
+
 
 }

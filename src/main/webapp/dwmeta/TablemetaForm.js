@@ -19,21 +19,57 @@ Ext.define('Ems.dwmeta.TablemetaForm',{
 	initComponent: function () {
        var me = this;
        me.items= [
-		{
-	        fieldLabel: '表名',
-	        name: 'tablename',
-            allowBlank: false,
+		
+	    {
+            xtype      : 'fieldcontainer',
+            fieldLabel : '表名',
             afterLabelTextTpl: Ext.required,
-            blankText:"表名不允许为空",
-            selectOnFocus:true,
-	        xtype:'textfield'
-	    },
-		{
-	        fieldLabel: '中文名称',
-	        name: 'name',
-            selectOnFocus:true,
-	        xtype:'textfield'
-	    },
+           // defaultType: 'radiofield',
+            defaults: {
+                flex: 1
+            },
+            layout: 'hbox',
+            items: [
+                {
+			        //fieldLabel: '表名',
+                	labelWidth:45,
+			        name: 'tablename',
+		            allowBlank: false,
+		            afterLabelTextTpl: Ext.required,
+		            blankText:"表名不允许为空",
+		            selectOnFocus:true,
+			        xtype:'textfield'
+			    },
+				{
+			        fieldLabel: '中文名称',
+			        labelWidth:60,
+			        name: 'name',
+		            selectOnFocus:true,
+			        xtype:'textfield'
+			    }
+            ]
+        },
+	    {
+            xtype      : 'fieldcontainer',
+            fieldLabel : '实体类型',
+            defaultType: 'radiofield',
+            defaults: {
+                width:60
+            },
+            layout: 'hbox',
+            items: [
+                {
+                    boxLabel  : '表',
+                    name      : 'entitytype',
+                    inputValue: 'table',
+                    checked:true
+                }, {
+                    boxLabel  : '视图',
+                    name      : 'entitytype',
+                    inputValue: 'view'
+                }
+            ]
+        },
 		{
 	        fieldLabel: '备注',
 	        name: 'remark',
@@ -59,6 +95,11 @@ Ext.define('Ems.dwmeta.TablemetaForm',{
 	        name: 'db_id',
 	        xtype:'hiddenfield'
 	    }
+//	    {
+//	        fieldLabel: '历史批次',
+//	        name: 'history_id',
+//	        xtype:'hiddenfield'
+//	    }
 	  ];   
 	  
 	  
@@ -73,7 +114,9 @@ Ext.define('Ems.dwmeta.TablemetaForm',{
 			handler : function(button){
 				var formpanel = button.up('form');
 				formpanel.updateRecord();
-				formpanel.getForm().getRecord().save({
+				var record=formpanel.getForm().getRecord();
+				record.set("history_id",window.history_id);
+				record.save({
 					failure: function(record, operation) {
 				    },
 				    success: function(record, operation) {

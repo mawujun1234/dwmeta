@@ -12,6 +12,7 @@ Ext.define("Ems.dwmeta.Columnmeta",{
 		{name:'id',type:'string'},
 		{name:'sorted',type:'int'},
 		{name:'tablemeta_id',type:'string'},
+		{name:'history_id',type:'string'},
 		{name:'reasons',type:'string'}
 	],
 	proxy:{

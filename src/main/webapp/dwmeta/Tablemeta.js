@@ -3,8 +3,10 @@ Ext.define("Ems.dwmeta.Tablemeta",{
 	fields:[
 		{name:'tablename',type:'string'},
 		{name:'name',type:'string'},
+		{name:'entitytype',type:'string'},
 		{name:'remark',type:'string'},
 		{name:'id',type:'string'},
+		{name:'history_id',type:'string'},
 		{name:'classify_id',type:'string'}
 	],
 	proxy:{

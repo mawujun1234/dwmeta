@@ -6,6 +6,7 @@ Ext.onReady(function(){
 		alert("请先设置数据库的id!");
 		return;
 	}
+	window.history_id=(new Date()).getTime()
 	var dwmetaTree=Ext.create('Ems.dwmeta.DwmetaTree',{
 		region:'west'
 		,width:220

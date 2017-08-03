@@ -1,5 +1,7 @@
 package com.mawujun.dwmeta.history;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,8 +19,8 @@ import com.mawujun.dwmeta.Classify;
  *
  */
 @Entity
-@Table(name="dw_tablemetahis")
-public class TablemetaHis {
+@Table(name="dw_history_tabmeta")
+public class HistoryTabmeta {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(
@@ -34,6 +36,9 @@ public class TablemetaHis {
 	@Column(length=30,nullable=true,unique=false)
 	@FieldDefine(title="中文名称",sort=6)
 	private String name;//中文名称，易于理解的名称
+	@Column(length=20)
+	@FieldDefine(title="表还是视图")
+	private String entitytype;//表还是视图
 	@Column(length=150)
 	@FieldDefine(title="备注")
 	private String remark;
@@ -50,7 +55,9 @@ public class TablemetaHis {
 	private Long history_id;//也就是修改批次的id
 	@FieldDefine(title="修改内容",hidden=false)
 	@Column(length=36,nullable=false) 
-	private String content;
+	private String his_content;
+	@FieldDefine(title="创建时间",hidden=false)
+	private Date his_createDate;
 //	@FieldDefine(title="tablemeta_id",hidden=true)
 //	@Column(length=36,nullable=false) 
 //	@FK(cls=Tablemeta.class,column="id")
@@ -70,4 +77,59 @@ public class TablemetaHis {
 //	@FieldDefine(title="修改内容",hidden=false)
 //	@Column(length=36,nullable=false) 
 //	private String content;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getTablename() {
+		return tablename;
+	}
+	public void setTablename(String tablename) {
+		this.tablename = tablename;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEntitytype() {
+		return entitytype;
+	}
+	public void setEntitytype(String entitytype) {
+		this.entitytype = entitytype;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public String getClassify_id() {
+		return classify_id;
+	}
+	public void setClassify_id(String classify_id) {
+		this.classify_id = classify_id;
+	}
+	public Long getHistory_id() {
+		return history_id;
+	}
+	public void setHistory_id(Long history_id) {
+		this.history_id = history_id;
+	}
+	public String getHis_content() {
+		return his_content;
+	}
+	public void setHis_content(String his_content) {
+		this.his_content = his_content;
+	}
+	public Date getHis_createDate() {
+		return his_createDate;
+	}
+	public void setHis_createDate(Date his_createDate) {
+		this.his_createDate = his_createDate;
+	}
+
 }
