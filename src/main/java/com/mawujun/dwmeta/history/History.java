@@ -18,7 +18,7 @@ import com.mawujun.dwmeta.Tablemeta;
 public  class History {
 	@Id
 	@FieldDefine(title="id",sort=7,hidden=true)
-	private Long id;//以一个操作的批次为id
+	private String id;//以一个操作的批次为id
 	
 	@FieldDefine(title="tablemeta_id",hidden=true)
 	@Column(length=36,nullable=false) 
@@ -39,10 +39,10 @@ public  class History {
 //	@FieldDefine(title="修改内容",hidden=false)
 //	@Column(length=36,nullable=false) 
 //	private String content;
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getTablemeta_id() {

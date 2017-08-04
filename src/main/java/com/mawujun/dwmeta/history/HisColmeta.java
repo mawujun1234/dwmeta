@@ -16,8 +16,8 @@ import com.mawujun.dwmeta.Columnmeta;
 import com.mawujun.dwmeta.Tablemeta;
 
 @Entity
-@Table(name="dw_history_coleta")
-public class HistoryColmeta {
+@Table(name="dw_his_coleta")
+public class HisColmeta {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(

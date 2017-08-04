@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mawujun.dwmeta.history.HistoryTabmeta;
-import com.mawujun.dwmeta.history.HistoryTabmetaService;
+import com.mawujun.dwmeta.history.HisTabmeta;
+import com.mawujun.dwmeta.history.HisTabmetaService;
 import com.mawujun.exception.BusinessException;
 import com.mawujun.service.AbstractService;
 import com.mawujun.utils.bean.BeanUtils;
@@ -25,7 +25,7 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 	@Autowired
 	private TablemetaRepository tablemetaRepository;
 	@Autowired
-	private HistoryTabmetaService historyTabmetaService;
+	private HisTabmetaService historyTabmetaService;
 	
 	@Override
 	public TablemetaRepository getRepository() {
@@ -40,11 +40,7 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 		}
 		 this.getRepository().create(entity);
 		
-		//创建历史记录
-		HistoryTabmeta historytabmeta=BeanUtils.copyOrCast(entity, HistoryTabmeta.class);
-		historytabmeta.setId(null);
-		historytabmeta.setHis_createDate(new Date());
-		historyTabmetaService.create(historytabmeta);
+		
 		
 		return entity.getId();
 	}

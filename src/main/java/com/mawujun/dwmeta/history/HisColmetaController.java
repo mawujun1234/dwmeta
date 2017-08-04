@@ -11,8 +11,8 @@ import com.mawujun.repository.cnd.Cnd;
 import com.mawujun.utils.M;
 import com.mawujun.utils.page.Pager;
 
-import com.mawujun.dwmeta.history.HistoryColmeta;
-import com.mawujun.dwmeta.history.HistoryColmetaService;
+import com.mawujun.dwmeta.history.HisColmeta;
+import com.mawujun.dwmeta.history.HisColmetaService;
 /**
  * @author mawujun qq:16064988 e-mail:mawujun1234@163.com 
  * @version 1.0
@@ -20,10 +20,10 @@ import com.mawujun.dwmeta.history.HistoryColmetaService;
  */
 @Controller
 //@RequestMapping("/historyColmeta")
-public class HistoryColmetaController {
+public class HisColmetaController {
 
 	@Resource
-	private HistoryColmetaService historyColmetaService;
+	private HisColmetaService historyColmetaService;
 
 
 	/**
@@ -36,35 +36,35 @@ public class HistoryColmetaController {
 	 */
 	@RequestMapping("/historyColmeta/queryPager.do")
 	@ResponseBody
-	public Pager<HistoryColmeta> queryPager(Pager<HistoryColmeta> pager){
+	public Pager<HisColmeta> queryPager(Pager<HisColmeta> pager){
 		
 		return historyColmetaService.queryPage(pager);
 	}
 
 	@RequestMapping("/historyColmeta/queryAll.do")
 	@ResponseBody
-	public List<HistoryColmeta> queryAll() {	
-		List<HistoryColmeta> historyColmetaes=historyColmetaService.queryAll();
+	public List<HisColmeta> queryAll() {	
+		List<HisColmeta> historyColmetaes=historyColmetaService.queryAll();
 		return historyColmetaes;
 	}
 	
 
 	@RequestMapping("/historyColmeta/load.do")
 	@ResponseBody
-	public HistoryColmeta load(String id) {
+	public HisColmeta load(String id) {
 		return historyColmetaService.get(id);
 	}
 	
 	@RequestMapping("/historyColmeta/create.do")
 	@ResponseBody
-	public HistoryColmeta create(@RequestBody HistoryColmeta historyColmeta) {
+	public HisColmeta create(@RequestBody HisColmeta historyColmeta) {
 		historyColmetaService.create(historyColmeta);
 		return historyColmeta;
 	}
 	
 	@RequestMapping("/historyColmeta/update.do")
 	@ResponseBody
-	public  HistoryColmeta update(@RequestBody HistoryColmeta historyColmeta) {
+	public  HisColmeta update(@RequestBody HisColmeta historyColmeta) {
 		historyColmetaService.update(historyColmeta);
 		return historyColmeta;
 	}
@@ -78,7 +78,7 @@ public class HistoryColmetaController {
 	
 	@RequestMapping("/historyColmeta/destroy.do")
 	@ResponseBody
-	public HistoryColmeta destroy(@RequestBody HistoryColmeta historyColmeta) {
+	public HisColmeta destroy(@RequestBody HisColmeta historyColmeta) {
 		historyColmetaService.delete(historyColmeta);
 		return historyColmeta;
 	}

@@ -11,8 +11,8 @@ import com.mawujun.repository.cnd.Cnd;
 import com.mawujun.utils.M;
 import com.mawujun.utils.page.Pager;
 
-import com.mawujun.dwmeta.history.HistoryTabmeta;
-import com.mawujun.dwmeta.history.HistoryTabmetaService;
+import com.mawujun.dwmeta.history.HisTabmeta;
+import com.mawujun.dwmeta.history.HisTabmetaService;
 /**
  * @author mawujun qq:16064988 e-mail:mawujun1234@163.com 
  * @version 1.0
@@ -20,10 +20,10 @@ import com.mawujun.dwmeta.history.HistoryTabmetaService;
  */
 @Controller
 //@RequestMapping("/historyTabmeta")
-public class HistoryTabmetaController {
+public class HisTabmetaController {
 
 	@Resource
-	private HistoryTabmetaService historyTabmetaService;
+	private HisTabmetaService historyTabmetaService;
 
 
 	/**
@@ -36,35 +36,35 @@ public class HistoryTabmetaController {
 	 */
 	@RequestMapping("/historyTabmeta/queryPager.do")
 	@ResponseBody
-	public Pager<HistoryTabmeta> queryPager(Pager<HistoryTabmeta> pager){
+	public Pager<HisTabmeta> queryPager(Pager<HisTabmeta> pager){
 		
 		return historyTabmetaService.queryPage(pager);
 	}
 
 	@RequestMapping("/historyTabmeta/queryAll.do")
 	@ResponseBody
-	public List<HistoryTabmeta> queryAll() {	
-		List<HistoryTabmeta> historyTabmetaes=historyTabmetaService.queryAll();
+	public List<HisTabmeta> queryAll() {	
+		List<HisTabmeta> historyTabmetaes=historyTabmetaService.queryAll();
 		return historyTabmetaes;
 	}
 	
 
 	@RequestMapping("/historyTabmeta/load.do")
 	@ResponseBody
-	public HistoryTabmeta load(String id) {
+	public HisTabmeta load(String id) {
 		return historyTabmetaService.get(id);
 	}
 	
 	@RequestMapping("/historyTabmeta/create.do")
 	@ResponseBody
-	public HistoryTabmeta create(@RequestBody HistoryTabmeta historyTabmeta) {
+	public HisTabmeta create(@RequestBody HisTabmeta historyTabmeta) {
 		historyTabmetaService.create(historyTabmeta);
 		return historyTabmeta;
 	}
 	
 	@RequestMapping("/historyTabmeta/update.do")
 	@ResponseBody
-	public  HistoryTabmeta update(@RequestBody HistoryTabmeta historyTabmeta) {
+	public  HisTabmeta update(@RequestBody HisTabmeta historyTabmeta) {
 		historyTabmetaService.update(historyTabmeta);
 		return historyTabmeta;
 	}
@@ -78,7 +78,7 @@ public class HistoryTabmetaController {
 	
 	@RequestMapping("/historyTabmeta/destroy.do")
 	@ResponseBody
-	public HistoryTabmeta destroy(@RequestBody HistoryTabmeta historyTabmeta) {
+	public HisTabmeta destroy(@RequestBody HisTabmeta historyTabmeta) {
 		historyTabmetaService.delete(historyTabmeta);
 		return historyTabmeta;
 	}

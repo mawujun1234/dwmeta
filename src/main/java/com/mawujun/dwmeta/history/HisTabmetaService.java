@@ -14,13 +14,13 @@ import com.mawujun.service.AbstractService;
  */
 @Service
 @Transactional(propagation=Propagation.REQUIRED)
-public class HistoryTabmetaService extends AbstractService<HistoryTabmeta, String>{
+public class HisTabmetaService extends AbstractService<HisTabmeta, String>{
 
 	@Autowired
-	private HistoryTabmetaRepository historyTabmetaRepository;
+	private HisTabmetaRepository historyTabmetaRepository;
 	
 	@Override
-	public HistoryTabmetaRepository getRepository() {
+	public HisTabmetaRepository getRepository() {
 		return historyTabmetaRepository;
 	}
 

@@ -20,8 +20,8 @@ import com.mawujun.dwmeta.Tablemeta;
  *
  */
 @Entity
-@Table(name="dw_history_tabmeta")
-public class HistoryTabmeta {
+@Table(name="dw_his_tabmeta")
+public class HisTabmeta {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(
