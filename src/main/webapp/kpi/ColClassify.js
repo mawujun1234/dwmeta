@@ -1,10 +1,11 @@
-Ext.define("Ems.dwmeta.DB",{
+Ext.define("Ems.kpi.ColClassify",{
 	extend:"Ext.data.Model",
 	fields:[
 		{name:'name',type:'string'},
-		{name:'dbtype',type:'string'},
 		{name:'remark',type:'string'},
-		{name:'id',type:'string'}
+		{name:'id',type:'string'},
+		{name:'deleted',type:'bool'},
+		{name:'db_id',type:'string'}
 	],
 	proxy:{
 		type:'ajax',
@@ -23,11 +24,11 @@ Ext.define("Ems.dwmeta.DB",{
 			//totalProperty:'total'		
 		},
 		api:{
-			read:Ext.ContextPath+'/dB/load.do',
-			//load : Ext.ContextPath+'/dB/load.do',
-			create:Ext.ContextPath+'/dB/create.do',
-			update:Ext.ContextPath+'/dB/update.do',
-			destroy:Ext.ContextPath+'/dB/destroy.do'
+			read:Ext.ContextPath+'/colClassify/load.do',
+			//load : Ext.ContextPath+'/colClassify/load.do',
+			create:Ext.ContextPath+'/colClassify/create.do',
+			update:Ext.ContextPath+'/colClassify/update.do',
+			destroy:Ext.ContextPath+'/colClassify/destroy.do'
 		}
 	}
 });

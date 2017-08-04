@@ -4,6 +4,7 @@ Ext.define("Ems.dwmeta.Columnmeta",{
 		{name:'colname',type:'string'},
 		{name:'name',type:'string'},
 		{name:'coltype',type:'string'},
+		{name:'coltype1',type:'string'},
 		{name:'collen',type:'string'},
 		{name:'ispk',type:'bool'},
 		{name:'nullable',type:'bool'},

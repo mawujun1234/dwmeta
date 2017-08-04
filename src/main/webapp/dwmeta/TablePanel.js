@@ -45,6 +45,7 @@ Ext.define('Ems.dwmeta.TablePanel',{
 		if(!id){
 			var child=Ext.create('Ems.dwmeta.Tablemeta',{
 				classify_id:me.classify_id
+				,entitytype:'table'
 				,db_id:window.db_id
 			});
 			child.set("id",null);

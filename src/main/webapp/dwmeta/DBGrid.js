@@ -14,6 +14,8 @@ Ext.define('Ems.dwmeta.DBGrid',{
       	{xtype: 'rownumberer'},
 		{dataIndex:'name',header:'数据库'
         },
+        {dataIndex:'dbtype',header:'类型'
+        },
 		{dataIndex:'remark',header:'备注'
         }
       ];
@@ -100,11 +102,18 @@ Ext.define('Ems.dwmeta.DBGrid',{
 	onCreate:function(){
     	var me=this;
 		var child=Ext.create('Ems.dwmeta.DB',{
-
+			dbtype:'oracle'
 		});
 		child.set("id",null);
 		
-		var formpanel=Ext.create('Ems.dwmeta.DBForm',{});
+		var formpanel=Ext.create('Ems.dwmeta.DBForm',{
+			listeners:{
+    			saved:function(record){
+    				me.getStore().reload();
+    				
+    			}
+    		}
+		});
 		formpanel.loadRecord(child);
 		
     	var win=Ext.create('Ext.window.Window',{
@@ -114,12 +123,8 @@ Ext.define('Ems.dwmeta.DBGrid',{
     		width:400,
     		height:300,
     		closeAction:'hide',
-    		items:[formpanel],
-    		listeners:{
-    			close:function(){
-    				me.getStore().reload();
-    			}
-    		}
+    		items:[formpanel]
+    		
     	});
     	win.show();
     },

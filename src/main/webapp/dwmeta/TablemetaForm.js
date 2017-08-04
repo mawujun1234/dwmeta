@@ -61,8 +61,7 @@ Ext.define('Ems.dwmeta.TablemetaForm',{
                 {
                     boxLabel  : '表',
                     name      : 'entitytype',
-                    inputValue: 'table',
-                    checked:true
+                    inputValue: 'table'
                 }, {
                     boxLabel  : '视图',
                     name      : 'entitytype',

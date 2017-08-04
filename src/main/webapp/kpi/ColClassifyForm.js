@@ -1,7 +1,7 @@
-Ext.define('Ems.dwmeta.DBForm',{
+Ext.define('Ems.kpi.ColClassifyForm',{
 	extend:'Ext.form.Panel',
 	requires: [
-	     'Ems.dwmeta.DB'
+	     'Ems.kpi.ColClassify'
 	],
 	
     frame: true,
@@ -20,43 +20,14 @@ Ext.define('Ems.dwmeta.DBForm',{
        var me = this;
        me.items= [
 		{
-	        fieldLabel: '数据库',
+	        fieldLabel: '名称',
 	        name: 'name',
-            selectOnFocus:true,
             allowBlank: false,
             afterLabelTextTpl: Ext.required,
             blankText:"名称不允许为空",
+            selectOnFocus:true,
 	        xtype:'textfield'
 	    },
-	    {
-            xtype      : 'fieldcontainer',
-            fieldLabel : '类型',
-            defaultType: 'radiofield',
-            defaults: {
-                width:70
-            },
-            layout: 'hbox',
-            allowBlank: false,
-            afterLabelTextTpl: Ext.required,
-            blankText:"名称不允许为空",
-           
-            items: [
-                {
-                    boxLabel  : 'oracle',
-                    name      : 'dbtype',
-                    inputValue: 'oracle'
-                }, {
-                    boxLabel  : 'mysql',
-                    name      : 'dbtype',
-                    inputValue: 'mysql'
-                    
-                }, {
-                    boxLabel  : 'sqlserver',
-                    name      : 'dbtype',
-                    inputValue: 'sqlserver'
-                }
-            ]
-        },
 		{
 	        fieldLabel: '备注',
 	        name: 'remark',
@@ -66,6 +37,20 @@ Ext.define('Ems.dwmeta.DBForm',{
 		{
 	        fieldLabel: 'id',
 	        name: 'id',
+            hidden:true,
+            selectOnFocus:true,
+	        xtype:'textfield'
+	    },
+	    {
+	        fieldLabel: 'deleted',
+	        name: 'deleted',
+            hidden:true,
+            selectOnFocus:true,
+	        xtype:'textfield'
+	    },
+		{
+	        fieldLabel: '所属数据库',
+	        name: 'db_id',
             hidden:true,
             selectOnFocus:true,
 	        xtype:'textfield'

@@ -39,9 +39,9 @@ public class Columnmeta {
 	@Column(length=30,nullable=false,unique=false)
 	@FieldDefine(title="类型",sort=6)
 	private String coltype;
-	@Column(length=30,nullable=true,unique=false)
-	@FieldDefine(title="长度",sort=6)
-	private String collen;
+//	@Column(length=30,nullable=true,unique=false)
+//	@FieldDefine(title="长度",sort=6)
+//	private String collen;
 	@FieldDefine(title="是否主键",sort=6)
 	private Boolean ispk;
 	@FieldDefine(title="可否为空",sort=6)
@@ -99,13 +99,6 @@ public class Columnmeta {
 		this.coltype = coltype;
 	}
 
-	public String getCollen() {
-		return collen;
-	}
-
-	public void setCollen(String collen) {
-		this.collen = collen;
-	}
 
 	public Boolean getIspk() {
 		return ispk;

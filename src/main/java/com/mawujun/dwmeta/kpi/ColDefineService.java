@@ -1,10 +1,16 @@
-package com.mawujun.dwmeta;
+package com.mawujun.dwmeta.kpi;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import com.mawujun.service.AbstractService;
+
+
+import com.mawujun.dwmeta.kpi.ColDefine;
+import com.mawujun.dwmeta.kpi.ColDefineRepository;
 
 
 /**
@@ -14,14 +20,14 @@ import com.mawujun.service.AbstractService;
  */
 @Service
 @Transactional(propagation=Propagation.REQUIRED)
-public class DBService extends AbstractService<DB, String>{
+public class ColDefineService extends AbstractService<ColDefine, String>{
 
 	@Autowired
-	private DBRepository dBRepository;
+	private ColDefineRepository colDefineRepository;
 	
 	@Override
-	public DBRepository getRepository() {
-		return dBRepository;
+	public ColDefineRepository getRepository() {
+		return colDefineRepository;
 	}
 
 }

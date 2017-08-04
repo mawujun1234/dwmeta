@@ -1,7 +1,7 @@
-Ext.define('Ems.dwmeta.DBForm',{
+Ext.define('Ems.kpi.ColDefineForm',{
 	extend:'Ext.form.Panel',
 	requires: [
-	     'Ems.dwmeta.DB'
+	     'Ems.kpi.ColDefine'
 	],
 	
     frame: true,
@@ -20,43 +20,73 @@ Ext.define('Ems.dwmeta.DBForm',{
        var me = this;
        me.items= [
 		{
-	        fieldLabel: '数据库',
-	        name: 'name',
-            selectOnFocus:true,
+	        fieldLabel: '列名',
+	        name: 'colname',
             allowBlank: false,
             afterLabelTextTpl: Ext.required,
-            blankText:"名称不允许为空",
+            blankText:"列名不允许为空",
+            selectOnFocus:true,
 	        xtype:'textfield'
 	    },
-	    {
-            xtype      : 'fieldcontainer',
-            fieldLabel : '类型',
-            defaultType: 'radiofield',
-            defaults: {
-                width:70
-            },
-            layout: 'hbox',
+		{
+	        fieldLabel: '中文名称',
+	        name: 'name',
             allowBlank: false,
             afterLabelTextTpl: Ext.required,
-            blankText:"名称不允许为空",
-           
+            blankText:"中文名称不允许为空",
+            selectOnFocus:true,
+	        xtype:'textfield'
+	    },
+//		{
+//	        fieldLabel: '类型',
+//	        name: 'coltype',
+//            allowBlank: false,
+//            afterLabelTextTpl: Ext.required,
+//            blankText:"类型不允许为空",
+//            selectOnFocus:true,
+//	        xtype:'textfield'
+//	    },
+	    Ext.create('Ext.form.ComboBox', {
+		    fieldLabel: '列类型',
+		    name: 'coltype',
+		    allowBlank: false,
+            afterLabelTextTpl: Ext.required,
+            blankText:"类型不允许为空",
+		    store: Ext.create('Ext.data.ArrayStore', {
+				fields: ['name'],
+				data : window.fieldtypes
+			}),
+		    queryMode: 'local',
+		    displayField: 'name',
+		    valueField: 'name'
+		}),
+		{
+	        fieldLabel: '定义',
+	        name: 'definition',
+            selectOnFocus:true,
+	        xtype:'textarea'
+	    },
+        {
+            xtype      : 'fieldcontainer',
+            fieldLabel : '可用',
+            defaultType: 'radiofield',
+            defaults: {
+                flex: 1
+            },
+            layout: 'hbox',
             items: [
-                {
-                    boxLabel  : 'oracle',
-                    name      : 'dbtype',
-                    inputValue: 'oracle'
-                }, {
-                    boxLabel  : 'mysql',
-                    name      : 'dbtype',
-                    inputValue: 'mysql'
-                    
-                }, {
-                    boxLabel  : 'sqlserver',
-                    name      : 'dbtype',
-                    inputValue: 'sqlserver'
+           		{
+                    boxLabel  : '可用',
+                    name: 'status',
+                    inputValue: 'true'
+                },{
+                    boxLabel  : '禁用',
+                    name: 'status',
+                    inputValue: 'false'
                 }
             ]
         },
+		
 		{
 	        fieldLabel: '备注',
 	        name: 'remark',

@@ -1,7 +1,7 @@
-Ext.define('Ems.dwmeta.DWLayerGrid',{
+Ext.define('Ems.kpi.ColDefineGrid',{
 	extend:'Ext.grid.Panel',
 	requires: [
-	     'Ems.dwmeta.DWLayer'
+	     'Ems.kpi.ColDefine'
 	],
 	columnLines :true,
 	stripeRows:true,
@@ -12,15 +12,31 @@ Ext.define('Ems.dwmeta.DWLayerGrid',{
       var me = this;
       me.columns=[
       	{xtype: 'rownumberer'},
-		{dataIndex:'name',header:'名称'
+		{dataIndex:'colname',header:'列名'
         },
-		{dataIndex:'jdbc_driver',header:'驱动程序',width:200
+		{dataIndex:'name',header:'中文名称'
         },
-		{dataIndex:'jdbc_url',header:'连接地址',width:280
+		{dataIndex:'coltype',header:'类型'
         },
-		{dataIndex:'jdbc_username',header:'账号'
+		{dataIndex:'definition',header:'定义',flex:1,renderer:function(value,metadata,record){
+								metadata.tdAttr = "data-qtip='" + value+ "'";
+							    return value;
+							}
         },
-		{dataIndex:'jdbc_password',header:'密码'
+//		{dataIndex:'status',header:'可用',xtype: 'checkcolumn'	
+//            ,stopSelection :false,
+//			processEvent : function(type) {  
+//            	if (type == 'click')  
+//                   return false;  
+//            }
+//		},
+        {dataIndex:'status',header:'可用',renderer:function(value){
+				if(value=='true'){
+					return "可用";
+				} else {
+					return "<span style='color:red;'>禁用</span>";
+				}
+			}
         },
 		{dataIndex:'remark',header:'备注'
         }
@@ -30,11 +46,11 @@ Ext.define('Ems.dwmeta.DWLayerGrid',{
 	  me.store=Ext.create('Ext.data.Store',{
 			autoSync:false,
 			pageSize:50,
-			autoLoad:false,
-			model: 'Ems.dwmeta.DWLayer',
+			autoLoad:true,
+			model: 'Ems.kpi.ColDefine',
 			proxy:{
 				type: 'ajax',
-			    url : Ext.ContextPath+'/dWLayer/queryAll.do',
+			    url : Ext.ContextPath+'/colDefine/queryAll.do',
 			    headers:{ 'Accept':'application/json;'},
 			    actionMethods: { read: 'POST' },
 			    extraParams:{limit:50},
@@ -48,25 +64,47 @@ Ext.define('Ems.dwmeta.DWLayerGrid',{
 	  });
 
 	  me.dockedItems=[];
-//      me.dockedItems.push({
-//	        xtype: 'pagingtoolbar',
-//	        store: me.store,  
-//	        dock: 'bottom',
-//	        displayInfo: true
-//	  });
-	  me.dockedItems.push({
+ 	 me.dockedItems.push({
 	  	xtype: 'toolbar',
 	  	dock:'top',
 	  	//enableOverflow:true,
 		items:[
 			{
                 xtype: 'textfield',
-				itemId:'name',
-                fieldLabel: '名称',
-                labelWidth:60,
+				itemId:'colname',
+                fieldLabel: '列名',
+                labelWidth:50,
                 width:150,
                 selectOnFocus:true 
             },
+			{
+                xtype: 'textfield',
+				itemId:'name',
+                fieldLabel: '中文名',
+                labelWidth:50,
+                width:150,
+                selectOnFocus:true 
+            },
+            
+		    Ext.create('Ext.form.ComboBox', {
+			    fieldLabel: '状态',
+			    itemId: 'status',
+			    store: Ext.create('Ext.data.Store', {
+				    fields: ['key', 'name'],
+				    data : [
+				    	{"key":"", "name":"所有"},
+				        {"key":"true", "name":"可用"},
+				        {"key":"false", "name":"禁用"}
+				    ]
+				}),
+				editable:false,
+			    queryMode: 'local',
+			    //value:'true',
+			    displayField: 'name',
+			    valueField: 'key',
+			    labelWidth:50,
+	            width:150
+			}),
 	    	{
             	text:'查询',
             	iconCls:'icon-search',
@@ -75,7 +113,8 @@ Ext.define('Ems.dwmeta.DWLayerGrid',{
             		var grid=btn.up("grid");
 					
 					var params=grid.getParams();
-					grid.getStore().getProxy().extraParams=params;
+					//grid.getStore().getProxy().extraParams=params;
+					grid.getStore().getProxy().extraParams=Ext.apply(grid.getStore().getProxy().extraParams,params);
 					grid.getStore().reload();
             	}
             }
@@ -127,22 +166,28 @@ Ext.define('Ems.dwmeta.DWLayerGrid',{
 		var toolbars=grid.getDockedItems('toolbar[dock="top"]');
 
     	var params={
-    		//"params['ormtno']":toolbars[0].down("#ordmtcombo").getValue(),
-			"params['name']":grid.down("#name").getValue()
+    		colname:toolbars[0].down("#colname").getValue(),
+    		name:toolbars[0].down("#name").getValue(),
+    		status:toolbars[0].down("#status").getValue()
     					
     	};
     	return params;
 	},
 	onCreate:function(){
     	var me=this;
-		var child=Ext.create('Ems.dwmeta.DWLayer',{
-			db_id:me.getStore().getProxy().extraParams.db_id
-			,jdbc_url:window.jdbc.jdbc_url
-			,jdbc_driver:window.jdbc.jdbc_driver
+		var child=Ext.create('Ems.kpi.ColDefine',{
+			status:true,
+			colclassify_id:me.getStore().getProxy().extraParams.colclassify_id
 		});
 		child.set("id",null);
 		
-		var formpanel=Ext.create('Ems.dwmeta.DWLayerForm',{});
+		var formpanel=Ext.create('Ems.kpi.ColDefineForm',{
+			listeners:{
+    			saved:function(record){
+    				me.getStore().reload();
+    			}
+    		}
+		});
 		formpanel.loadRecord(child);
 		
     	var win=Ext.create('Ext.window.Window',{
@@ -154,9 +199,9 @@ Ext.define('Ems.dwmeta.DWLayerGrid',{
     		closeAction:'hide',
     		items:[formpanel],
     		listeners:{
-    			close:function(){
-    				me.getStore().reload();
-    			}
+    			//close:function(){
+    			//	me.getStore().reload();
+    			//}
     		}
     	});
     	win.show();
@@ -171,7 +216,7 @@ Ext.define('Ems.dwmeta.DWLayerGrid',{
     		return;
     	}
 
-		var formpanel=Ext.create('Ems.dwmeta.DWLayerForm',{});
+		var formpanel=Ext.create('Ems.kpi.ColDefineForm',{});
 		formpanel.loadRecord(record);
 		
     	var win=Ext.create('Ext.window.Window',{

@@ -1,4 +1,4 @@
-package com.mawujun.dwmeta;
+package com.mawujun.dwmeta.kpi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -14,14 +14,14 @@ import com.mawujun.service.AbstractService;
  */
 @Service
 @Transactional(propagation=Propagation.REQUIRED)
-public class DBService extends AbstractService<DB, String>{
+public class ColClassifyService extends AbstractService<ColClassify, String>{
 
 	@Autowired
-	private DBRepository dBRepository;
+	private ColClassifyRepository colClassifyRepository;
 	
 	@Override
-	public DBRepository getRepository() {
-		return dBRepository;
+	public ColClassifyRepository getRepository() {
+		return colClassifyRepository;
 	}
 
 }

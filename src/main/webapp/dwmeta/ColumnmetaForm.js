@@ -35,15 +35,29 @@ Ext.define('Ems.dwmeta.ColumnmetaForm',{
             selectOnFocus:true,
 	        xtype:'textfield'
 	    },
-		{
-	        fieldLabel: '类型',
-	        name: 'coltype',
-            allowBlank: false,
+//		{
+//	        fieldLabel: '类型',
+//	        name: 'coltype',
+//            allowBlank: false,
+//            afterLabelTextTpl: Ext.required,
+//            blankText:"类型不允许为空",
+//            selectOnFocus:true,
+//	        xtype:'textfield'
+//	    },
+	    Ext.create('Ext.form.ComboBox', {
+		    fieldLabel: '类型',
+		    name: 'coltype',
+		    allowBlank: false,
             afterLabelTextTpl: Ext.required,
             blankText:"类型不允许为空",
-            selectOnFocus:true,
-	        xtype:'textfield'
-	    },
+		    store: Ext.create('Ext.data.ArrayStore', {
+				fields: ['name'],
+				data : window.fieldtypes
+			}),
+		    queryMode: 'local',
+		    displayField: 'name',
+		    valueField: 'name'
+		}),
 		{
 	        fieldLabel: '长度',
 	        name: 'collen',
