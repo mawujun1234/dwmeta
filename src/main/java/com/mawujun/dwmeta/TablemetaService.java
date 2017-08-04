@@ -1,11 +1,16 @@
 package com.mawujun.dwmeta;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mawujun.dwmeta.history.HistoryTabmeta;
+import com.mawujun.dwmeta.history.HistoryTabmetaService;
 import com.mawujun.exception.BusinessException;
 import com.mawujun.service.AbstractService;
+import com.mawujun.utils.bean.BeanUtils;
 
 
 /**
@@ -19,6 +24,8 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 
 	@Autowired
 	private TablemetaRepository tablemetaRepository;
+	@Autowired
+	private HistoryTabmetaService historyTabmetaService;
 	
 	@Override
 	public TablemetaRepository getRepository() {
@@ -31,7 +38,15 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 		if(count>0){
 			throw new BusinessException("在当前数据库表名已经存在，不准添加，请修改!");
 		}
-		return this.getRepository().create(entity);
+		 this.getRepository().create(entity);
+		
+		//创建历史记录
+		HistoryTabmeta historytabmeta=BeanUtils.copyOrCast(entity, HistoryTabmeta.class);
+		historytabmeta.setId(null);
+		historytabmeta.setHis_createDate(new Date());
+		historyTabmetaService.create(historytabmeta);
+		
+		return entity.getId();
 	}
 
 }

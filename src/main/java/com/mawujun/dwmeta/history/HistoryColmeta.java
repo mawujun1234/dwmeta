@@ -12,6 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import com.mawujun.annotation.FK;
 import com.mawujun.annotation.FieldDefine;
+import com.mawujun.dwmeta.Columnmeta;
 import com.mawujun.dwmeta.Tablemeta;
 
 @Entity
@@ -72,6 +73,11 @@ public class HistoryColmeta {
 	private String his_content;
 	@FieldDefine(title="创建时间",hidden=false)
 	private Date his_createDate;
+	@FieldDefine(title="columnmeta_id",hidden=true)
+	@Column(length=36,nullable=false) 
+	@FK(cls=Columnmeta.class,column="id")
+	private String columnmeta_id;//
+	
 	
 	public String getId() {
 		return id;
@@ -163,6 +169,12 @@ public class HistoryColmeta {
 	}
 	public void setHis_createDate(Date his_createDate) {
 		this.his_createDate = his_createDate;
+	}
+	public String getColumnmeta_id() {
+		return columnmeta_id;
+	}
+	public void setColumnmeta_id(String columnmeta_id) {
+		this.columnmeta_id = columnmeta_id;
 	}
 
 	

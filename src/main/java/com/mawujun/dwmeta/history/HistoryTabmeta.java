@@ -13,6 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 import com.mawujun.annotation.FK;
 import com.mawujun.annotation.FieldDefine;
 import com.mawujun.dwmeta.Classify;
+import com.mawujun.dwmeta.Tablemeta;
 /**
  * 保留修改时的所有原有的信息，这样后续才能进行比对
  * @author mawujun qq:16064988 mawujun1234@163.com
@@ -58,10 +59,11 @@ public class HistoryTabmeta {
 	private String his_content;
 	@FieldDefine(title="创建时间",hidden=false)
 	private Date his_createDate;
-//	@FieldDefine(title="tablemeta_id",hidden=true)
-//	@Column(length=36,nullable=false) 
-//	@FK(cls=Tablemeta.class,column="id")
-//	private String tablemeta_id;//
+	@FieldDefine(title="tablemeta_id",hidden=true)
+	@Column(length=36,nullable=false) 
+	@FK(cls=Tablemeta.class,column="id")
+	private String tablemeta_id;//
+	
 //	
 //	@FieldDefine(title="操作类型",hidden=false)
 //	@Column(length=36,nullable=false) 
@@ -130,6 +132,12 @@ public class HistoryTabmeta {
 	}
 	public void setHis_createDate(Date his_createDate) {
 		this.his_createDate = his_createDate;
+	}
+	public String getTablemeta_id() {
+		return tablemeta_id;
+	}
+	public void setTablemeta_id(String tablemeta_id) {
+		this.tablemeta_id = tablemeta_id;
 	}
 
 }
