@@ -24,7 +24,6 @@ public static final class Columnmeta {
 	public static final String colname="colname";
 	public static final String name="name";
 	public static final String coltype="coltype";
-	public static final String ispk="ispk";
 	public static final String nullable="nullable";
 	public static final String defaultvalue="defaultvalue";
 	public static final String comments="comments";
@@ -32,6 +31,18 @@ public static final class Columnmeta {
 	public static final String reasons="reasons";
 	public static final String tablemeta_id="tablemeta_id";
 	public static final String history_id="history_id";
+}
+public static final class Constraints {
+	public static final String name="name";
+	public static final String type="type";
+	public static final String status="status";
+	public static final String tablemeta_id="tablemeta_id";
+	public static final String id="id";
+}
+public static final class ConstraintsCols {
+	public static final String column="column";
+	public static final String constraints_id="constraints_id";
+	public static final String id="id";
 }
 public static final class DB {
 	public static final String name="name";
@@ -49,15 +60,7 @@ public static final class DWLayer {
 	public static final String remark="remark";
 	public static final String db_id="db_id";
 }
-public static final class History {
-	public static final String id="id";
-	public static final String tablemeta_id="tablemeta_id";
-	public static final String operateType="operateType";
-	public static final String operateTime="operateTime";
-	public static final String operater="operater";
-	public static final String intiactive="intiactive";
-}
-public static final class HistoryColmeta {
+public static final class HisColmeta {
 	public static final String id="id";
 	public static final String colname="colname";
 	public static final String name="name";
@@ -73,8 +76,9 @@ public static final class HistoryColmeta {
 	public static final String history_id="history_id";
 	public static final String his_content="his_content";
 	public static final String his_createDate="his_createDate";
+	public static final String columnmeta_id="columnmeta_id";
 }
-public static final class HistoryTabmeta {
+public static final class HisTabmeta {
 	public static final String id="id";
 	public static final String tablename="tablename";
 	public static final String name="name";
@@ -84,6 +88,15 @@ public static final class HistoryTabmeta {
 	public static final String history_id="history_id";
 	public static final String his_content="his_content";
 	public static final String his_createDate="his_createDate";
+	public static final String tablemeta_id="tablemeta_id";
+}
+public static final class History {
+	public static final String id="id";
+	public static final String tablemeta_id="tablemeta_id";
+	public static final String operateType="operateType";
+	public static final String operateTime="operateTime";
+	public static final String operater="operater";
+	public static final String intiactive="intiactive";
 }
 public static final class ColClassify {
 	public static final String name="name";
@@ -115,7 +128,6 @@ public static final class Tablemeta {
 	public static final String id="id";
 	public static final String tablename="tablename";
 	public static final String name="name";
-	public static final String entitytype="entitytype";
 	public static final String remark="remark";
 	public static final String classify_id="classify_id";
 	public static final String db_id="db_id";

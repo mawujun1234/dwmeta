@@ -39,37 +39,38 @@ public class HisColmetaService extends AbstractService<HisColmeta, String>{
 	}
 
 	public String logCreate(Columnmeta columnmeta) {
-		//先判断当前列是否是创建的第一个列，如果是就同时建立同个批次的表的记录,表示这个表还每建立过
-		int count=historyColmetaRepository.queryCount(Cnd.count()
-				.andEquals(M.HistoryColmeta.tablemeta_id, columnmeta.getId())
-				.andEquals(M.HistoryColmeta.history_id, columnmeta.getHistory_id()));
-		Date createdate=new Date();
-		if(count==0){
-			Tablemeta tablemeta=tablemetaRepository.get(columnmeta.getTablemeta_id());
-			//创建历史记录
-			HisTabmeta historytabmeta=BeanUtils.copyOrCast(tablemeta, HisTabmeta.class);
-			historytabmeta.setId(null);
-			historytabmeta.setHis_createDate(createdate);
-			historytabmeta.setHis_content(his_content);
-			historyTabmetaService.create(historytabmeta);
-		}
-		
-		HisColmeta entity=BeanUtils.copyOrCast(columnmeta, HisColmeta.class);
-		entity.setId(null);
-		entity.setHis_createDate(createdate);
-		entity.setColumnmeta_id(columnmeta.getId());
-		historyColmetaRepository.create(entity);
-		
-		History history=new History();
-		history.setId(columnmeta.getHistory_id());
-		history.setIntiactive(true);
-		history.setOperater(operater);
-		history.setOperateTime(createdate);
-		history.setTablemeta_id(tablemeta_id);
-		history.setOperateType(operateType);
-		historyService.create(history);
-		
-		return this.getRepository().create(entity);
+//		//先判断当前列是否是创建的第一个列，如果是就同时建立同个批次的表的记录,表示这个表还每建立过
+//		int count=historyColmetaRepository.queryCount(Cnd.count()
+//				.andEquals(M.HistoryColmeta.tablemeta_id, columnmeta.getId())
+//				.andEquals(M.HistoryColmeta.history_id, columnmeta.getHistory_id()));
+//		Date createdate=new Date();
+//		if(count==0){
+//			Tablemeta tablemeta=tablemetaRepository.get(columnmeta.getTablemeta_id());
+//			//创建历史记录
+//			HisTabmeta historytabmeta=BeanUtils.copyOrCast(tablemeta, HisTabmeta.class);
+//			historytabmeta.setId(null);
+//			historytabmeta.setHis_createDate(createdate);
+//			historytabmeta.setHis_content(his_content);
+//			historyTabmetaService.create(historytabmeta);
+//		}
+//		
+//		HisColmeta entity=BeanUtils.copyOrCast(columnmeta, HisColmeta.class);
+//		entity.setId(null);
+//		entity.setHis_createDate(createdate);
+//		entity.setColumnmeta_id(columnmeta.getId());
+//		historyColmetaRepository.create(entity);
+//		
+//		History history=new History();
+//		history.setId(columnmeta.getHistory_id());
+//		history.setIntiactive(true);
+//		history.setOperater(operater);
+//		history.setOperateTime(createdate);
+//		history.setTablemeta_id(tablemeta_id);
+//		history.setOperateType(operateType);
+//		historyService.create(history);
+//		
+//		return this.getRepository().create(entity);
+		return null;
 	}
 
 }

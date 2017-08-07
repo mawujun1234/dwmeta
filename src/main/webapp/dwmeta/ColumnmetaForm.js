@@ -65,12 +65,12 @@ Ext.define('Ems.dwmeta.ColumnmetaForm',{
             selectOnFocus:true,
 	        xtype:'textfield'
 	    },
-        {
-        	fieldLabel: '是否主键',
-            name:'ispk',
-            xtype: 'checkbox',
-            cls: 'x-grid-checkheader-editor'
-        },
+//        {
+//        	fieldLabel: '是否主键',
+//            name:'ispk',
+//            xtype: 'checkbox',
+//            cls: 'x-grid-checkheader-editor'
+//        },
         {
         	fieldLabel: '可否为空',
             name:'nullable',
@@ -140,7 +140,7 @@ Ext.define('Ems.dwmeta.ColumnmetaForm',{
 				//alert(formpanel.getForm().getRecord().get("ispk"));
 				//return;
 				var record=formpanel.getForm().getRecord();
-				record.set("ispk",formpanel.getForm().findField("ispk").getValue());
+				//record.set("ispk",formpanel.getForm().findField("ispk").getValue());
 				record.set("nullable",formpanel.getForm().findField("nullable").getValue());
 				record.set("history_id",window.history_id);
 				record.save({

@@ -35,9 +35,9 @@ public class Tablemeta {
 	@Column(length=30,nullable=true,unique=false)
 	@FieldDefine(title="中文名称",sort=6)
 	private String name;//中文名称，易于理解的名称
-	@Column(length=20)
-	@FieldDefine(title="实体类型")
-	private String entitytype;//实体类型，表还是视图
+//	@Column(length=20)
+//	@FieldDefine(title="实体类型")
+//	private String entitytype;//实体类型，表还是视图
 	@Column(length=150)
 	@FieldDefine(title="备注")
 	private String remark;
@@ -126,15 +126,15 @@ public class Tablemeta {
 
 
 
-	public String getEntitytype() {
-		return entitytype;
-	}
-
-
-
-	public void setEntitytype(String entitytype) {
-		this.entitytype = entitytype;
-	}
+//	public String getEntitytype() {
+//		return entitytype;
+//	}
+//
+//
+//
+//	public void setEntitytype(String entitytype) {
+//		this.entitytype = entitytype;
+//	}
 
 
 

@@ -30,9 +30,13 @@ Ext.define('Ems.dwmeta.TablePanel',{
 			title:'列结构'
 		});
 		
+		me.constraintsGrid=Ext.create('Ems.dwmeta.ConstraintsGrid',{
+			title:'约束维护'
+		});
+		
 		var tabpanel=Ext.create('Ext.tab.Panel',{
 			region:'center',
-			items:[me.columnmetaGrid,{
+			items:[me.columnmetaGrid,me.constraintsGrid,{
 				title:'变更历史'
 			}]
 		});

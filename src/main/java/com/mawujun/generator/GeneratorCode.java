@@ -3,7 +3,7 @@ package com.mawujun.generator;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import com.mawujun.dwmeta.kpi.ColDefine;
+import com.mawujun.dwmeta.ConstraintsCols;
 
 import freemarker.template.TemplateException;
 /**
@@ -24,9 +24,14 @@ public class GeneratorCode {
 		
 		aa.extjs_grid_createDelUpd_button=true;
 		aa.extjs_grid_enable_cellEditing=false;
+		
 		generatorService.setExtenConfig(aa);
 		
-		generatorService.generatorAllFile(ColDefine.class);
+		generatorService.generatorAllFile(ConstraintsCols.class);
+		
+//		//是否生成主从表的结构
+//		aa.setIsMasterSalve(true);
+//		generatorService.generatorAllFile(master, slave);
 
 	}
 	
