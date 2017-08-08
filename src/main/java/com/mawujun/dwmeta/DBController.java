@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mawujun.dwmeta.kpi.ColClassify;
-import com.mawujun.dwmeta.kpi.ColClassifyService;
+import com.mawujun.dwmeta.cd.ColClassify;
+import com.mawujun.dwmeta.cd.ColClassifyService;
 import com.mawujun.permission.Menu;
 import com.mawujun.permission.MenuService;
 import com.mawujun.permission.MenuType;

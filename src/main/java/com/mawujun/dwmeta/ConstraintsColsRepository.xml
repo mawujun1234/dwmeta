@@ -20,5 +20,14 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		from dw_cons_cols a
 		<include refid="queryPage_where" />	
     </select>
+    
+    <select id="queryVO"  resultType="com.mawujun.dwmeta.ConstraintsColsVO" parameterType="map">
+    	select a.*,b.colname as col_name,c.colname as ref_col_name,d.tablename as ref_table_name
+		from dw_cons_cols a
+		inner join dw_columnmeta b on a.col_id=b.id
+		left join dw_columnmeta c on a.ref_col_id=c.id
+		left join dw_tablemeta d on a.ref_table_id=d.id
+		where a.constraints_id=#{constraints_id}
+    </select>
 </mapper>
 

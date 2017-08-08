@@ -9,6 +9,7 @@ Ext.define('Ems.dwmeta.ConstraintsForm',{
 	buttonAlign : 'center',
     bodyPadding: '5 5 0',
 
+    tablemeta_id:null,
 
     defaults: {
         msgTarget: 'under',
@@ -18,16 +19,21 @@ Ext.define('Ems.dwmeta.ConstraintsForm',{
     },
 	initComponent: function () {
        var me = this;
-       var shows = Ext.create('Ext.data.Store', { fields: ['id','show'], data: [ {id: 0, show: 'Battlestar Galactica'}, {id: 1, show: 'Doctor Who'}, {id: 2, show: 'Farscape'}, {id: 3, show: 'Firefly'}, {id: 4, show: 'Star Trek'}, {id: 5, show: 'Star Wars: Christmas Special'} ] });
        me.items= [
 		{
 	        fieldLabel: '约束名称',
 	        name: 'name',
+	        allowBlank: false,
+            afterLabelTextTpl: Ext.required,
+            blankText:"约束名不允许为空",
             selectOnFocus:true,
 	        xtype:'textfield'
 	    },{
 			fieldLabel: '约束类型',
 			name: 'type',
+			allowBlank: false,
+            afterLabelTextTpl: Ext.required,
+            blankText:"约束类型不允许为空",
 			queryMode: 'local',
 			editable:false,
 			forceSelection:true,
@@ -41,36 +47,144 @@ Ext.define('Ems.dwmeta.ConstraintsForm',{
 			    	{"key":"Primary", "name":"主键"}
 			    ]
 			},
-			xtype:'combobox'
+			xtype:'combobox',
+			listeners:{
+				select:function(combo, record, eOpts){
+					if(record.get("key")=="Foreign"){
+						combo.nextSibling("#ref_col_id").setDisabled(false);
+						combo.nextSibling("#ref_table_id").setDisabled(false);
+					} else {
+						combo.nextSibling("#ref_col_id").setDisabled(true);
+						combo.nextSibling("#ref_table_id").setDisabled(true);
+					}
+					
+				}
+			
+			}
 		},
         {
 			xtype : 'tagfield',
 			fieldLabel : '列',
-			store : shows,
-			displayField : 'show',
+			name:'col_id',//本主表的列
+			allowBlank: false,
+            afterLabelTextTpl: Ext.required,
+            blankText:"列不允许为空",
+			displayField : 'colname',
 			valueField : 'id',
-			queryMode : 'local',
-			filterPickList : true
+			queryMode : 'remote',
+			filterPickList : true,
+			store : Ext.create('Ext.data.Store',{
+				fields:["id","colname"],
+				proxy:{
+					type: 'ajax',
+				    url : Ext.ContextPath+'/columnmeta/query4combo.do',
+				    headers:{ 'Accept':'application/json;'},
+				    actionMethods: { read: 'POST' },
+				    extraParams:{
+				    	tablemeta_id:me.tablemeta_id
+				    },
+				    reader:{
+						type:'json'//,//如果没有分页，那么可以把后面三行去掉，而且后台只需要返回一个数组就行了
+//						rootProperty:'root',
+//						successProperty:'success',
+//						totalProperty:'total'		
+					}
+					
+				}
+			})
 		},
-        {
-	        fieldLabel: '引用主表',
-	        name: 'ref_table_id',
-            hidden:false,
-            selectOnFocus:true,
-	        xtype:'textfield'
-	    },
 		{
-	        fieldLabel: '引用的列',
-	        name: 'column',
-            selectOnFocus:true,
-	        xtype:'textfield'
-	    },
-	    {
-        	fieldLabel: '是否可用',
-            name:'status',
-            xtype: 'checkbox',
-            cls: 'x-grid-checkheader-editor'
-        },
+			xtype : 'combobox',
+			fieldLabel : '引用主表',
+			name:'ref_table_id',
+			itemId:'ref_table_id',
+			//allowBlank: false,
+            //afterLabelTextTpl: Ext.required,
+            //blankText:"列不允许为空",
+			displayField : 'tablename',
+			valueField : 'id',
+			queryMode : 'remote',
+			//filterPickList : true,
+			disabled:true,
+			store : Ext.create('Ext.data.Store',{
+				fields:["id","tablename"],
+				proxy:{
+					type: 'ajax',
+				    url : Ext.ContextPath+'/constraints/querySameUserTable.do',
+				    headers:{ 'Accept':'application/json;'},
+				    actionMethods: { read: 'POST' },
+				    extraParams:{
+				    	tablemeta_id:me.tablemeta_id
+				    },
+				    reader:{
+						type:'json'//,//如果没有分页，那么可以把后面三行去掉，而且后台只需要返回一个数组就行了		
+					}
+					
+				}
+			}),
+			listeners:{
+				select:function(combo, record, eOpts ){
+					var ref_column_combo=combo.nextSibling("#ref_col_id");
+					ref_column_combo.getStore().removeAll();
+					ref_column_combo.clearValue();
+
+					ref_column_combo.getStore().getProxy().extraParams={
+						tablemeta_id:record.get("id")
+					}
+					ref_column_combo.getStore().reload();
+				}
+			}
+		},
+		{
+			xtype : 'combobox',
+			fieldLabel : '引用的列',
+			name:'ref_col_id',
+			itemId:'ref_col_id',
+			//allowBlank: false,
+            //afterLabelTextTpl: Ext.required,
+            //blankText:"列不允许为空",
+			displayField : 'colname',
+			valueField : 'id',
+			queryMode : 'remote',
+			disabled:true,
+			editable:false,
+			store : Ext.create('Ext.data.Store',{
+				fields:["id","tablename"],
+				autoLoad:false,
+				proxy:{
+					type: 'ajax',
+				    url : Ext.ContextPath+'/columnmeta/query4combo.do',
+				    headers:{ 'Accept':'application/json;'},
+				    actionMethods: { read: 'POST' },
+				    extraParams:{
+				    	//tablemeta_id:me.tablemeta_id
+				    },
+				    reader:{
+						type:'json'//,//如果没有分页，那么可以把后面三行去掉，而且后台只需要返回一个数组就行了		
+					}
+					
+				}
+			})
+		},
+//        {
+//	        fieldLabel: '引用主表',
+//	        name: 'ref_table_id',
+//            hidden:false,
+//            selectOnFocus:true,
+//	        xtype:'textfield'
+//	    },
+//		{
+//	        fieldLabel: '引用的列',
+//	        name: 'column',
+//            selectOnFocus:true,
+//	        xtype:'textfield'
+//	    },
+//	    {
+//        	fieldLabel: '是否可用',
+//            name:'status',
+//            xtype: 'checkbox',
+//            cls: 'x-grid-checkheader-editor'
+//        },
 		{
 	        fieldLabel: 'id',
 	        name: 'id',

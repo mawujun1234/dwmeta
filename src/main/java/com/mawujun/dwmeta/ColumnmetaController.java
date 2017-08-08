@@ -46,6 +46,14 @@ public class ColumnmetaController {
 				.asc(M.Columnmeta.sorted));
 		return columnmetaes;
 	}
+	@RequestMapping("/columnmeta/query4combo.do")
+	@ResponseBody
+	public List<Columnmeta> query4combo(String tablemeta_id) {	
+		List<Columnmeta> columnmetaes=columnmetaService.query(Cnd.select()
+				.andEquals(M.Columnmeta.tablemeta_id, tablemeta_id)
+				.asc(M.Columnmeta.sorted));
+		return columnmetaes;
+	}
 	
 
 	@RequestMapping("/columnmeta/load.do")

@@ -4,13 +4,13 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
 <!-- mawujun qq:16064988 e-mail:16064988@qq.com-->
-<mapper namespace="com.mawujun.dwmeta.kpi.ColClassifyRepository">
+<mapper namespace="com.mawujun.dwmeta.cd.ColClassifyRepository">
 	<!-- 查询语句，会自动分页-->
 	<sql id="queryPage_where">
 	<where>
 	</where>
 	</sql>
-    <select id="queryPage" resultType="com.mawujun.dwmeta.kpi.ColClassify" parameterType="map">
+    <select id="queryPage" resultType="com.mawujun.dwmeta.cd.ColClassify" parameterType="map">
     	select * from com.mawujun.dwmeta.kpi.ColClassify a
     	<include refid="queryPage_where" />	
     </select> 

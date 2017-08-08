@@ -1,4 +1,4 @@
-package com.mawujun.dwmeta.kpi;
+package com.mawujun.dwmeta.cd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

@@ -26,26 +26,40 @@ public class ConstraintsController {
 	private ConstraintsService constraintsService;
 
 
-	/**
-	 * 这是基于分页的几种写法,的例子，请按自己的需求修改
-	 * @author mawujun email:16064988@163.com qq:16064988
-	 * @param start
-	 * @param limit
-	 * @param userName
-	 * @return
-	 */
-	@RequestMapping("/constraints/queryPager.do")
-	@ResponseBody
-	public Pager<Constraints> queryPager(Pager<Constraints> pager){
-		
-		return constraintsService.queryPage(pager);
-	}
+//	/**
+//	 * 这是基于分页的几种写法,的例子，请按自己的需求修改
+//	 * @author mawujun email:16064988@163.com qq:16064988
+//	 * @param start
+//	 * @param limit
+//	 * @param userName
+//	 * @return
+//	 */
+//	@RequestMapping("/constraints/queryPager.do")
+//	@ResponseBody
+//	public Pager<Constraints> queryPager(Pager<Constraints> pager){
+//		
+//		return constraintsService.queryPage(pager);
+//	}
 
 	@RequestMapping("/constraints/queryAll.do")
 	@ResponseBody
-	public List<Constraints> queryAll() {	
-		List<Constraints> constraintses=constraintsService.queryAll();
-		return constraintses;
+	public List<ConstraintsVO> queryAll(String tablemeta_id) {	
+//		List<Constraints> constraintses=constraintsService.query(Cnd.select()
+//				.andEquals(M.Constraints.tablemeta_id, tablemeta_id));
+//		return constraintses;
+		return constraintsService.queryAll(tablemeta_id);
+	}
+	/**
+	 * 获取同个用户下面的表
+	 * @author mawujun qq:16064988 mawujun1234@163.com
+	 * @param tablemeta_id
+	 * @return
+	 */
+	@RequestMapping("/constraints/querySameUserTable.do")
+	@ResponseBody
+	public List<Tablemeta> querySameUserTable(String tablemeta_id) {	
+		
+		return constraintsService.querySameUserTable(tablemeta_id);
 	}
 	
 
@@ -57,7 +71,7 @@ public class ConstraintsController {
 	
 	@RequestMapping("/constraints/create.do")
 	@ResponseBody
-	public Constraints create(@RequestBody Constraints constraints) {
+	public Constraints create(@RequestBody ConstraintsVO constraints) {
 		constraintsService.create(constraints);
 		return constraints;
 	}

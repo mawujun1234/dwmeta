@@ -4,7 +4,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
 <!-- mawujun qq:16064988 e-mail:16064988@qq.com-->
-<mapper namespace="com.mawujun.dwmeta.kpi.KpiRepository">
+<mapper namespace="com.mawujun.dwmeta.cd.KpiRepository">
 	<!-- 查询语句，会自动分页-->
 	<sql id="queryAll_where">
 	<where>
@@ -25,7 +25,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     	</if>
 	</where>
 	</sql>
-    <select id="queryAll" resultType="com.mawujun.dwmeta.kpi.Kpi" parameterType="map">
+    <select id="queryAll" resultType="com.mawujun.dwmeta.cd.Kpi" parameterType="map">
     	select * from dw_kpi a
     	<include refid="queryAll_where" />	
     </select> 

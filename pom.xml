@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.mawujun</groupId>
-	<artifactId>dwmeta</artifactId>
+	<artifactId>dbmm</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>dwmeta Maven Webapp</name>
+	<name>dbmm Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -300,4 +300,5 @@
 
 		</plugins>
 	</build>
+	<description>DB Metadata Management (DBMM)元数据管理</description>
 </project>

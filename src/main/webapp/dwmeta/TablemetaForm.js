@@ -49,26 +49,26 @@ Ext.define('Ems.dwmeta.TablemetaForm',{
 			    }
             ]
         },
-	    {
-            xtype      : 'fieldcontainer',
-            fieldLabel : '实体类型',
-            defaultType: 'radiofield',
-            defaults: {
-                width:60
-            },
-            layout: 'hbox',
-            items: [
-                {
-                    boxLabel  : '表',
-                    name      : 'entitytype',
-                    inputValue: 'table'
-                }, {
-                    boxLabel  : '视图',
-                    name      : 'entitytype',
-                    inputValue: 'view'
-                }
-            ]
-        },
+//	    {
+//            xtype      : 'fieldcontainer',
+//            fieldLabel : '实体类型',
+//            defaultType: 'radiofield',
+//            defaults: {
+//                width:60
+//            },
+//            layout: 'hbox',
+//            items: [
+//                {
+//                    boxLabel  : '表',
+//                    name      : 'entitytype',
+//                    inputValue: 'table'
+//                }, {
+//                    boxLabel  : '视图',
+//                    name      : 'entitytype',
+//                    inputValue: 'view'
+//                }
+//            ]
+//        },
 		{
 	        fieldLabel: '备注',
 	        name: 'remark',
@@ -85,6 +85,13 @@ Ext.define('Ems.dwmeta.TablemetaForm',{
 		{
 	        fieldLabel: '所属分类',
 	        name: 'classify_id',
+            hidden:true,
+            selectOnFocus:true,
+	        xtype:'textfield'
+	    },
+	    {
+	        fieldLabel: '所属用户',
+	        name: 'dwlayer_id',
             hidden:true,
             selectOnFocus:true,
 	        xtype:'textfield'

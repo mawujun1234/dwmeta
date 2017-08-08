@@ -1,10 +1,11 @@
 package com.mawujun.dwmeta;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.mawujun.repository.IRepository;
-
-import com.mawujun.dwmeta.Constraints;
 /**
  * @author mawujun qq:16064988 e-mail:mawujun1234@163.com 
  * @version 1.0
@@ -13,5 +14,5 @@ import com.mawujun.dwmeta.Constraints;
 @Repository
 public interface ConstraintsRepository extends IRepository<Constraints, String>{
 
-
+	public List<Tablemeta> querySameUserTable(@Param("tablemeta_id")String tablemeta_id);
 }

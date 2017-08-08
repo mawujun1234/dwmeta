@@ -14,7 +14,7 @@ import com.mawujun.annotation.FieldDefine;
 import com.mawujun.dwmeta.Tablemeta;
 
 @Entity
-@Table(name="dw_history")
+@Table(name="dw_his_history")
 public  class History {
 	@Id
 	@FieldDefine(title="id",sort=7,hidden=true)

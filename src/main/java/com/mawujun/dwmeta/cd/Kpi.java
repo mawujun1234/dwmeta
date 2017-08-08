@@ -1,4 +1,4 @@
-package com.mawujun.dwmeta.kpi;
+package com.mawujun.dwmeta.cd;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

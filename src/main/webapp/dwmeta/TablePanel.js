@@ -8,7 +8,8 @@ Ext.define('Ems.dwmeta.TablePanel',{
 	layout:'border',
 	
 	classify_id:null,//当新建的时候
-	tablemeta_id:null,//当更新的时候
+	tablemeta_id:null,//当新建的时候
+	dwlayer_id:null,//主要用在新建的时候
 
 	
 	initComponent: function(){
@@ -49,6 +50,7 @@ Ext.define('Ems.dwmeta.TablePanel',{
 		if(!id){
 			var child=Ext.create('Ems.dwmeta.Tablemeta',{
 				classify_id:me.classify_id
+				,dwlayer_id:me.dwlayer_id
 				,entitytype:'table'
 				,db_id:window.db_id
 			});
@@ -73,6 +75,8 @@ Ext.define('Ems.dwmeta.TablePanel',{
 			});
 			me.tablemeta_id=id;
 			me.columnmetaGrid.reloadByTablemeta_id(id);
+			me.constraintsGrid.reloadByTablemeta_id(id);
+			
 		}
 		
 	}

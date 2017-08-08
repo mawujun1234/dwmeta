@@ -281,7 +281,8 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
     	}
     	
     	var tablePanel=Ext.create('Ems.dwmeta.TablePanel',{
-    		classify_id:id
+    		classify_id:id,
+    		dwlayer_id:dwlayer_id
     		//,db_id:window.db_id
     	});
     	tablePanel.loadTablemeta();

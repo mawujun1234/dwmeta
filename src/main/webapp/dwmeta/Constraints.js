@@ -6,6 +6,10 @@ Ext.define("Ems.dwmeta.Constraints",{
 		{name:'name',type:'string'},
 		{name:'id',type:'string'},
 		{name:'tablemeta_id',type:'string'}
+		
+		,{name:'col_id',type:'string'}
+		,{name:'ref_table_id',type:'string'}
+		,{name:'ref_col_id',type:'string'}
 	],
 	proxy:{
 		type:'ajax',

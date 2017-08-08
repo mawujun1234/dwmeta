@@ -1,4 +1,4 @@
-package com.mawujun.dwmeta.kpi;
+package com.mawujun.dwmeta.cd;
 import java.util.List;
 
 import javax.annotation.Resource;

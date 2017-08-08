@@ -20,5 +20,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		from dw_constraints a
 		<include refid="queryPage_where" />	
     </select>
+    
+    <select id="querySameUserTable"  resultType="com.mawujun.dwmeta.Tablemeta" parameterType="map">
+    	select distinct b.* from dw_tablemeta a,dw_tablemeta b
+		where a.dwlayer_id=b.dwlayer_id and a.id=#{tablemeta_id}
+    </select>
 </mapper>
 

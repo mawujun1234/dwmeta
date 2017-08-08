@@ -1,5 +1,7 @@
 package com.mawujun.dwmeta;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -29,13 +31,20 @@ public class Constraints extends UUIDEntity {
 	
 	
 	
-	@FieldDefine(title="是否可用",sort=6)
-	private Boolean status;
+//	@FieldDefine(title="是否可用",sort=6)
+//	private Boolean status;
 	
 	@FieldDefine(title="所属表",hidden=true)
 	@Column(length=36) 
 	@FK(cls=Tablemeta.class,column="id")
 	private String tablemeta_id;
+	
+	@FieldDefine(title="创建时间",hidden=true)
+	@Column(updatable=false) 
+	private Date createTime;
+	@FieldDefine(title="创建者",hidden=true)
+	@Column(length=36,updatable=false) 
+	private String creater;
 
 	public String getName() {
 		return name;
@@ -53,20 +62,28 @@ public class Constraints extends UUIDEntity {
 		this.type = type;
 	}
 
-	public Boolean getStatus() {
-		return status;
-	}
-
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
-
 	public String getTablemeta_id() {
 		return tablemeta_id;
 	}
 
 	public void setTablemeta_id(String tablemeta_id) {
 		this.tablemeta_id = tablemeta_id;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getCreater() {
+		return creater;
+	}
+
+	public void setCreater(String creater) {
+		this.creater = creater;
 	}
 	
 

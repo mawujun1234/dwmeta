@@ -43,7 +43,10 @@ public class Tablemeta {
 	private String remark;
 	
 	
-
+	@FieldDefine(title="dwlayer_id",hidden=true)
+	@Column(length=36) 
+	@FK(cls=DWLayer.class,column="id")
+	private String dwlayer_id;//属于哪一层下面的分类，这个是冗余字段
 	@FieldDefine(title="所属分类",hidden=true)
 	@Column(length=36,nullable=false) 
 	@FK(cls=Classify.class,column="id")
@@ -146,6 +149,18 @@ public class Tablemeta {
 
 	public void setHistory_id(String history_id) {
 		this.history_id = history_id;
+	}
+
+
+
+	public String getDwlayer_id() {
+		return dwlayer_id;
+	}
+
+
+
+	public void setDwlayer_id(String dwlayer_id) {
+		this.dwlayer_id = dwlayer_id;
 	}
 
 

@@ -1,6 +1,8 @@
 Ext.require('Ems.dwmeta.DwmetaTree');
 Ext.require('Ems.dwmeta.TablePanel');
 Ext.require('Ext.ux.TabCloseMenu');
+Ext.require('Ems.dwmeta.ConstraintsGrid');
+Ext.require('Ems.dwmeta.ConstraintsForm');
 Ext.onReady(function(){
 	if(!window.db_id){
 		alert("请先设置数据库的id!");

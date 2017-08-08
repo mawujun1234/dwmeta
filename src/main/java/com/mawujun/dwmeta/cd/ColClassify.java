@@ -1,4 +1,4 @@
-package com.mawujun.dwmeta.kpi;
+package com.mawujun.dwmeta.cd;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +15,7 @@ import com.mawujun.repository.idEntity.UUIDEntity;
  *
  */
 @Entity
-@Table(name="dw_colclassify")
+@Table(name="dw_cd_colclassify")
 public class ColClassify extends UUIDEntity {
 	@Column(length=30,nullable=false,unique=false)
 	@FieldDefine(title="名称",sort=6)

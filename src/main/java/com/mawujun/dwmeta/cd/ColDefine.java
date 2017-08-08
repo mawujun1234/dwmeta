@@ -1,4 +1,4 @@
-package com.mawujun.dwmeta.kpi;
+package com.mawujun.dwmeta.cd;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import com.mawujun.annotation.ShowType;
 import com.mawujun.repository.idEntity.UUIDEntity;
 
 @Entity
-@Table(name="dw_coldefine")
+@Table(name="dw_cd_coldefine")
 public class ColDefine extends UUIDEntity {
 	@Column(length=30,nullable=false,unique=false)
 	@FieldDefine(title="列名",sort=6,genQuery=true)

@@ -1,12 +1,12 @@
-package com.mawujun.dwmeta.kpi;
-import java.util.List;
+package com.mawujun.dwmeta.cd;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mawujun.controller.spring.mvc.MapParams;
+import com.mawujun.dwmeta.cd.ColDefine;
+import com.mawujun.dwmeta.cd.ColDefineRepository;
 import com.mawujun.service.AbstractService;
 
 
@@ -17,17 +17,14 @@ import com.mawujun.service.AbstractService;
  */
 @Service
 @Transactional(propagation=Propagation.REQUIRED)
-public class KpiService extends AbstractService<Kpi, String>{
+public class ColDefineService extends AbstractService<ColDefine, String>{
 
 	@Autowired
-	private KpiRepository kpiRepository;
+	private ColDefineRepository colDefineRepository;
 	
 	@Override
-	public KpiRepository getRepository() {
-		return kpiRepository;
-	}
-	public List<Kpi> queryAll(MapParams params) {
-		return kpiRepository.queryAll(params.getParams());
+	public ColDefineRepository getRepository() {
+		return colDefineRepository;
 	}
 
 }

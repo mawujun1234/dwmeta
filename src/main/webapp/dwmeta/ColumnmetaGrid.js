@@ -24,13 +24,13 @@ Ext.define('Ems.dwmeta.ColumnmetaGrid',{
         },
 		{dataIndex:'collen',header:'长度',hidden:true
         },
-		{dataIndex:'ispk',header:'是否主键',xtype: 'checkcolumn'	
-            ,stopSelection :false,
-			processEvent : function(type) {  
-            	if (type == 'click')  
-                   return false;  
-            }
-		},
+//		{dataIndex:'ispk',header:'是否主键',xtype: 'checkcolumn'	
+//            ,stopSelection :false,
+//			processEvent : function(type) {  
+//            	if (type == 'click')  
+//                   return false;  
+//            }
+//		},
 		{dataIndex:'nullable',header:'可否为空',xtype: 'checkcolumn'	
             ,stopSelection :false,
 			processEvent : function(type) {  
