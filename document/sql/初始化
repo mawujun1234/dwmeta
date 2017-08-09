@@ -15,6 +15,8 @@ values ('root', null, 'root', null, null, null, null, null, 0, 1, 0, '根节点'
 
 --菜单
 insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL)
+values ('c8f4411b-6f80-4bbd-ba84-cc711af80a72', null, 1, 'menu', '常用列维护', null, null, 2, '/kpi/ColDefineApp.jsp');
+insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL)
 values ('ca51fe5d-6e24-4388-8249-f8f1ac6f4feb', null, 1, 'menu', '常数维护', '1eb1d9ea-075c-43c6-baa3-d36004f4d4b7', null, 0, '/constant/ConstantApp.jsp');
 insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL)
 values ('1eb1d9ea-075c-43c6-baa3-d36004f4d4b7', null, 0, 'menu', '基础维护', null, null, 0, null);
@@ -26,14 +28,16 @@ insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL
 values ('a124a5f1-70a3-4dba-a014-68385edd922b', null, 1, 'menu', '组织岗位管理', '1eb1d9ea-075c-43c6-baa3-d36004f4d4b7', null, 0, '/org/OrgApp.jsp');
 insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL)
 values ('a7439ed8-ad09-452f-9860-27157c9027d9', null, 1, 'menu', '用户管理', '1eb1d9ea-075c-43c6-baa3-d36004f4d4b7', null, 0, '/permission/UserApp.jsp');
-insert into T_MENU (id, code, leaf, menutype, name, parent_id, remark, sort, url)
+insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL)
+values ('621ddc60-547e-4fc2-8752-d5f6a4d620ed', null, 1, 'menu', '11', null, null, null, '/dwmeta/DwmetaApp.jsp?db_id=8669dd1a-eaa4-40e7-af33-1986965c33e9');
+insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL)
 values ('0ec73c74-a105-4cd6-840c-f2021acdd6aa', null, 1, 'menu', '元数据综合查询', null, null, 1, null);
-insert into T_MENU (id, code, leaf, menutype, name, parent_id, remark, sort, url)
-values ('972d70ac-fe0e-4963-8ad3-67b01bca28ad', null, 1, 'menu', '元数据管理', null, null, 2, '/dwmeta/DwmetaApp.jsp');
-insert into T_MENU (id, code, leaf, menutype, name, parent_id, remark, sort, url)
-values ('f517b889-ca57-4894-ae40-5c839dc7a362', null, 1, 'menu', 'DW层', null, null, 3, '/dwmeta/DWLayerApp.jsp');
-insert into T_MENU (id, code, leaf, menutype, name, parent_id, remark, sort, url)
-values ('8bd386e1-781c-44f9-af88-a43623c13c0b', null, 1, 'menu', 'kpi指标库管理', null, null, 0, '/kpi/KpiApp.jsp');
+insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL)
+values ('972d70ac-fe0e-4963-8ad3-67b01bca28ad', null, 1, 'menu', 'DW元数据管理', null, null, 2, '/dwmeta/DwmetaApp.jsp?db_id=0170cf9e-1de7-43e6-9046-d2d57da52a11');
+insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL)
+values ('8bd386e1-781c-44f9-af88-a43623c13c0b', null, 1, 'menu', 'KPI指标库管理', null, null, 0, '/kpi/KpiApp.jsp');
+insert into t_menu (ID, CODE, LEAF, MENUTYPE, NAME, PARENT_ID, REMARK, SORT, URL)
+values ('878fb569-0ef6-400a-afde-655f4aca00df', null, 1, 'menu', '数据库配置', null, null, 0, '/dwmeta/DBApp.jsp');
 
 --角色访问的基础菜单
 insert into t_role_menu (ROLE_ID, MENU_ID)

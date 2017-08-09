@@ -13,6 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 import com.mawujun.annotation.FK;
 import com.mawujun.annotation.FieldDefine;
 import com.mawujun.dwmeta.Classify;
+import com.mawujun.dwmeta.DWLayer;
 import com.mawujun.dwmeta.Tablemeta;
 /**
  * 保留修改时的所有原有的信息，这样后续才能进行比对
@@ -37,13 +38,17 @@ public class HisTabmeta {
 	@Column(length=30,nullable=true,unique=false)
 	@FieldDefine(title="中文名称",sort=6)
 	private String name;//中文名称，易于理解的名称
-	@Column(length=20)
-	@FieldDefine(title="表还是视图")
-	private String entitytype;//表还是视图
+//	@Column(length=20)
+//	@FieldDefine(title="表还是视图")
+//	private String entitytype;//表还是视图
 	@Column(length=150)
 	@FieldDefine(title="备注")
 	private String remark;
 	
+	@FieldDefine(title="dwlayer_id",hidden=true)
+	@Column(length=36) 
+	@FK(cls=DWLayer.class,column="id")
+	private String dwlayer_id;//属于哪一层下面的分类，这个是冗余字段
 	@FieldDefine(title="所属分类",hidden=true)
 	@Column(length=36,nullable=false) 
 	@FK(cls=Classify.class,column="id")
@@ -62,7 +67,7 @@ public class HisTabmeta {
 	@FieldDefine(title="tablemeta_id",hidden=true)
 	@Column(length=36,nullable=false) 
 	@FK(cls=Tablemeta.class,column="id")
-	private String tablemeta_id;//
+	private String tablemeta_id;//那个表的记录
 	
 //	
 //	@FieldDefine(title="操作类型",hidden=false)
@@ -97,12 +102,7 @@ public class HisTabmeta {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getEntitytype() {
-		return entitytype;
-	}
-	public void setEntitytype(String entitytype) {
-		this.entitytype = entitytype;
-	}
+
 	public String getRemark() {
 		return remark;
 	}

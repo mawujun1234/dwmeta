@@ -16,7 +16,7 @@ import com.mawujun.dwmeta.Columnmeta;
 import com.mawujun.dwmeta.Tablemeta;
 
 @Entity
-@Table(name="dw_his_coleta")
+@Table(name="dw_his_colmeta")
 public class HisColmeta {
 	@Id
 	@GeneratedValue(generator = "uuid")
@@ -37,11 +37,11 @@ public class HisColmeta {
 	@Column(length=30,nullable=false,unique=false)
 	@FieldDefine(title="类型",sort=6)
 	private String coltype;
-	@Column(length=30,nullable=true,unique=false)
-	@FieldDefine(title="长度",sort=6)
-	private String collen;
-	@FieldDefine(title="是否主键",sort=6)
-	private Boolean ispk;
+//	@Column(length=30,nullable=true,unique=false)
+//	@FieldDefine(title="长度",sort=6)
+//	private String collen;
+//	@FieldDefine(title="是否主键",sort=6)
+//	private Boolean ispk;
 	@FieldDefine(title="可否为空",sort=6)
 	private Boolean nullable;
 	@Column(length=50,nullable=true,unique=false)
@@ -102,18 +102,6 @@ public class HisColmeta {
 	}
 	public void setColtype(String coltype) {
 		this.coltype = coltype;
-	}
-	public String getCollen() {
-		return collen;
-	}
-	public void setCollen(String collen) {
-		this.collen = collen;
-	}
-	public Boolean getIspk() {
-		return ispk;
-	}
-	public void setIspk(Boolean ispk) {
-		this.ispk = ispk;
 	}
 	public Boolean getNullable() {
 		return nullable;
