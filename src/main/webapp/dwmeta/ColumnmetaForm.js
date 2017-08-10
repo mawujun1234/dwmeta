@@ -143,16 +143,19 @@ Ext.define('Ems.dwmeta.ColumnmetaForm',{
 				//record.set("ispk",formpanel.getForm().findField("ispk").getValue());
 				record.set("nullable",formpanel.getForm().findField("nullable").getValue());
 				//record.set("history_id",window.history_id);
-				record.save({
-					failure: function(record, operation) {
-				    },
-				    success: function(record, operation) {
-				    	
-				    	formpanel.fireEvent("saved",record);
-						button.up('window').close();
-						
-				    }
-				});			
+				
+				formpanel.fireEvent("saved",record);
+				button.up('window').close();
+//				record.save({
+//					failure: function(record, operation) {
+//				    },
+//				    success: function(record, operation) {
+//				    	
+//				    	formpanel.fireEvent("saved",record);
+//						button.up('window').close();
+//						
+//				    }
+//				});			
 				
 				}
 			},{

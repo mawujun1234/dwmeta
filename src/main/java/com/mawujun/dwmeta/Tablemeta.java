@@ -54,8 +54,8 @@ public class Tablemeta {
 
 	@Transient
 	private String db_id;
-	@Transient
-	private String history_id;
+//	@Transient
+//	private String history_id;
 
 	public String getId() {
 		return id;
@@ -138,19 +138,6 @@ public class Tablemeta {
 //	public void setEntitytype(String entitytype) {
 //		this.entitytype = entitytype;
 //	}
-
-
-
-	public String getHistory_id() {
-		return history_id;
-	}
-
-
-
-	public void setHistory_id(String history_id) {
-		this.history_id = history_id;
-	}
-
 
 
 	public String getDwlayer_id() {

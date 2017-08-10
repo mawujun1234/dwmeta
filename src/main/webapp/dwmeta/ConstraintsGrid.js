@@ -47,13 +47,13 @@ Ext.define('Ems.dwmeta.ConstraintsGrid',{
 	  });
 
 	  me.dockedItems=[];
-      me.dockedItems.push({
-	        xtype: 'pagingtoolbar',
-	        store: me.store,  
-	        dock: 'bottom',
-	        displayInfo: true
-	  });
-	  
+//      me.dockedItems.push({
+//	        xtype: 'pagingtoolbar',
+//	        store: me.store,  
+//	        dock: 'bottom',
+//	        displayInfo: true
+//	  });
+//	  
 	  me.dockedItems.push({
 	  		xtype: 'toolbar',
 	  		dock:'top',

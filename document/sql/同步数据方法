@@ -1,6 +1,6 @@
 打开cmd
 set NLS_LANG=SIMPLIFIED CHINESE_CHINA.AL32UTF8
-NLS_LANG=SIMPLIFIED CHINESE_CHINA.ZHS16GBK
+--NLS_LANG=SIMPLIFIED CHINESE_CHINA.ZHS16GBK
 sqlplus dwmeta/dwmeta@dwmeta
  执行  @'E:\eclipse\aaa\dwmeta\document\sql\syncdata.sql'这样就可以在两台数据库之间同步数据了，在开发的时候特别有用
    @'D:\mawujun\workspace\dwmeta\document\sql\syncdata.sql'

@@ -43,6 +43,45 @@ Ext.define('Ems.dwmeta.TablePanel',{
 		});
 		me.items=[me.tablemetaForm,tabpanel];
 		
+		
+			  this.buttons = [];
+	  this.buttonAlign='center';
+		this.buttons.push({
+			text : '保存',
+			itemId : 'save',
+			formBind: true, //only enabled once the form is valid
+       		disabled: true,
+			glyph : 0xf0c7,
+			handler : function(button){
+				var formpanel = button.up('form');
+				formpanel.updateRecord();
+				var record=formpanel.getForm().getRecord();
+				record.set("history_id",window.history_id);
+				record.save({
+					failure: function(record, operation) {
+				    },
+				    success: function(record, operation) {
+				    	formpanel.fireEvent("saved",record);
+				    	formpanel.loadRecord(record);
+						//button.up('window').close();
+				    }
+				});			
+				
+				}
+			},{
+				text : '关闭',
+				itemId : 'close',
+				glyph : 0xf00d,
+				handler : function(button){
+					var aa=button.up('window');
+					if(aa){
+						aa.close();
+					} else {
+						button.up('dwmeta_tablepanel').close();
+					}
+				}
+	    });
+		
 		me.callParent();
 	},
 	loadTablemeta:function(id){

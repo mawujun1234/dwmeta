@@ -23,7 +23,12 @@ Ext.onReady(function(){
     });
 	
 	
-	window.history_id=(new Date()).getTime()
+	//window.history_id=(new Date()).getTime()
+    window.hisobj={
+			createcoles:[],
+			updatecoles:[],
+			deletecoles:[]
+	}
 	var dwmetaTree=Ext.create('Ems.dwmeta.DwmetaTree',{
 		region:'west'
 		,width:220
