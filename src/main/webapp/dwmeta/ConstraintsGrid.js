@@ -67,6 +67,7 @@ Ext.define('Ems.dwmeta.ConstraintsGrid',{
 			},{
 			    text: '更新',
 			    itemId:'update',
+			    hidden:true,
 			    handler: function(){
 			    	me.onUpdate();
 					

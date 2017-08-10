@@ -36,9 +36,10 @@ public  class History {
 	private String operater;
 	@FieldDefine(title="是否主动",hidden=false)
 	private Boolean intiactive;//主动修改，还是被动修改。如果先在元数据管理修改的话就是主动修改
-//	@FieldDefine(title="修改内容",hidden=false)
-//	@Column(length=36,nullable=false) 
-//	private String content;
+	@FieldDefine(title="修改内容",hidden=false)
+	@Column(length=36,nullable=true) 
+	private String sql_content;
+	
 	public String getId() {
 		return id;
 	}
@@ -74,6 +75,12 @@ public  class History {
 	}
 	public void setIntiactive(Boolean intiactive) {
 		this.intiactive = intiactive;
+	}
+	public String getSql_content() {
+		return sql_content;
+	}
+	public void setSql_content(String sql_content) {
+		this.sql_content = sql_content;
 	}
 
 }

@@ -12,92 +12,6 @@ public static final class ConstantItem {
 	public static final String status="status";
 	public static final String constant_id="constant_id";
 }
-public static final class Classify {
-	public static final String id="id";
-	public static final String name="name";
-	public static final String remark="remark";
-	public static final String dwlayer_id="dwlayer_id";
-	public static final String parent_id="parent_id";
-}
-public static final class Columnmeta {
-	public static final String id="id";
-	public static final String colname="colname";
-	public static final String name="name";
-	public static final String coltype="coltype";
-	public static final String nullable="nullable";
-	public static final String defaultvalue="defaultvalue";
-	public static final String comments="comments";
-	public static final String sorted="sorted";
-	public static final String reasons="reasons";
-	public static final String tablemeta_id="tablemeta_id";
-	public static final String history_id="history_id";
-}
-public static final class Constraints {
-	public static final String name="name";
-	public static final String type="type";
-	public static final String status="status";
-	public static final String tablemeta_id="tablemeta_id";
-	public static final String id="id";
-}
-public static final class ConstraintsCols {
-	public static final String column="column";
-	public static final String constraints_id="constraints_id";
-	public static final String id="id";
-}
-public static final class DB {
-	public static final String name="name";
-	public static final String dbtype="dbtype";
-	public static final String remark="remark";
-	public static final String id="id";
-}
-public static final class DWLayer {
-	public static final String id="id";
-	public static final String name="name";
-	public static final String jdbc_driver="jdbc_driver";
-	public static final String jdbc_url="jdbc_url";
-	public static final String jdbc_username="jdbc_username";
-	public static final String jdbc_password="jdbc_password";
-	public static final String remark="remark";
-	public static final String db_id="db_id";
-}
-public static final class HisColmeta {
-	public static final String id="id";
-	public static final String colname="colname";
-	public static final String name="name";
-	public static final String coltype="coltype";
-	public static final String collen="collen";
-	public static final String ispk="ispk";
-	public static final String nullable="nullable";
-	public static final String defaultvalue="defaultvalue";
-	public static final String comments="comments";
-	public static final String sorted="sorted";
-	public static final String reasons="reasons";
-	public static final String tablemeta_id="tablemeta_id";
-	public static final String history_id="history_id";
-	public static final String his_content="his_content";
-	public static final String his_createDate="his_createDate";
-	public static final String columnmeta_id="columnmeta_id";
-}
-public static final class HisTabmeta {
-	public static final String id="id";
-	public static final String tablename="tablename";
-	public static final String name="name";
-	public static final String entitytype="entitytype";
-	public static final String remark="remark";
-	public static final String classify_id="classify_id";
-	public static final String history_id="history_id";
-	public static final String his_content="his_content";
-	public static final String his_createDate="his_createDate";
-	public static final String tablemeta_id="tablemeta_id";
-}
-public static final class History {
-	public static final String id="id";
-	public static final String tablemeta_id="tablemeta_id";
-	public static final String operateType="operateType";
-	public static final String operateTime="operateTime";
-	public static final String operater="operater";
-	public static final String intiactive="intiactive";
-}
 public static final class ColClassify {
 	public static final String name="name";
 	public static final String remark="remark";
@@ -124,11 +38,99 @@ public static final class Kpi {
 	public static final String remark="remark";
 	public static final String kpi_type_id="kpi_type_id";
 }
+public static final class Classify {
+	public static final String id="id";
+	public static final String name="name";
+	public static final String remark="remark";
+	public static final String dwlayer_id="dwlayer_id";
+	public static final String parent_id="parent_id";
+}
+public static final class Columnmeta {
+	public static final String id="id";
+	public static final String colname="colname";
+	public static final String name="name";
+	public static final String coltype="coltype";
+	public static final String nullable="nullable";
+	public static final String defaultvalue="defaultvalue";
+	public static final String comments="comments";
+	public static final String sorted="sorted";
+	public static final String reasons="reasons";
+	public static final String tablemeta_id="tablemeta_id";
+	public static final String history_id="history_id";
+}
+public static final class Constraints {
+	public static final String name="name";
+	public static final String type="type";
+	public static final String tablemeta_id="tablemeta_id";
+	public static final String createTime="createTime";
+	public static final String creater="creater";
+	public static final String id="id";
+}
+public static final class ConstraintsCols {
+	public static final String col_id="col_id";
+	public static final String ref_table_id="ref_table_id";
+	public static final String ref_col_id="ref_col_id";
+	public static final String constraints_id="constraints_id";
+	public static final String id="id";
+}
+public static final class DB {
+	public static final String name="name";
+	public static final String dbtype="dbtype";
+	public static final String remark="remark";
+	public static final String id="id";
+}
+public static final class DWLayer {
+	public static final String id="id";
+	public static final String name="name";
+	public static final String jdbc_driver="jdbc_driver";
+	public static final String jdbc_url="jdbc_url";
+	public static final String jdbc_username="jdbc_username";
+	public static final String jdbc_password="jdbc_password";
+	public static final String remark="remark";
+	public static final String db_id="db_id";
+}
+public static final class HisColmeta {
+	public static final String id="id";
+	public static final String colname="colname";
+	public static final String name="name";
+	public static final String coltype="coltype";
+	public static final String nullable="nullable";
+	public static final String defaultvalue="defaultvalue";
+	public static final String comments="comments";
+	public static final String sorted="sorted";
+	public static final String reasons="reasons";
+	public static final String tablemeta_id="tablemeta_id";
+	public static final String history_id="history_id";
+	public static final String his_content="his_content";
+	public static final String his_createDate="his_createDate";
+	public static final String columnmeta_id="columnmeta_id";
+}
+public static final class HisTabmeta {
+	public static final String id="id";
+	public static final String tablename="tablename";
+	public static final String name="name";
+	public static final String remark="remark";
+	public static final String dwlayer_id="dwlayer_id";
+	public static final String classify_id="classify_id";
+	public static final String history_id="history_id";
+	public static final String his_content="his_content";
+	public static final String his_createDate="his_createDate";
+	public static final String tablemeta_id="tablemeta_id";
+}
+public static final class History {
+	public static final String id="id";
+	public static final String tablemeta_id="tablemeta_id";
+	public static final String operateType="operateType";
+	public static final String operateTime="operateTime";
+	public static final String operater="operater";
+	public static final String intiactive="intiactive";
+}
 public static final class Tablemeta {
 	public static final String id="id";
 	public static final String tablename="tablename";
 	public static final String name="name";
 	public static final String remark="remark";
+	public static final String dwlayer_id="dwlayer_id";
 	public static final String classify_id="classify_id";
 	public static final String db_id="db_id";
 	public static final String history_id="history_id";

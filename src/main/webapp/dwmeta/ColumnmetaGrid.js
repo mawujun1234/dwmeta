@@ -134,6 +134,7 @@ Ext.define('Ems.dwmeta.ColumnmetaGrid',{
     		return;
     	}
 		var child=Ext.create('Ems.dwmeta.Columnmeta',{
+			history_id:window.history_id,
 			tablemeta_id:tablemeta_id
 			,sorted:tablepanel.columnmetaGrid.getStore().getCount()+1
 		});
@@ -175,6 +176,7 @@ Ext.define('Ems.dwmeta.ColumnmetaGrid',{
     	}
 
 		var formpanel=Ext.create('Ems.dwmeta.ColumnmetaForm',{});
+		record.set(history_id,window.history_id);
 		formpanel.loadRecord(record);
 		
     	var win=Ext.create('Ext.window.Window',{
@@ -202,6 +204,7 @@ Ext.define('Ems.dwmeta.ColumnmetaGrid',{
 		Ext.Msg.confirm("删除",'确定要删除吗?', function(btn, text){
 			if (btn == 'yes'){
 				for(var i=0;i<records.length;i++){
+					records[i].set("history_id",window.history_id);
 					records[i].erase({
 					    failure: function(record, operation) {
 			            	//me.getStore().reload();

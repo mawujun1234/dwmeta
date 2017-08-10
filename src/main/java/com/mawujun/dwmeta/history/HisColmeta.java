@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -67,10 +69,14 @@ public class HisColmeta {
 	@FieldDefine(title="history_id",hidden=true)
 	@Column(length=36,nullable=false) 
 	@FK(cls=History.class,column="id")
-	private Long history_id;//也就是修改批次的id
-	@FieldDefine(title="修改内容",hidden=false)
+	private String history_id;//也就是修改批次的id
+	@FieldDefine(title="history_id",hidden=true)
 	@Column(length=36,nullable=false) 
-	private String his_content;
+	@Enumerated(EnumType.STRING)
+	private ColOperateType his_colOperateType;
+//	@FieldDefine(title="修改内容",hidden=false)
+//	@Column(length=36,nullable=false) 
+//	private String his_content;
 	@FieldDefine(title="创建时间",hidden=false)
 	private Date his_createDate;
 	@FieldDefine(title="columnmeta_id",hidden=true)
@@ -139,17 +145,11 @@ public class HisColmeta {
 	public void setTablemeta_id(String tablemeta_id) {
 		this.tablemeta_id = tablemeta_id;
 	}
-	public Long getHistory_id() {
+	public String getHistory_id() {
 		return history_id;
 	}
-	public void setHistory_id(Long history_id) {
+	public void setHistory_id(String history_id) {
 		this.history_id = history_id;
-	}
-	public String getHis_content() {
-		return his_content;
-	}
-	public void setHis_content(String his_content) {
-		this.his_content = his_content;
 	}
 
 	public Date getHis_createDate() {
@@ -163,6 +163,12 @@ public class HisColmeta {
 	}
 	public void setColumnmeta_id(String columnmeta_id) {
 		this.columnmeta_id = columnmeta_id;
+	}
+	public ColOperateType getHis_colOperateType() {
+		return his_colOperateType;
+	}
+	public void setHis_colOperateType(ColOperateType his_colOperateType) {
+		this.his_colOperateType = his_colOperateType;
 	}
 
 	

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mawujun.dwmeta.history.HisColmetaService;
+import com.mawujun.dwmeta.history.HistoryService;
 import com.mawujun.service.AbstractService;
 
 
@@ -20,7 +20,7 @@ public class ColumnmetaService extends AbstractService<Columnmeta, String>{
 	@Autowired
 	private ColumnmetaRepository columnmetaRepository;
 	@Autowired
-	private HisColmetaService historyColmetaService;
+	private HistoryService historyService;
 	
 	@Override
 	public ColumnmetaRepository getRepository() {
@@ -29,10 +29,23 @@ public class ColumnmetaService extends AbstractService<Columnmeta, String>{
 	@Override
 	public String create(Columnmeta entity) {
 		this.getRepository().create(entity);
-		//先判断当前列是否是创建的第一个列，如果是就同时建立同个批次的表的记录
-		historyColmetaService.logCreate(entity);
+		//
+		historyService.createColmeta(entity);
 
 		return entity.getId();
+	}
+	
+	@Override
+	public void update(Columnmeta entity) {
+		this.getRepository().update(entity);
+		//
+		historyService.updateColmeta(entity);
+	}
+	@Override
+	public void delete(Columnmeta entity) {
+		this.getRepository().delete(entity);
+		//
+		historyService.deleteColmeta(entity);
 	}
 
 }

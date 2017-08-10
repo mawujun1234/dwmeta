@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.mawujun.annotation.FK;
 import com.mawujun.annotation.FieldDefine;
@@ -45,6 +46,9 @@ public class Constraints extends UUIDEntity {
 	@FieldDefine(title="创建者",hidden=true)
 	@Column(length=36,updatable=false) 
 	private String creater;
+	
+	@Transient
+	private String history_id;
 
 	public String getName() {
 		return name;
@@ -84,6 +88,14 @@ public class Constraints extends UUIDEntity {
 
 	public void setCreater(String creater) {
 		this.creater = creater;
+	}
+
+	public String getHistory_id() {
+		return history_id;
+	}
+
+	public void setHistory_id(String history_id) {
+		this.history_id = history_id;
 	}
 	
 

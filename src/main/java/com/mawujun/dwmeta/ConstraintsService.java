@@ -132,5 +132,13 @@ public class ConstraintsService extends AbstractService<Constraints, String>{
 		
 		return entity.getId();
 	}
+	@Override
+	public void delete(Constraints entity) {
+		//删除明细数据
+		constraintsColsRepository.deleteBatch(Cnd.delete().andEquals(M.ConstraintsCols.constraints_id,entity.getId()));
+		
+		this.getRepository().delete(entity);
+		
+	}
 
 }

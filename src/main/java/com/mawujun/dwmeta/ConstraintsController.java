@@ -76,19 +76,19 @@ public class ConstraintsController {
 		return constraints;
 	}
 	
-	@RequestMapping("/constraints/update.do")
-	@ResponseBody
-	public  Constraints update(@RequestBody Constraints constraints) {
-		constraintsService.update(constraints);
-		return constraints;
-	}
-	
-	@RequestMapping("/constraints/deleteById.do")
-	@ResponseBody
-	public String deleteById(String id) {
-		constraintsService.deleteById(id);
-		return id;
-	}
+//	@RequestMapping("/constraints/update.do")
+//	@ResponseBody
+//	public  Constraints update(@RequestBody Constraints constraints) {
+//		constraintsService.update(constraints);
+//		return constraints;
+//	}
+//	
+//	@RequestMapping("/constraints/deleteById.do")
+//	@ResponseBody
+//	public String deleteById(String id) {
+//		constraintsService.deleteById(id);
+//		return id;
+//	}
 	
 	@RequestMapping("/constraints/destroy.do")
 	@ResponseBody

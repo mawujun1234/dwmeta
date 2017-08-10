@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mawujun.dwmeta.cd.ColClassify;
 import com.mawujun.dwmeta.cd.ColClassifyService;
+import com.mawujun.exception.BusinessException;
 import com.mawujun.permission.Menu;
 import com.mawujun.permission.MenuService;
 import com.mawujun.permission.MenuType;
@@ -80,6 +81,9 @@ public class DBController {
 	@ResponseBody
 	public DBVO getDBVO(String id) {
 		DB db= dBService.get(id);
+		if(db==null){
+			throw new BusinessException("请先建立数据库!");
+		}
 		DBVO vo=BeanUtils.copyOrCast(db, DBVO.class);
 
 		List<String[]> aaa=new ArrayList<String[]>();

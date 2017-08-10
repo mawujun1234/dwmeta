@@ -51,7 +51,7 @@ public class HistoryController {
 
 	@RequestMapping("/history/load.do")
 	@ResponseBody
-	public History load(Long id) {
+	public History load(String id) {
 		return historyService.get(id);
 	}
 	
@@ -71,7 +71,7 @@ public class HistoryController {
 	
 	@RequestMapping("/history/deleteById.do")
 	@ResponseBody
-	public Long deleteById(Long id) {
+	public String deleteById(String id) {
 		historyService.deleteById(id);
 		return id;
 	}

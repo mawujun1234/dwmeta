@@ -142,7 +142,7 @@ Ext.define('Ems.dwmeta.ColumnmetaForm',{
 				var record=formpanel.getForm().getRecord();
 				//record.set("ispk",formpanel.getForm().findField("ispk").getValue());
 				record.set("nullable",formpanel.getForm().findField("nullable").getValue());
-				record.set("history_id",window.history_id);
+				//record.set("history_id",window.history_id);
 				record.save({
 					failure: function(record, operation) {
 				    },

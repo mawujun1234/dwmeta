@@ -11,7 +11,7 @@ import com.mawujun.dwmeta.history.History;
  * @since 1.0
  */
 @Repository
-public interface HistoryRepository extends IRepository<History, Long>{
+public interface HistoryRepository extends IRepository<History, String>{
 
 
 }

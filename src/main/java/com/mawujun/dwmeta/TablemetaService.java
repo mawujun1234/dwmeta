@@ -1,16 +1,12 @@
 package com.mawujun.dwmeta;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mawujun.dwmeta.history.HisTabmeta;
-import com.mawujun.dwmeta.history.HisTabmetaService;
+import com.mawujun.dwmeta.history.HistoryService;
 import com.mawujun.exception.BusinessException;
 import com.mawujun.service.AbstractService;
-import com.mawujun.utils.bean.BeanUtils;
 
 
 /**
@@ -25,13 +21,13 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 	@Autowired
 	private TablemetaRepository tablemetaRepository;
 	@Autowired
-	private HisTabmetaService historyTabmetaService;
+	private HistoryService historyService;
 	
 	@Override
 	public TablemetaRepository getRepository() {
 		return tablemetaRepository;
 	}
-	
+	@Override
 	public String create(Tablemeta entity) {
 		//判断表名是否重复
 		int count=tablemetaRepository.exists_tablename(entity.getDb_id(), entity.getTablename());
@@ -43,6 +39,16 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 		
 		
 		return entity.getId();
+	}
+	@Override
+	public void update(Tablemeta entity) {
+		this.getRepository().update(entity);
+		historyService.updateTabmeta(entity);
+	}
+	@Override
+	public void delete(Tablemeta entity) {
+		this.getRepository().delete(entity);
+		historyService.deleteTabmeta(entity);
 	}
 
 }
