@@ -64,16 +64,18 @@ Ext.define('Ems.dwmeta.ConstraintsGrid',{
 					me.onCreate();
 				},
 				iconCls: 'icon-plus'
-			},{
-			    text: '更新',
-			    itemId:'update',
-			    hidden:true,
-			    handler: function(){
-			    	me.onUpdate();
-					
-			    },
-			    iconCls: 'icon-edit'
-			},{
+			},
+//				{
+//			    text: '更新',
+//			    itemId:'update',
+//			    hidden:true,
+//			    handler: function(){
+//			    	me.onUpdate();
+//					
+//			    },
+//			    iconCls: 'icon-edit'
+//			},
+				{
 			    text: '删除',
 			    itemId:'destroy',
 			    handler: function(){
@@ -107,27 +109,34 @@ Ext.define('Ems.dwmeta.ConstraintsGrid',{
 	},
 	onCreate:function(){
     	var me=this;
-    	//var tablepanel=me.up("dwmeta_tablepanel");
-    	var tablemeta_id=me.getStore().getProxy().extraParams.tablemeta_id;//tablepanel.tablemetaForm.getForm().findField("id").getValue();
-    	if(!tablemeta_id){
-    		Ext.Msg.alert("消息","请先输入并保存表!");
-    		return;
-    	}
+//    	//var tablepanel=me.up("dwmeta_tablepanel");
+//    	var tablemeta_id=me.getStore().getProxy().extraParams.tablemeta_id;//tablepanel.tablemetaForm.getForm().findField("id").getValue();
+//    	if(!tablemeta_id){
+//    		Ext.Msg.alert("消息","请先输入并保存表!");
+//    		return;
+//    	}
 
 		var child=Ext.create('Ems.dwmeta.Constraints',{
-			tablemeta_id:tablemeta_id
+			//tablemeta_id:tablemeta_id
 		});
-		child.set("id",null);
+		//child.set("id",null);
+		var tablepanel=me.up("dwmeta_tablepanel");
 		
 		var formpanel=Ext.create('Ems.dwmeta.ConstraintsForm',{
-			tablemeta_id:tablemeta_id,
+			dwlayer_id:tablepanel.dwlayer_id,
 			listeners:{
     			saved:function(record){
-    				me.getStore().reload();
+    				me.getStore().add(record);
+    				record.newcreate=true;
+    				
+    				window.hisobj.createConstraints.push(record.getData());
+    				//me.getStore().reload();
     			}
     		}
 		});
 		formpanel.loadRecord(child);
+		
+		formpanel.getForm().findField("col_id").getStore().loadData(tablepanel.columnmetaGrid.getStore().getData().getRange() );
 		
     	var win=Ext.create('Ext.window.Window',{
     		layout:'fit',
@@ -210,15 +219,20 @@ Ext.define('Ems.dwmeta.ConstraintsGrid',{
 		}
 		var parent=record.parentNode;
 		Ext.Msg.confirm("删除",'确定要删除吗?', function(btn, text){
-				if (btn == 'yes'){
-					record.erase({
-					    failure: function(record, operation) {
-			            	me.getStore().reload();
-					    },
-					    success:function(){
-					    	me.getStore().reload();
-					    }
-				});
+			if (btn == 'yes'){
+				me.getStore().remove(record);
+				if(!record.newcreate){
+					window.hisobj.deleteConstraints.push(record.getData());
+				}
+				
+//					record.erase({
+//					    failure: function(record, operation) {
+//			            	me.getStore().reload();
+//					    },
+//					    success:function(){
+//					    	me.getStore().reload();
+//					    }
+//				});
 			}
 		});
     },

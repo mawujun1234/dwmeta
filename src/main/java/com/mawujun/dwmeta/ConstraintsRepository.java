@@ -14,5 +14,5 @@ import com.mawujun.repository.IRepository;
 @Repository
 public interface ConstraintsRepository extends IRepository<Constraints, String>{
 
-	public List<Tablemeta> querySameUserTable(@Param("tablemeta_id")String tablemeta_id);
+	public List<Tablemeta> querySameUserTable(@Param("dwlayer_id")String dwlayer_id);
 }

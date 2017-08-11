@@ -49,17 +49,23 @@ public class ConstraintsController {
 //		return constraintses;
 		return constraintsService.queryAll(tablemeta_id);
 	}
-	/**
-	 * 获取同个用户下面的表
-	 * @author mawujun qq:16064988 mawujun1234@163.com
-	 * @param tablemeta_id
-	 * @return
-	 */
+//	/**
+//	 * 获取同个用户下面的表
+//	 * @author mawujun qq:16064988 mawujun1234@163.com
+//	 * @param tablemeta_id
+//	 * @return
+//	 */
+//	@RequestMapping("/constraints/querySameUserTable.do")
+//	@ResponseBody
+//	public List<Tablemeta> querySameUserTable(String tablemeta_id) {	
+//		
+//		return constraintsService.querySameUserTable(tablemeta_id);
+//	}
 	@RequestMapping("/constraints/querySameUserTable.do")
 	@ResponseBody
-	public List<Tablemeta> querySameUserTable(String tablemeta_id) {	
+	public List<Tablemeta> querySameUserTable(String dwlayer_id) {	
 		
-		return constraintsService.querySameUserTable(tablemeta_id);
+		return constraintsService.querySameUserTable(dwlayer_id);
 	}
 	
 

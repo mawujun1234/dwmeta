@@ -3,11 +3,11 @@ package com.mawujun.dwmeta;
 public enum Dbtype {
 	
 	oracle("oracle","oracle.jdbc.driver.OracleDriver","jdbc:oracle:thin:@<host>:<port>:<SID>"
-			,new String[]{"CHAR(N)","NCHAR(N)","VARCHAR2(N CHAR)","NVARCHAR2(N)","NUMBER(P,S)","INTEGER","FLOAT(N)","DATE","TIMESTAMP"})
+			,new String[]{"CHAR(36)","NCHAR(36)","VARCHAR2(36 CHAR)","NVARCHAR2(36)","NUMBER(12,2)","INTEGER","FLOAT(15)","DATE","TIMESTAMP"})
 	,mysql("mysql","com.mysql.jdbc.Driver","jdbc:mysql://<host>:<port>/<database_name>?useUnicode=true&characterEncoding=utf8"
-			,new String[]{"CHAR(N)","VARCHAR(N)","TINYINT","SMALLINT","MEDIUMINT","INTEGER","BIGINT","FLOAT","DOUBLE","DECIMAL(P,S)","DATE","DATETIME","TIMESTAMP"})
+			,new String[]{"CHAR(36)","VARCHAR(36)","TINYINT","SMALLINT","MEDIUMINT","INTEGER","BIGINT","FLOAT","DOUBLE","DECIMAL(12,2)","DATE","DATETIME","TIMESTAMP"})
 	,sqlserver("sqlserver","com.microsoft.jdbc.sqlserver.SQLServerDriver","jdbc:microsoft:sqlserver://<server_name>:<port>",
-			new String[]{"char(n)","varchar(n)","nchar(n)","nvarchar(n)","tinyint","smallint","int","decimal(P,S)","numeric(P,S)","float[(n)]","datetime","timestamp"});
+			new String[]{"char(36)","varchar(36)","nchar(36)","nvarchar(36)","tinyint","smallint","int","decimal(12,2)","numeric(12,2)","float(15)","datetime","timestamp"});
 	
 	private String name;
 	private String jdbc_url;

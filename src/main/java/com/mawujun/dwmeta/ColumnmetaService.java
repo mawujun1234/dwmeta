@@ -19,33 +19,33 @@ public class ColumnmetaService extends AbstractService<Columnmeta, String>{
 
 	@Autowired
 	private ColumnmetaRepository columnmetaRepository;
-	@Autowired
-	private HistoryService historyService;
+//	@Autowired
+//	private HistoryService historyService;
 	
 	@Override
 	public ColumnmetaRepository getRepository() {
 		return columnmetaRepository;
 	}
-	@Override
-	public String create(Columnmeta entity) {
-		this.getRepository().create(entity);
-		//
-		historyService.createColmeta(entity);
-
-		return entity.getId();
-	}
-	
-	@Override
-	public void update(Columnmeta entity) {
-		this.getRepository().update(entity);
-		//
-		historyService.updateColmeta(entity);
-	}
-	@Override
-	public void delete(Columnmeta entity) {
-		this.getRepository().delete(entity);
-		//
-		historyService.deleteColmeta(entity);
-	}
+//	@Override
+//	public String create(Columnmeta entity) {
+//		this.getRepository().create(entity);
+//		//
+//		historyService.createColmeta(entity);
+//
+//		return entity.getId();
+//	}
+//	
+//	@Override
+//	public void update(Columnmeta entity) {
+//		this.getRepository().update(entity);
+//		//
+//		historyService.updateColmeta(entity);
+//	}
+//	@Override
+//	public void delete(Columnmeta entity) {
+//		this.getRepository().delete(entity);
+//		//
+//		historyService.deleteColmeta(entity);
+//	}
 
 }

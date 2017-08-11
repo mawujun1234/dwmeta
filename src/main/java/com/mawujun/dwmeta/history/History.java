@@ -25,10 +25,10 @@ public  class History {
 	@FK(cls=Tablemeta.class,column="id")
 	private String tablemeta_id;//
 	
-	@FieldDefine(title="操作类型",hidden=false)
-	@Column(length=36,nullable=false) 
-	@Enumerated(EnumType.STRING)
-	private OperateType operateType;
+//	@FieldDefine(title="操作类型",hidden=false)
+//	@Column(length=36,nullable=false) 
+//	@Enumerated(EnumType.STRING)
+//	private OperateType operateType;
 	@FieldDefine(title="操作时间",hidden=false)
 	private Date operateTime;
 	@FieldDefine(title="操作者",hidden=false)
@@ -37,7 +37,7 @@ public  class History {
 	@FieldDefine(title="是否主动",hidden=false)
 	private Boolean intiactive;//主动修改，还是被动修改。如果先在元数据管理修改的话就是主动修改
 	@FieldDefine(title="修改内容",hidden=false)
-	@Column(length=36,nullable=true) 
+	@Column(length=1200,nullable=true) 
 	private String sql_content;
 	
 	public String getId() {
@@ -52,12 +52,7 @@ public  class History {
 	public void setTablemeta_id(String tablemeta_id) {
 		this.tablemeta_id = tablemeta_id;
 	}
-	public OperateType getOperateType() {
-		return operateType;
-	}
-	public void setOperateType(OperateType operateType) {
-		this.operateType = operateType;
-	}
+
 	public Date getOperateTime() {
 		return operateTime;
 	}

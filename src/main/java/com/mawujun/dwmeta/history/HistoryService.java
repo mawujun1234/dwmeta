@@ -42,21 +42,36 @@ public class HistoryService extends AbstractService<History, String>{
 		return historyRepository;
 	}
 	
-	public void updateTabmeta(Tablemeta tablemeta){
-		String history_id=tablemeta.getHistory_id();
-		Date createdate=new Date();
+	public void createTabmeta(Tablemeta tablemeta,String history_id){
 		
-		History history = this.get(history_id);
-		if (history == null) {
-			history = new History();
-			history.setId(history_id);
-			history.setIntiactive(true);
-			history.setOperater(ShiroUtils.getUserId());
-			history.setOperateTime(createdate);
-			history.setTablemeta_id(tablemeta.getId());
-			history.setOperateType(OperateType.update_table);
-			this.create(history);
-		}
+		Date createdate=new Date();
+	
+		//Tablemeta tablemeta=tablemetaRepository.get(columnmeta.getTablemeta_id());
+		//创建历史记录
+		HisTabmeta historytabmeta=BeanUtils.copyOrCast(tablemeta, HisTabmeta.class);
+		historytabmeta.setId(null);
+		historytabmeta.setHistory_id(history_id);
+		historytabmeta.setTablemeta_id(tablemeta.getId());
+		historytabmeta.setHis_createDate(createdate);
+		hisTabmetaService.create(historytabmeta);
+		
+	}
+	
+	public void updateTabmeta(Tablemeta tablemeta,String history_id){
+//		String history_id=tablemeta.getHistory_id();
+		Date createdate=new Date();
+//		
+//		History history = this.get(history_id);
+//		if (history == null) {
+//			history = new History();
+//			history.setId(history_id);
+//			history.setIntiactive(true);
+//			history.setOperater(ShiroUtils.getUserId());
+//			history.setOperateTime(createdate);
+//			history.setTablemeta_id(tablemeta.getId());
+//			history.setOperateType(OperateType.update_table);
+//			this.create(history);
+//		}
 		
 		HisTabmeta histabmeta=BeanUtils.copyOrCast(tablemeta, HisTabmeta.class);
 		histabmeta.setId(null);
@@ -67,22 +82,22 @@ public class HistoryService extends AbstractService<History, String>{
 		
 	}
 	
-	public void deleteTabmeta(Tablemeta tablemeta){
-		String history_id=tablemeta.getHistory_id();
+	public void deleteTabmeta(Tablemeta tablemeta,String history_id){
+		//String history_id=tablemeta.getHistory_id();
 		Date createdate=new Date();
 		
-		History history = this.get(history_id);
-		if (history == null) {
-			history = new History();
-			history.setId(history_id);
-			history.setIntiactive(true);
-			history.setOperater(ShiroUtils.getUserId());
-			history.setOperateTime(createdate);
-			history.setTablemeta_id(tablemeta.getId());
-			history.setOperateType(OperateType.delete_table);
-			this.create(history);
-		}
-		
+//		History history = this.get(history_id);
+//		if (history == null) {
+//			history = new History();
+//			history.setId(history_id);
+//			history.setIntiactive(true);
+//			history.setOperater(ShiroUtils.getUserId());
+//			history.setOperateTime(createdate);
+//			history.setTablemeta_id(tablemeta.getId());
+//			history.setOperateType(OperateType.delete_table);
+//			this.create(history);
+//		}
+//		
 		HisTabmeta histabmeta=BeanUtils.copyOrCast(tablemeta, HisTabmeta.class);
 		histabmeta.setId(null);
 		histabmeta.setHistory_id(history_id);
@@ -92,69 +107,78 @@ public class HistoryService extends AbstractService<History, String>{
 		
 	}
 	
-	public void createColmeta(Columnmeta columnmeta) {
-		String history_id=columnmeta.getHistory_id();
-		//先判断当前列是否是创建的第一个列，如果是就同时建立同个批次的表的记录,表示这个表还每建立过
-		int count=hisColmetaRepository.queryCount(Cnd.count()
-				.andEquals(M.HisColmeta.tablemeta_id, columnmeta.getId()));
-				//.andEquals(M.HisColmeta.history_id, history_id));
-		Date createdate=new Date();
-		boolean iscreateTable=false;
-		if(count==0){
-			//再判断这个表如果是已经建立过了
-			iscreateTable=true;
-			Tablemeta tablemeta=tablemetaRepository.get(columnmeta.getTablemeta_id());
-			//创建历史记录
-			HisTabmeta historytabmeta=BeanUtils.copyOrCast(tablemeta, HisTabmeta.class);
-			historytabmeta.setId(null);
-			historytabmeta.setHistory_id(history_id);
-			historytabmeta.setTablemeta_id(columnmeta.getTablemeta_id());
-			historytabmeta.setHis_createDate(createdate);
-			hisTabmetaService.create(historytabmeta);
-		}
-		
+//	public void createColmeta(Columnmeta columnmeta,String history_id) {
+//		//String history_id=columnmeta.getHistory_id();
+//		//先判断当前列是否是创建的第一个列，如果是就同时建立同个批次的表的记录,表示这个表还每建立过
+//		int count=hisColmetaRepository.queryCount(Cnd.count()
+//				.andEquals(M.HisColmeta.tablemeta_id, columnmeta.getId()));
+//				//.andEquals(M.HisColmeta.history_id, history_id));
+//		Date createdate=new Date();
+//		boolean iscreateTable=false;
+//		if(count==0){
+//			//再判断这个表如果是已经建立过了
+//			iscreateTable=true;
+//			Tablemeta tablemeta=tablemetaRepository.get(columnmeta.getTablemeta_id());
+//			//创建历史记录
+//			HisTabmeta historytabmeta=BeanUtils.copyOrCast(tablemeta, HisTabmeta.class);
+//			historytabmeta.setId(null);
+//			historytabmeta.setHistory_id(history_id);
+//			historytabmeta.setTablemeta_id(columnmeta.getTablemeta_id());
+//			historytabmeta.setHis_createDate(createdate);
+//			hisTabmetaService.create(historytabmeta);
+//		}
+//		
+//		HisColmeta hiscolmeta=BeanUtils.copyOrCast(columnmeta, HisColmeta.class);
+//		hiscolmeta.setId(null);
+//		hiscolmeta.setHistory_id(history_id);
+//		hiscolmeta.setHis_createDate(createdate);
+//		hiscolmeta.setColumnmeta_id(columnmeta.getId());
+//		hiscolmeta.setHis_colOperateType(ColOperateType.create_col);
+//		hisColmetaRepository.create(hiscolmeta);
+//		
+//		//创建历史记录
+//		History history=this.get(history_id);
+//		if(history==null){
+//			history=new History();
+//			history.setId(history_id);
+//			history.setIntiactive(true);
+//			history.setOperater(ShiroUtils.getUserId());
+//			history.setOperateTime(createdate);
+//			history.setTablemeta_id(columnmeta.getTablemeta_id());
+//			history.setOperateType(iscreateTable==true?OperateType.create_table:OperateType.update_table);
+//			
+//			this.create(history);
+//		}
+//		
+//		//创建sql
+//		//history.setSql_content("");
+//
+//	}
+	public void createColmeta(Columnmeta columnmeta,String history_id) {
 		HisColmeta hiscolmeta=BeanUtils.copyOrCast(columnmeta, HisColmeta.class);
 		hiscolmeta.setId(null);
 		hiscolmeta.setHistory_id(history_id);
-		hiscolmeta.setHis_createDate(createdate);
+		hiscolmeta.setHis_createDate(new Date());
 		hiscolmeta.setColumnmeta_id(columnmeta.getId());
 		hiscolmeta.setHis_colOperateType(ColOperateType.create_col);
 		hisColmetaRepository.create(hiscolmeta);
-		
-		//创建历史记录
-		History history=this.get(history_id);
-		if(history==null){
-			history=new History();
-			history.setId(history_id);
-			history.setIntiactive(true);
-			history.setOperater(ShiroUtils.getUserId());
-			history.setOperateTime(createdate);
-			history.setTablemeta_id(columnmeta.getTablemeta_id());
-			history.setOperateType(iscreateTable==true?OperateType.create_table:OperateType.update_table);
-			
-			this.create(history);
-		}
-		
-		//创建sql
-		//history.setSql_content("");
-
 	}
 	
-	public void updateColmeta(Columnmeta columnmeta) {
+	public void updateColmeta(Columnmeta columnmeta,String history_id) {
 		Date createdate=new Date();
-		String history_id=columnmeta.getHistory_id();
-		// 创建历史记录
-		History history = this.get(history_id);
-		if (history == null) {
-			history = new History();
-			history.setId(history_id);
-			history.setIntiactive(true);
-			history.setOperater(ShiroUtils.getUserId());
-			history.setOperateTime(createdate);
-			history.setTablemeta_id(columnmeta.getTablemeta_id());
-			history.setOperateType(OperateType.update_table);
-			this.create(history);
-		}
+		//String history_id=columnmeta.getHistory_id();
+//		// 创建历史记录
+//		History history = this.get(history_id);
+//		if (history == null) {
+//			history = new History();
+//			history.setId(history_id);
+//			history.setIntiactive(true);
+//			history.setOperater(ShiroUtils.getUserId());
+//			history.setOperateTime(createdate);
+//			history.setTablemeta_id(columnmeta.getTablemeta_id());
+//			history.setOperateType(OperateType.update_table);
+//			this.create(history);
+//		}
 		
 		HisColmeta hiscolmeta=BeanUtils.copyOrCast(columnmeta, HisColmeta.class);
 		hiscolmeta.setId(null);
@@ -167,21 +191,21 @@ public class HistoryService extends AbstractService<History, String>{
 		//创建sql
 		//history.setSql_content("");
 	}
-	public void deleteColmeta(Columnmeta columnmeta) {
+	public void deleteColmeta(Columnmeta columnmeta,String history_id) {
 		Date createdate=new Date();
-		String history_id=columnmeta.getHistory_id();
+		//String history_id=columnmeta.getHistory_id();
 		// 创建历史记录
-		History history = this.get(history_id);
-		if (history == null) {
-			history = new History();
-			history.setId(history_id);
-			history.setIntiactive(true);
-			history.setOperater(ShiroUtils.getUserId());
-			history.setOperateTime(createdate);
-			history.setTablemeta_id(columnmeta.getTablemeta_id());
-			history.setOperateType(OperateType.update_table);
-			this.create(history);
-		}
+//		History history = this.get(history_id);
+//		if (history == null) {
+//			history = new History();
+//			history.setId(history_id);
+//			history.setIntiactive(true);
+//			history.setOperater(ShiroUtils.getUserId());
+//			history.setOperateTime(createdate);
+//			history.setTablemeta_id(columnmeta.getTablemeta_id());
+//			history.setOperateType(OperateType.update_table);
+//			this.create(history);
+//		}
 		
 		HisColmeta hiscolmeta=BeanUtils.copyOrCast(columnmeta, HisColmeta.class);
 		hiscolmeta.setId(null);
@@ -208,7 +232,7 @@ public class HistoryService extends AbstractService<History, String>{
 			history.setOperater(ShiroUtils.getUserId());
 			history.setOperateTime(createdate);
 			history.setTablemeta_id(constraints.getTablemeta_id());
-			history.setOperateType(OperateType.update_table);
+			//history.setOperateType(OperateType.update_table);
 			this.create(history);
 		}
 		

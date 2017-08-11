@@ -128,24 +128,26 @@ Ext.define('Ems.dwmeta.ColumnmetaGrid',{
 	onCreate:function(){
     	var me=this;
     	var tablepanel=me.up("dwmeta_tablepanel");
-    	var tablemeta_id=tablepanel.tablemetaForm.getForm().findField("id").getValue();
-    	if(!tablemeta_id){
-    		Ext.Msg.alert("消息","请先输入并保存表!");
-    		return;
-    	}
+//    	var tablemeta_id=tablepanel.tablemetaForm.getForm().findField("id").getValue();
+//    	if(!tablemeta_id){
+//    		Ext.Msg.alert("消息","请先输入并保存表!");
+//    		return;
+//    	}
 		var child=Ext.create('Ems.dwmeta.Columnmeta',{
 			//history_id:window.history_id,
-			tablemeta_id:tablemeta_id
-			,sorted:tablepanel.columnmetaGrid.getStore().getCount()+1
+			//tablemeta_id:tablemeta_id
+			sorted:tablepanel.columnmetaGrid.getStore().getCount()+1
 		});
-		child.set("id",null);
+		//child.set("id",null);
 		
 		
 		var formpanel=Ext.create('Ems.dwmeta.ColumnmetaForm',{
 			listeners:{
     			saved:function(record){
-    				//me.getStore().add(record);
-    				 window.hisobj.createcoles.push(record);
+    				me.getStore().add(record);
+    				record.newcreate=true;
+    				
+    				window.hisobj.createcoles.push(record.getData());
     			}
     		}
 		});
@@ -181,7 +183,10 @@ Ext.define('Ems.dwmeta.ColumnmetaGrid',{
 			listeners:{
     			saved:function(record){
     				//me.getStore().add(record);
-    				 window.hisobj.updatecoles.push(record);
+    				if(!record.newcreate){
+    					 window.hisobj.updatecoles.push(record.getData());
+    				}
+    				
     			}
     		}
 		});
@@ -213,7 +218,11 @@ Ext.define('Ems.dwmeta.ColumnmetaGrid',{
 		Ext.Msg.confirm("删除",'确定要删除吗?', function(btn, text){
 			if (btn == 'yes'){
 				for(var i=0;i<records.length;i++){
-					window.hisobj.deletecoles.push(record);
+					me.getStore().remove(records[i]);
+					if(!records[i].newcreate){
+						window.hisobj.deletecoles.push(records[i].getData());
+					}
+					
 //					//records[i].set("history_id",window.history_id);
 //					records[i].erase({
 //					    failure: function(record, operation) {

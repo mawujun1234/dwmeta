@@ -81,8 +81,8 @@ public class ConstraintsService extends AbstractService<Constraints, String>{
 				return vo;
 	}
 	
-	public List<Tablemeta> querySameUserTable(String tablemeta_id){
-		return constraintsRepository.querySameUserTable(tablemeta_id);
+	public List<Tablemeta> querySameUserTable(String dwlayer_id){
+		return constraintsRepository.querySameUserTable(dwlayer_id);
 	}
 	//@Override
 	public ConstraintsVO load(String id) {

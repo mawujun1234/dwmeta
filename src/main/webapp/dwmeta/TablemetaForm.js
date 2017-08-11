@@ -121,7 +121,7 @@ Ext.define('Ems.dwmeta.TablemetaForm',{
 //				var formpanel = button.up('form');
 //				formpanel.updateRecord();
 //				var record=formpanel.getForm().getRecord();
-//				record.set("history_id",window.history_id);
+//				//record.set("history_id",window.history_id);
 //				record.save({
 //					failure: function(record, operation) {
 //				    },

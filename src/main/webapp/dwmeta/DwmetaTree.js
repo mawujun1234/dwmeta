@@ -45,6 +45,7 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
 			});
 		});
 		me.on("itemclick",function( view, record, item, index, e, eOpts ){
+			window.tableTabPanel.dwlayer_id=record.get("dwlayer_id");
 			if(record.get("type")=="tablemeta"){
 				window.tableTabPanel.createTablemeta(record.get("id"),record.get("text"));
 			}

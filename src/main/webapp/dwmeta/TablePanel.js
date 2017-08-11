@@ -44,28 +44,54 @@ Ext.define('Ems.dwmeta.TablePanel',{
 		me.items=[me.tablemetaForm,tabpanel];
 		
 		
-			  this.buttons = [];
-	  this.buttonAlign='center';
+	   this.buttons = [];
+	   this.buttonAlign='center';
 		this.buttons.push({
 			text : '保存',
 			itemId : 'save',
 			formBind: true, //only enabled once the form is valid
-       		disabled: true,
+       		//disabled: true,
 			glyph : 0xf0c7,
 			handler : function(button){
-				var formpanel = button.up('form');
+				var formpanel = me.tablemetaForm;//button.up('form');
 				formpanel.updateRecord();
 				var record=formpanel.getForm().getRecord();
-				record.set("history_id",window.history_id);
-				record.save({
-					failure: function(record, operation) {
-				    },
-				    success: function(record, operation) {
-				    	formpanel.fireEvent("saved",record);
-				    	formpanel.loadRecord(record);
-						//button.up('window').close();
-				    }
-				});			
+				 window.hisobj.tablemeta=record.getData();
+				 Ext.Ajax.request({
+				 	headers :{ 'Accept':'application/json;'},
+				 	url:Ext.ContextPath+"/tablemeta/createorupdate.do",
+				 	jsonData:window.hisobj,
+				 	method:'POST',
+				 	success:function(response){
+				 		window.hisobj={
+					    	tablemeta:{},
+							createcoles:[],
+							updatecoles:[],
+							deletecoles:[],
+							createConstraints:[],
+							deleteConstraints:[]
+						}
+				 		var obj=Ext.decode(response.responseText);
+				 		me.loadTablemeta(obj.tablemeta_id);
+				 		//me.columnmetaGrid.reloadByTablemeta_id(obj.tablemeta_id);
+				 		me.closeThis();
+				 		alert("成功");
+				 		
+				 		
+				 	}
+				 	
+				 });
+//				//record.set("history_id",window.history_id);
+//				record.save({
+//					failure: function(record, operation) {
+//				    },
+//				    success: function(record, operation) {
+//				    	formpanel.fireEvent("saved",record);
+//				    	formpanel.loadRecord(record);
+//						//button.up('window').close();
+//				    }
+//				});	
+				
 				
 				}
 			},{
@@ -73,16 +99,20 @@ Ext.define('Ems.dwmeta.TablePanel',{
 				itemId : 'close',
 				glyph : 0xf00d,
 				handler : function(button){
-					var aa=button.up('window');
-					if(aa){
-						aa.close();
-					} else {
-						button.up('dwmeta_tablepanel').close();
-					}
+					me.closeThis();
 				}
 	    });
 		
 		me.callParent();
+	},
+	
+	closeThis:function(){
+		var aa=me.up('window');
+		if(aa){
+			aa.close();
+		} else {
+			button.up('dwmeta_tablepanel').close();
+		}
 	},
 	loadTablemeta:function(id){
 		var me=this;

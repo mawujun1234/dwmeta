@@ -22,20 +22,20 @@ public class TablemetaController {
 	private TablemetaService tablemetaService;
 
 
-	/**
-	 * 这是基于分页的几种写法,的例子，请按自己的需求修改
-	 * @author mawujun email:16064988@163.com qq:16064988
-	 * @param start
-	 * @param limit
-	 * @param userName
-	 * @return
-	 */
-	@RequestMapping("/tablemeta/queryPager.do")
-	@ResponseBody
-	public Pager<Tablemeta> queryPager(Pager<Tablemeta> pager){
-		
-		return tablemetaService.queryPage(pager);
-	}
+//	/**
+//	 * 这是基于分页的几种写法,的例子，请按自己的需求修改
+//	 * @author mawujun email:16064988@163.com qq:16064988
+//	 * @param start
+//	 * @param limit
+//	 * @param userName
+//	 * @return
+//	 */
+//	@RequestMapping("/tablemeta/queryPager.do")
+//	@ResponseBody
+//	public Pager<Tablemeta> queryPager(Pager<Tablemeta> pager){
+//		
+//		return tablemetaService.queryPage(pager);
+//	}
 
 	@RequestMapping("/tablemeta/queryAll.do")
 	@ResponseBody
@@ -57,6 +57,15 @@ public class TablemetaController {
 		
 		tablemetaService.create(tablemeta);
 		return tablemeta;
+		//return ResultModel.getInstance().setRoot(tablemeta);
+	}
+	
+	@RequestMapping("/tablemeta/createorupdate.do")
+	@ResponseBody
+	public String createAll(@RequestBody TablemetaDTO tablemetaDTO ) {
+		
+		tablemetaService.createorupdate(tablemetaDTO);
+		return "{success:true,tablemeta_id:'"+tablemetaDTO.getTablemeta().getId()+"'}";
 		//return ResultModel.getInstance().setRoot(tablemeta);
 	}
 	

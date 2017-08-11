@@ -25,9 +25,12 @@ Ext.onReady(function(){
 	
 	//window.history_id=(new Date()).getTime()
     window.hisobj={
-			createcoles:[],
-			updatecoles:[],
-			deletecoles:[]
+    	tablemeta:{},
+		createcoles:[],
+		updatecoles:[],
+		deletecoles:[],
+		createConstraints:[],
+		deleteConstraints:[]
 	}
 	var dwmetaTree=Ext.create('Ems.dwmeta.DwmetaTree',{
 		region:'west'

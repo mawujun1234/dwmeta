@@ -71,27 +71,31 @@ Ext.define('Ems.dwmeta.ConstraintsForm',{
             blankText:"列不允许为空",
 			displayField : 'colname',
 			valueField : 'id',
-			queryMode : 'remote',
+			queryMode : 'local',
 			filterPickList : true,
-			store : Ext.create('Ext.data.Store',{
+			store:Ext.create('Ext.data.ArrayStore',{
 				fields:["id","colname"],
-				proxy:{
-					type: 'ajax',
-				    url : Ext.ContextPath+'/columnmeta/query4combo.do',
-				    headers:{ 'Accept':'application/json;'},
-				    actionMethods: { read: 'POST' },
-				    extraParams:{
-				    	tablemeta_id:me.tablemeta_id
-				    },
-				    reader:{
-						type:'json'//,//如果没有分页，那么可以把后面三行去掉，而且后台只需要返回一个数组就行了
-//						rootProperty:'root',
-//						successProperty:'success',
-//						totalProperty:'total'		
-					}
-					
-				}
+				data:[]
 			})
+//			store : Ext.create('Ext.data.Store',{
+//				fields:["id","colname"],
+//				proxy:{
+//					type: 'ajax',
+//				    url : Ext.ContextPath+'/columnmeta/query4combo.do',
+//				    headers:{ 'Accept':'application/json;'},
+//				    actionMethods: { read: 'POST' },
+//				    extraParams:{
+//				    	tablemeta_id:me.tablemeta_id
+//				    },
+//				    reader:{
+//						type:'json'//,//如果没有分页，那么可以把后面三行去掉，而且后台只需要返回一个数组就行了
+////						rootProperty:'root',
+////						successProperty:'success',
+////						totalProperty:'total'		
+//					}
+//					
+//				}
+//			})
 		},
 		{
 			xtype : 'combobox',
@@ -114,7 +118,7 @@ Ext.define('Ems.dwmeta.ConstraintsForm',{
 				    headers:{ 'Accept':'application/json;'},
 				    actionMethods: { read: 'POST' },
 				    extraParams:{
-				    	tablemeta_id:me.tablemeta_id
+				    	dwlayer_id:window.tableTabPanel.dwlayer_id
 				    },
 				    reader:{
 						type:'json'//,//如果没有分页，那么可以把后面三行去掉，而且后台只需要返回一个数组就行了		
@@ -212,14 +216,20 @@ Ext.define('Ems.dwmeta.ConstraintsForm',{
 			handler : function(button){
 				var formpanel = button.up('form');
 				formpanel.updateRecord();
-				formpanel.getForm().getRecord().save({
-					failure: function(record, operation) {
-				    },
-				    success: function(record, operation) {
-				    	formpanel.fireEvent("saved",record);
-						button.up('window').close();
-				    }
-				});			
+				var record=formpanel.getForm().getRecord();
+				record.set("col_name",formpanel.getForm().findField("col_id").getRawValue());
+				record.set("ref_table_name",formpanel.getForm().findField("ref_table_id").getRawValue());
+				record.set("ref_col_name",formpanel.getForm().findField("ref_col_id").getRawValue());
+				formpanel.fireEvent("saved",record);
+				button.up('window').close();
+//				formpanel.getForm().getRecord().save({
+//					failure: function(record, operation) {
+//				    },
+//				    success: function(record, operation) {
+//				    	formpanel.fireEvent("saved",record);
+//						button.up('window').close();
+//				    }
+//				});			
 				
 				}
 			},{
