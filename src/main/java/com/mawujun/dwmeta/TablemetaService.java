@@ -209,6 +209,8 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 		//添加注释
 		.builder...
 		
+		//更新约束
+		
 		
 		return builder.toString();
 	}
