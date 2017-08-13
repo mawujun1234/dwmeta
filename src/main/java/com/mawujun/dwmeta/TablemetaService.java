@@ -207,9 +207,34 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 		builder.append("\n");
 		
 		//添加注释
-		.builder...
-		
-		//更新约束
+		if(db.getDbtype()==Dbtype.oracle){
+			//添加注释--oracle的方法
+			for(Columnmeta columnmeta:tablemetaDTO.getCreatecoles()) {
+				if(StringUtils.hasText(columnmeta.getName())){
+					//oracle的方法
+					builder.append("comment on column \""+tablemetaDTO.getTablemeta().getTablename()+"\".\""+columnmeta.getColname()+"\" is '"+columnmeta.getName()+"';");
+				}
+				builder.append("\n");
+			}
+		}
+		//删除约束
+		for(Constraints vo:tablemetaDTO.getDeleteConstraints()){
+			builder.append("alter table "+tablemetaDTO.getTablemeta().getTablename()+" drop constraint "+vo.getName()+";");
+			builder.append("\n");
+			
+		}
+		//新增约束
+		for(ConstraintsVO vo:tablemetaDTO.getCreateConstraints()){
+			if(vo.getType()==ConstraintsType.Primary){
+				builder.append("alter table "+tablemetaDTO.getTablemeta().getTablename()+" add constraint "+vo.getName()+" primary key ("+vo.getCol_name()+");");
+			}  else if(vo.getType()==ConstraintsType.Unique){
+				builder.append("alter table "+tablemetaDTO.getTablemeta().getTablename()+" add constraint "+vo.getName()+" unique ("+vo.getCol_name()+");");
+			} else if(vo.getType()==ConstraintsType.Foreign){
+				builder.append("alter table "+tablemetaDTO.getTablemeta().getTablename()+" add constraint "+vo.getName()+" foreign key ("+vo.getCol_name()+") references "+vo.getRef_table_name()+"("+vo.getRef_col_name()+");");
+			}
+			builder.append("\n");
+			
+		}
 		
 		
 		return builder.toString();
