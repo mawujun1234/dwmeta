@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mawujun.dwmeta.history.HistoryVO;
+import com.mawujun.repository.cnd.Cnd;
+import com.mawujun.utils.M;
 import com.mawujun.utils.page.Pager;
 /**
  * @author mawujun qq:16064988 e-mail:mawujun1234@163.com 
@@ -37,13 +40,19 @@ public class TablemetaController {
 //		return tablemetaService.queryPage(pager);
 //	}
 
-	@RequestMapping("/tablemeta/queryAll.do")
+//	@RequestMapping("/tablemeta/queryAll.do")
+//	@ResponseBody
+//	public List<Tablemeta> queryAll() {	
+//		List<Tablemeta> tablemetaes=tablemetaService.queryAll();
+//		return tablemetaes;
+//	}
+	
+	@RequestMapping("/tablemeta/queryHistory.do")
 	@ResponseBody
-	public List<Tablemeta> queryAll() {	
-		List<Tablemeta> tablemetaes=tablemetaService.queryAll();
+	public List<HistoryVO> queryHistory(String tablemeta_id) {	
+		List<HistoryVO> tablemetaes=tablemetaService.queryHistory(tablemeta_id);
 		return tablemetaes;
 	}
-	
 
 	@RequestMapping("/tablemeta/load.do")
 	@ResponseBody
@@ -79,15 +88,24 @@ public class TablemetaController {
 	@RequestMapping("/tablemeta/deleteById.do")
 	@ResponseBody
 	public String deleteById(String id) {
-		tablemetaService.deleteById(id);
+		//tablemetaService.deleteById(id);
+		tablemetaService.update(Cnd.update().set(M.Tablemeta.status, false).andEquals(M.Tablemeta.id, id));
 		return id;
 	}
 	
-	@RequestMapping("/tablemeta/destroy.do")
+	@RequestMapping("/tablemeta/replyById.do")
 	@ResponseBody
-	public Tablemeta destroy(@RequestBody Tablemeta tablemeta) {
-		tablemetaService.delete(tablemeta);
-		return tablemeta;
+	public String replyById(String id) {
+		//tablemetaService.deleteById(id);
+		tablemetaService.update(Cnd.update().set(M.Tablemeta.status, true).andEquals(M.Tablemeta.id, id));
+		return id;
+	}
+	
+	@RequestMapping("/tablemeta/deleteFocus.do")
+	@ResponseBody
+	public String deleteFocus(String id) {
+		tablemetaService.deleteFocus(id);
+		return id;
 	}
 	
 	

@@ -35,11 +35,13 @@ Ext.define('Ems.dwmeta.TablePanel',{
 			title:'约束维护'
 		});
 		
+		me.historyGrid=Ext.create("Ems.dwmeta.HistoryGrid",{
+			title:'变更历史'
+		});
+		
 		var tabpanel=Ext.create('Ext.tab.Panel',{
 			region:'center',
-			items:[me.columnmetaGrid,me.constraintsGrid,{
-				title:'变更历史'
-			}]
+			items:[me.columnmetaGrid,me.constraintsGrid,me.historyGrid]
 		});
 		me.items=[me.tablemetaForm,tabpanel];
 		
@@ -48,7 +50,7 @@ Ext.define('Ems.dwmeta.TablePanel',{
 	   this.buttonAlign='center';
 		this.buttons.push({
 			text : '保存',
-			itemId : 'save',
+			//itemId : 'save',
 			formBind: true, //only enabled once the form is valid
        		//disabled: true,
 			glyph : 0xf0c7,
@@ -95,23 +97,84 @@ Ext.define('Ems.dwmeta.TablePanel',{
 				
 				}
 			},{
-				text : '关闭',
-				itemId : 'close',
-				glyph : 0xf00d,
+				text : '删除',
+				//itemId : 'delete',
+				iconCls: 'icon-trash',
 				handler : function(button){
-					me.closeThis();
+					Ext.Msg.confirm("消息","删除会状态会变成不可用!",function(btn){
+						if(btn=='yes'){
+							Ext.Ajax.request({
+								url:Ext.ContextPath+'/tablemeta/deleteById.do',
+								params:{
+									id:me.tablemeta_id
+								},
+								success:function(response){
+									//me.closeThis();
+									me.loadTablemeta(me.tablemeta_id);
+								}
+							});
+						}
+					});
+					
 				}
+	    },{
+				text : "<span style='color:red;'>强制删除</span>",
+				//itemId : 'delete',
+				iconCls: 'icon-trash',
+	
+				handler : function(button){
+					Ext.Msg.confirm("消息","删除后将<span style='color:red;'>不可恢复</span>!",function(btn){
+						if(btn=='yes'){
+							Ext.Ajax.request({
+								url:Ext.ContextPath+'/tablemeta/deleteFocus.do',
+								params:{
+									id:me.tablemeta_id
+								},
+								success:function(response){
+									me.closeThis();
+								}
+							});
+						}
+					});
+					
+				}
+	    },{
+	    	text : '恢复',
+			itemId : 'replyById',
+			iconCls: 'icon-reply',
+			handler : function(button){
+				Ext.Ajax.request({
+								url:Ext.ContextPath+'/tablemeta/replyById.do',
+								params:{
+									id:me.tablemeta_id
+								},
+								success:function(response){
+									//me.closeThis();
+									me.toggleDisable(false);
+									alert("恢复成功!");
+								}
+							});
+			}
+	    },{
+	    	text : '关闭',
+			//itemId : 'close',
+			glyph : 0xf00d,
+			handler : function(button){
+				me.closeThis();
+			}
 	    });
 		
 		me.callParent();
 	},
 	
 	closeThis:function(){
+		var me=this;
 		var aa=me.up('window');
 		if(aa){
 			aa.close();
 		} else {
-			button.up('dwmeta_tablepanel').close();
+			//button.up('dwmeta_tablepanel').close();
+			me.close();;
 		}
 	},
 	loadTablemeta:function(id){
@@ -136,7 +199,12 @@ Ext.define('Ems.dwmeta.TablePanel',{
 			    },
 			    success: function(record, operation) {
 			        var formpanel=me.tablemetaForm;
+			        record.set("db_id",window.db_id);
 					formpanel.loadRecord(record);
+					
+					//if(record.get("status")=="false"){
+						me.toggleDisable(!record.get("status"));
+					//}
 			    },
 			    callback: function(record, operation, success) {
 			        // do something whether the load succeeded or failed
@@ -145,8 +213,24 @@ Ext.define('Ems.dwmeta.TablePanel',{
 			me.tablemeta_id=id;
 			me.columnmetaGrid.reloadByTablemeta_id(id);
 			me.constraintsGrid.reloadByTablemeta_id(id);
-			
+			me.historyGrid.reloadByTablemeta_id(id);
 		}
 		
+	},
+	toggleDisable:function(isdisable){
+		//净值任何操作
+		var dock=this.getDockedComponent(0);
+		var btns=dock.query("button");
+		for(var i=0;i<btns.length;i++){
+			
+			if(btns[i].getItemId()!="replyById"){
+				if(isdisable){
+					btns[i].disable();
+				} else {
+					btns[i].enable();
+				}
+				
+			}
+		}
 	}
 });

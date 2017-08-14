@@ -1,6 +1,7 @@
 package com.mawujun.dwmeta;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,10 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mawujun.dwmeta.history.History;
 import com.mawujun.dwmeta.history.HistoryService;
+import com.mawujun.dwmeta.history.HistoryVO;
 import com.mawujun.dwmeta.history.OperateType;
 import com.mawujun.exception.BusinessException;
 import com.mawujun.permission.ShiroUtils;
+import com.mawujun.repository.cnd.Cnd;
 import com.mawujun.service.AbstractService;
+import com.mawujun.utils.M;
 import com.mawujun.utils.string.StringUtils;
 
 
@@ -49,6 +53,10 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 		}
 		 this.getRepository().create(entity);
 		return entity.getId();
+	}
+	
+	public List<HistoryVO> queryHistory(String tablemeta_id) {	
+		return tablemetaRepository.queryHistory(tablemeta_id);
 	}
 	
 	public void createorupdate(TablemetaDTO tablemetaDTO ) {
@@ -132,6 +140,7 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 			if(i!=tablemetaDTO.getCreatecoles().size()){
 				builder.append(",");
 			}
+			builder.append("\n");
 		}
 		builder.append(");");
 		builder.append("\n");
@@ -152,7 +161,7 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 			for(Columnmeta columnmeta:tablemetaDTO.getCreatecoles()) {
 				if(StringUtils.hasText(columnmeta.getName())){
 					//oracle的方法
-					builder.append("comment on column \""+tablemetaDTO.getTablemeta().getTablename()+"\".\""+columnmeta.getColname()+"\" is '"+columnmeta.getName()+"';");
+					builder.append("comment on column "+tablemetaDTO.getTablemeta().getTablename()+"."+columnmeta.getColname()+" is '"+columnmeta.getName()+"';");
 				}
 				builder.append("\n");
 			}
@@ -171,9 +180,11 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 			builder.append("\n");
 		}
 		
-		builder.append("alter table "+tablemetaDTO.getTablemeta().getTablename()+" add (");
+		
 		int i=0;
 		for(Columnmeta columnmeta:tablemetaDTO.getCreatecoles()) {
+			i++;
+			builder.append("alter table "+tablemetaDTO.getTablemeta().getTablename()+" add (");
 			builder.append(columnmeta.getColname()+" "+columnmeta.getColtype()+"");
 			if(StringUtils.hasText(columnmeta.getDefaultvalue())){
 				builder.append(" default '"+columnmeta.getDefaultvalue()+"'");
@@ -181,17 +192,21 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 			if(columnmeta.getNullable()){
 				builder.append(" not null ");
 			}
-			if(i!=tablemetaDTO.getCreatecoles().size()){
-				builder.append(",");
-			}
+//			if(i!=tablemetaDTO.getCreatecoles().size()){
+//				builder.append(",");
+//			}
+			builder.append(");");
+			builder.append("\n");
 		}
-		builder.append(");");
+		
 		builder.append("\n");
 		
 	
-		builder.append("alter table "+tablemetaDTO.getTablemeta().getTablename()+" modify  (");
+		
 		i=0;
 		for(Columnmeta columnmeta:tablemetaDTO.getCreatecoles()) {
+			i++;
+			builder.append("alter table "+tablemetaDTO.getTablemeta().getTablename()+" modify  (");
 			builder.append(columnmeta.getColname()+" "+columnmeta.getColtype()+"");
 			if(StringUtils.hasText(columnmeta.getDefaultvalue())){
 				builder.append(" default '"+columnmeta.getDefaultvalue()+"'");
@@ -199,11 +214,13 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 			if(columnmeta.getNullable()){
 				builder.append(" not null ");
 			}
-			if(i!=tablemetaDTO.getCreatecoles().size()){
-				builder.append(",");
-			}
+//			if(i!=tablemetaDTO.getCreatecoles().size()){
+//				builder.append(",");
+//			}
+			builder.append(");");
+			builder.append("\n");
 		}
-		builder.append(");");
+		
 		builder.append("\n");
 		
 		//添加注释
@@ -212,7 +229,7 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 			for(Columnmeta columnmeta:tablemetaDTO.getCreatecoles()) {
 				if(StringUtils.hasText(columnmeta.getName())){
 					//oracle的方法
-					builder.append("comment on column \""+tablemetaDTO.getTablemeta().getTablename()+"\".\""+columnmeta.getColname()+"\" is '"+columnmeta.getName()+"';");
+					builder.append("comment on column "+tablemetaDTO.getTablemeta().getTablename()+"."+columnmeta.getColname()+" is '"+columnmeta.getName()+"';");
 				}
 				builder.append("\n");
 			}
@@ -250,5 +267,17 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 //		this.getRepository().delete(entity);
 //		//historyService.deleteTabmeta(entity);
 //	}
+	
+	public void deleteFocus(String tablemeta_id) {
+		//删除历史记录
+		historyService.deleteBatch(Cnd.delete().andEquals(M.History.tablemeta_id, tablemeta_id));
+		//删除约束
+		constraintsService.deleteByTablemeta_id(tablemeta_id);
+		//删除列
+		columnmetaService.deleteBatch(Cnd.delete().andEquals(M.Columnmeta.tablemeta_id, tablemeta_id));
+		//删除表
+		this.deleteBatch(Cnd.delete().andEquals(M.Tablemeta.id, tablemeta_id));
+		
+	}
 
 }

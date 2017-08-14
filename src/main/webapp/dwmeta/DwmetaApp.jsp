@@ -21,6 +21,10 @@ String db_id=request.getParameter("db_id");
 	.greennode{
 		color:green;
 	}
+	.nodedeleted{
+		color:red;
+		text-decoration:line-through;
+	}
 	</style>
 	
   </head>

@@ -55,6 +55,7 @@ public class ConstraintsService extends AbstractService<Constraints, String>{
 //						.andEquals(M.ConstraintsCols.constraints_id, constraints.getId()));
 				List<ConstraintsColsVO> constraintscols=constraintsColsRepository.queryVO(constraints.getId());
 				
+				
 				ConstraintsVO vo=BeanUtils.copyOrCast(constraints, ConstraintsVO.class);
 				if(constraints.getType()==ConstraintsType.Foreign){
 					ConstraintsColsVO col=constraintscols.get(0);
@@ -138,6 +139,14 @@ public class ConstraintsService extends AbstractService<Constraints, String>{
 		constraintsColsRepository.deleteBatch(Cnd.delete().andEquals(M.ConstraintsCols.constraints_id,entity.getId()));
 		
 		this.getRepository().delete(entity);
+		
+	}
+	
+	public void deleteByTablemeta_id(String tablemeta_id) {
+		List<Constraints> entityes=this.query(Cnd.select().andEquals(M.Constraints.tablemeta_id, tablemeta_id));
+		for(Constraints entity:entityes){
+			delete(entity);
+		}
 		
 	}
 

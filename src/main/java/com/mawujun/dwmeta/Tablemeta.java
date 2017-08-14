@@ -35,6 +35,8 @@ public class Tablemeta {
 	@Column(length=30,nullable=true,unique=false)
 	@FieldDefine(title="中文名称",sort=6)
 	private String name;//中文名称，易于理解的名称
+	@FieldDefine(title="状态",sort=6)
+	private Boolean status;
 //	@Column(length=20)
 //	@FieldDefine(title="实体类型")
 //	private String entitytype;//实体类型，表还是视图
@@ -148,6 +150,18 @@ public class Tablemeta {
 
 	public void setDwlayer_id(String dwlayer_id) {
 		this.dwlayer_id = dwlayer_id;
+	}
+
+
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 

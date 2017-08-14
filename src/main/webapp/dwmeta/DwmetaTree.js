@@ -27,7 +27,8 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
 					type:'json'		
 				},
 				extraParams:{
-					db_id:window.db_id
+					db_id:window.db_id,
+					show_deleted:false
 				}
 			},
 			root: {
@@ -38,20 +39,61 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
 			}
 		});
 		me.on("beforeitemexpand",function(node){
+			//alert(1);
 			me.store.getProxy().extraParams=Ext.apply(me.store.getProxy().extraParams,{
 				db_id:window.db_id,
 				type:node.get("type"),
+				//show_deleted:false,
 				dwlayer_id:node.get("dwlayer_id")
 			});
 		});
 		me.on("itemclick",function( view, record, item, index, e, eOpts ){
 			window.tableTabPanel.dwlayer_id=record.get("dwlayer_id");
+			window.click_node=record;
 			if(record.get("type")=="tablemeta"){
 				window.tableTabPanel.createTablemeta(record.get("id"),record.get("text"));
 			}
 			
 		});
 		me.initAction();
+		
+		 me.dockedItems=[];
+		 me.dockedItems.push({
+	  		xtype: 'toolbar',
+	  		dock:'top',
+		  	items:[
+		  	{
+		  		xtype:'checkboxfield',
+		  		fieldLabel:'显示已删除',
+		  		labelWidth:70,
+		  		itemId:'show_deleted'
+		  	}
+			,{
+				text: '查询',
+				itemId:'reload',
+				//disabled:me.disabledAction,
+				handler: function(btn){
+					var show_deleted=btn.previousSibling("#show_deleted");
+					var tree=me;//btn.up("tree");
+					tree.getStore().getProxy().extraParams={
+						db_id:window.db_id,
+						show_deleted:show_deleted.getValue()
+					}
+
+					me.getStore().reload({
+						callback:function(records,operation ,success ){
+							if(success ==true){
+								for(var i=0;i<records.length;i++){
+									records[i].collapse();
+									records[i].expand();
+								}
+							}
+						}
+					});	
+				},
+				iconCls: 'icon-refresh'
+			}]
+		});
        
 		me.callParent(arguments);
     },

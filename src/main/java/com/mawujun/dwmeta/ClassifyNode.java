@@ -12,6 +12,8 @@ public class ClassifyNode {
 	private String dwlayer_id;
 	private Boolean expanded;
 	
+	private Boolean status;
+	
 	public String getIconCls(){
 		if(type==ClassifyNodeType.dwmeta){
 			return "icon-hdd";
@@ -24,6 +26,9 @@ public class ClassifyNode {
 		}
 	}
 	public String getCls() {
+		if(status!=null && status==false){
+			return "nodedeleted";
+		}
 		if(type==ClassifyNodeType.dwmeta){
 			return null;
 		} else if(type==ClassifyNodeType.classify){
@@ -72,6 +77,12 @@ public class ClassifyNode {
 	}
 	public String getText() {
 		return text;
+	}
+	public Boolean getStatus() {
+		return status;
+	}
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 }

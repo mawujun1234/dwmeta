@@ -6,6 +6,7 @@ Ext.define("Ems.dwmeta.Tablemeta",{
 		{name:'entitytype',type:'string'},
 		{name:'remark',type:'string'},
 		{name:'id',type:'string'},
+		{name:'status',type:'bool'},
 		{name:'history_id',type:'string'},
 		{name:'classify_id',type:'string'},
 		{name:'dwlayer_id',type:'string'}

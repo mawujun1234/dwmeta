@@ -56,7 +56,6 @@ public static final class Columnmeta {
 	public static final String sorted="sorted";
 	public static final String reasons="reasons";
 	public static final String tablemeta_id="tablemeta_id";
-	public static final String history_id="history_id";
 }
 public static final class Constraints {
 	public static final String name="name";
@@ -64,6 +63,7 @@ public static final class Constraints {
 	public static final String tablemeta_id="tablemeta_id";
 	public static final String createTime="createTime";
 	public static final String creater="creater";
+	public static final String history_id="history_id";
 	public static final String id="id";
 }
 public static final class ConstraintsCols {
@@ -101,7 +101,7 @@ public static final class HisColmeta {
 	public static final String reasons="reasons";
 	public static final String tablemeta_id="tablemeta_id";
 	public static final String history_id="history_id";
-	public static final String his_content="his_content";
+	public static final String his_colOperateType="his_colOperateType";
 	public static final String his_createDate="his_createDate";
 	public static final String columnmeta_id="columnmeta_id";
 }
@@ -113,27 +113,26 @@ public static final class HisTabmeta {
 	public static final String dwlayer_id="dwlayer_id";
 	public static final String classify_id="classify_id";
 	public static final String history_id="history_id";
-	public static final String his_content="his_content";
 	public static final String his_createDate="his_createDate";
 	public static final String tablemeta_id="tablemeta_id";
 }
 public static final class History {
 	public static final String id="id";
 	public static final String tablemeta_id="tablemeta_id";
-	public static final String operateType="operateType";
 	public static final String operateTime="operateTime";
 	public static final String operater="operater";
 	public static final String intiactive="intiactive";
+	public static final String sql_content="sql_content";
 }
 public static final class Tablemeta {
 	public static final String id="id";
 	public static final String tablename="tablename";
 	public static final String name="name";
+	public static final String status="status";
 	public static final String remark="remark";
 	public static final String dwlayer_id="dwlayer_id";
 	public static final String classify_id="classify_id";
 	public static final String db_id="db_id";
-	public static final String history_id="history_id";
 }
 public static final class Org {
 	public static final String id="id";

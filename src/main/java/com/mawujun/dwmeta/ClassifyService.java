@@ -41,14 +41,14 @@ public class ClassifyService extends AbstractService<Classify, String>{
 		classifyRepository.create(a);
 	}
 	
-	public List<ClassifyNode> query4tree(String db_id,String parent_id,ClassifyNodeType type,String dwlayer_id ) {
+	public List<ClassifyNode> query4tree(String db_id,String parent_id,ClassifyNodeType type,String dwlayer_id,Boolean show_deleted ) {
 		if(type==null || "root".equals(parent_id)){
 			return dWLayerRepository.query4tree(db_id);
 		} else if(type==ClassifyNodeType.dwmeta){
 			return classifyRepository.query4tree(null, dwlayer_id);
 		} else if(type==ClassifyNodeType.classify){
 			List<ClassifyNode> list= classifyRepository.query4tree(parent_id, dwlayer_id);
-			List<ClassifyNode> tables=tablemetaRepository.query4tree(parent_id, dwlayer_id);
+			List<ClassifyNode> tables=tablemetaRepository.query4tree(parent_id, dwlayer_id,show_deleted);
 			list.addAll(tables);
 			return list;
 			

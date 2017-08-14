@@ -22,9 +22,12 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="query4tree" resultType="com.mawujun.dwmeta.ClassifyNode" parameterType="map">
-    	select id,tablename as text,1 as leaf,'tablemeta' as type,'${dwlayer_id}' as dwlayer_id 
+    	select id,tablename as text,1 as leaf,'tablemeta' as type,'${dwlayer_id}' as dwlayer_id ,a.status
     	from dw_tablemeta a
-    	where a.classify_id=#{classify_id}
+    	where a.classify_id=#{classify_id} 
+    	<if test="show_deleted==0">
+    		and a.status=1
+    	</if>
     </select> 
     
     <select id="exists_tablename" parameterType="map" resultType="int">
@@ -32,6 +35,12 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		where a.classify_id=b.id and b.dwlayer_id=c.id 
 		and c.db_id=#{db_id}
 		and a.tablename=trim(#{tablename})
+    </select>
+    
+    <select id="queryHistory" resultType="com.mawujun.dwmeta.history.HistoryVO">
+    	select a.*,b.name as operater_name from dw_his_history a,t_user b
+		where a.operater=b.id and a.tablemeta_id=#{tablemeta_id}
+		order by a.operateTime desc
     </select>
 </mapper>
 
