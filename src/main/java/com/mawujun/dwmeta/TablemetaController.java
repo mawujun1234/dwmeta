@@ -89,7 +89,7 @@ public class TablemetaController {
 	@ResponseBody
 	public String deleteById(String id) {
 		//tablemetaService.deleteById(id);
-		tablemetaService.update(Cnd.update().set(M.Tablemeta.status, false).andEquals(M.Tablemeta.id, id));
+		tablemetaService.deleteById(id);
 		return id;
 	}
 	

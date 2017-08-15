@@ -256,6 +256,25 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 		
 		return builder.toString();
 	}
+	@Override
+	public void deleteById(String tablemeta_id) {
+		//this.update(Cnd.update().set(M.Tablemeta.status, false).andEquals(M.Tablemeta.id, tablemeta_id));
+		Tablemeta tablemeta=this.get(tablemeta_id);
+		tablemeta.setStatus(false);
+		this.update(tablemeta);
+		
+		String history_id=yyyyMMddHHmmssSSSS.format(new Date());
+		
+		History history = new History();
+		history.setId(history_id);
+		history.setIntiactive(true);
+		history.setOperater(ShiroUtils.getUserId());
+		history.setOperateTime(new Date());
+		history.setTablemeta_id(tablemeta_id);
+		history.setSql_content("drop table "+tablemeta.getTablename()+";");
+		historyService.create(history);
+		
+	}
 	
 //	@Override
 //	public void update(Tablemeta entity) {
