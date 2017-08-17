@@ -59,6 +59,19 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 		return tablemetaRepository.queryHistory(tablemeta_id);
 	}
 	
+	public String showCreatetablesql(String db_id,String tablemeta_id) {
+		Tablemeta tablemeta=this.get(tablemeta_id);
+		tablemeta.setDb_id(db_id);
+		List<Columnmeta> createcoles=columnmetaService.query(Cnd.select().andEquals(M.Columnmeta.tablemeta_id, tablemeta_id));
+		List<ConstraintsVO> createConstraints=constraintsService.queryAll(tablemeta_id);
+		TablemetaDTO tablemetaDTO=new TablemetaDTO();
+		tablemetaDTO.setTablemeta(tablemeta);
+		tablemetaDTO.setCreatecoles(createcoles);
+		tablemetaDTO.setCreateConstraints(createConstraints);
+		String sql_content=sql_create(tablemetaDTO);
+		return sql_content;
+	}
+	
 	public void createorupdate(TablemetaDTO tablemetaDTO ) {
 		String history_id=yyyyMMddHHmmssSSSS.format(new Date());
 		String tablemeta_id=null;
@@ -139,8 +152,9 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 			
 			if(i!=tablemetaDTO.getCreatecoles().size()){
 				builder.append(",");
+				builder.append("\n");
 			}
-			builder.append("\n");
+			
 		}
 		builder.append(");");
 		builder.append("\n");

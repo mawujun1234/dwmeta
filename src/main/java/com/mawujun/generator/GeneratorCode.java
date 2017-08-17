@@ -3,7 +3,7 @@ package com.mawujun.generator;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import com.mawujun.dwmeta.history.History;
+import com.mawujun.dwmeta.Tablemeta;
 
 import freemarker.template.TemplateException;
 /**
@@ -27,7 +27,7 @@ public class GeneratorCode {
 		
 		generatorService.setExtenConfig(aa);
 		
-		generatorService.generatorAllFile(History.class);
+		generatorService.generatorAllFile(Tablemeta.class);
 		
 //		//是否生成主从表的结构
 //		aa.setIsMasterSalve(true);

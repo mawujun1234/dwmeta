@@ -23,7 +23,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     
     <select id="querySameUserTable"  resultType="com.mawujun.dwmeta.Tablemeta" parameterType="map">
     	select distinct a.* from dw_tablemeta a
-		where a.dwlayer_id=#{dwlayer_id} 
+		where a.dwlayer_id=#{dwlayer_id} and a.status=1
     </select>
 </mapper>
 

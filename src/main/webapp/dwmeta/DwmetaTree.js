@@ -66,33 +66,61 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
 		  		xtype:'checkboxfield',
 		  		fieldLabel:'显示已删除',
 		  		labelWidth:70,
-		  		itemId:'show_deleted'
-		  	}
-			,{
-				text: '查询',
-				itemId:'reload',
-				//disabled:me.disabledAction,
-				handler: function(btn){
-					var show_deleted=btn.previousSibling("#show_deleted");
-					var tree=me;//btn.up("tree");
-					tree.getStore().getProxy().extraParams={
-						db_id:window.db_id,
-						show_deleted:show_deleted.getValue()
-					}
-
-					me.getStore().reload({
-						callback:function(records,operation ,success ){
-							if(success ==true){
-								for(var i=0;i<records.length;i++){
-									records[i].collapse();
-									records[i].expand();
+		  		itemId:'show_deleted',
+		  		listeners:{
+		  			 change:function( checkbox, newValue, oldValue, eOpts ) {
+		  			 	var tree=me;	
+		  			 	tree.getStore().getProxy().extraParams={
+							db_id:window.db_id,
+							show_deleted:newValue
+						}
+	
+						me.getStore().reload({
+							callback:function(records,operation ,success ){
+								if(success ==true){
+									for(var i=0;i<records.length;i++){
+										records[i].collapse();
+										records[i].expand();
+									}
 								}
 							}
-						}
-					});	
-				},
-				iconCls: 'icon-refresh'
-			}]
+						});	
+		  			 }
+		  		}
+		  	}
+		  	,{
+		  		text: '手工搜索',
+		  		//iconCls: 'icon-search',
+		  		handler:function(btn){
+		  			me.showSearchTablemetaGrid();
+		  		}
+		  	}
+//			,{
+//				text: '查询',
+//				itemId:'reload',
+//				//disabled:me.disabledAction,
+//				handler: function(btn){
+//					var show_deleted=btn.previousSibling("#show_deleted");
+//					var tree=me;//btn.up("tree");
+//					tree.getStore().getProxy().extraParams={
+//						db_id:window.db_id,
+//						show_deleted:show_deleted.getValue()
+//					}
+//
+//					me.getStore().reload({
+//						callback:function(records,operation ,success ){
+//							if(success ==true){
+//								for(var i=0;i<records.length;i++){
+//									records[i].collapse();
+//									records[i].expand();
+//								}
+//							}
+//						}
+//					});	
+//				},
+//				iconCls: 'icon-refresh'
+//			}
+			]
 		});
        
 		me.callParent(arguments);
@@ -370,6 +398,27 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
     },
     getLastSelected:function(){
     	return this.getSelectionModel( ).getLastSelected( );
+    },
+    showSearchTablemetaGrid:function(){
+    	var grid=Ext.create('Ems.dwmeta.TablemetaGridQuery',{
+    		listeners:{
+    			itemclick:function(view, record, item, index, e, eOpts){
+    				window.tableTabPanel.createTablemeta(record.get("id"),record.get("tablename"));
+    				//grid.getStore().remove(record);
+    			}
+    		}
+    	});
+    	var win=Ext.create('Ext.window.Window',{
+    		layout:'fit',
+    		title:'搜索-选择表(双击选择)',
+    		modal:true,
+    		//maximized:true,
+    		width:650,
+    		height:350,
+    		//closeAction:'hide',
+    		items:[grid]
+    	});
+    	win.show();
     }
     
 });

@@ -56,6 +56,8 @@ Ext.define('Ems.dwmeta.ConstraintsForm',{
 					} else {
 						combo.nextSibling("#ref_col_id").setDisabled(true);
 						combo.nextSibling("#ref_table_id").setDisabled(true);
+						combo.nextSibling("#ref_col_id"). clearValue();
+						combo.nextSibling("#ref_table_id"). clearValue();
 					}
 					
 				}

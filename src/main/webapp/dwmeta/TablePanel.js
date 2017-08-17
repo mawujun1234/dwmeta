@@ -3,7 +3,8 @@ Ext.define('Ems.dwmeta.TablePanel',{
 	xtype:'dwmeta_tablepanel',
 	requires: [
 	     'Ems.dwmeta.TablemetaForm',
-	     'Ems.dwmeta.ColumnmetaGrid'
+	     'Ems.dwmeta.ColumnmetaGrid',
+	     'Ems.dwmeta.TablemetaGridQuery'
 	],
 	layout:'border',
 	
@@ -76,7 +77,7 @@ Ext.define('Ems.dwmeta.TablePanel',{
 				 		var obj=Ext.decode(response.responseText);
 				 		me.loadTablemeta(obj.tablemeta_id);
 				 		//me.columnmetaGrid.reloadByTablemeta_id(obj.tablemeta_id);
-				 		me.closeThis();
+				 		//me.closeThis();
 				 		alert("成功");
 				 		
 				 		

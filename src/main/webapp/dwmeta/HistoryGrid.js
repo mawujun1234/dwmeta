@@ -113,6 +113,14 @@ Ext.define('Ems.dwmeta.HistoryGrid',{
 //			    },
 //			    iconCls: 'icon-trash'
 //			},
+		  	{
+			    text: '建表ddl',
+			    
+			    handler: function(){
+			    	me.showCreatetablesql();    
+			    },
+			    iconCls: 'icon-bolt'
+			},
 			{
 				text: '刷新',
 				itemId:'reload',
@@ -223,5 +231,39 @@ Ext.define('Ems.dwmeta.HistoryGrid',{
     		tablemeta_id:tablemeta_id
     	}
     	this.getStore().reload();
+    },
+    showCreatetablesql:function(){
+    	var me=this;
+    	//alert(window.db_id);
+    	Ext.Ajax.request({
+    		url:Ext.ContextPath+"/tablemeta/showCreatetablesql.do",
+    		method:'POST',
+    		params:{
+    			db_id:window.db_id,
+    			tablemeta_id:me.getStore().getProxy().extraParams.tablemeta_id
+    		},
+    		success:function(response){
+    			var obj=Ext.decode(response.responseText);
+    			//alert(obj.root);
+    			var win=Ext.create('Ext.window.Window',{
+	      			layout:'fit',
+	      			title:'最新创建表的ddl',
+	      			modal:true,
+	      			width:680,
+	      			height:350,
+	      			items: [{
+	      				title:'sql内容',
+				        xtype     : 'textareafield',
+				        grow      : true,
+				        name      : 'message',
+				        anchor    : '100%',
+				        value:obj.root
+				    }]
+	      		});
+	      		win.show();
+    		}
+    		
+    	});
+    
     }
 });

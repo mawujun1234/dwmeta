@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mawujun.controller.spring.mvc.ResultModel;
 import com.mawujun.dwmeta.history.HistoryVO;
 import com.mawujun.repository.cnd.Cnd;
 import com.mawujun.utils.M;
@@ -40,18 +41,26 @@ public class TablemetaController {
 //		return tablemetaService.queryPage(pager);
 //	}
 
-//	@RequestMapping("/tablemeta/queryAll.do")
-//	@ResponseBody
-//	public List<Tablemeta> queryAll() {	
-//		List<Tablemeta> tablemetaes=tablemetaService.queryAll();
-//		return tablemetaes;
-//	}
+	@RequestMapping("/tablemeta/queryByName.do")
+	@ResponseBody
+	public List<Tablemeta> queryByName(String name) {	
+		List<Tablemeta> tablemetaes=tablemetaService.query(Cnd.select()
+				.and(Cnd.exps("lower("+M.Tablemeta.name+")", "like", "%"+name.toLowerCase()+"%").or("lower("+M.Tablemeta.tablename+")", "like", "%"+name.toLowerCase()+"%"))
+				);//.andEquals(M.Tablemeta.status, true)
+		return tablemetaes;
+	}
 	
 	@RequestMapping("/tablemeta/queryHistory.do")
 	@ResponseBody
 	public List<HistoryVO> queryHistory(String tablemeta_id) {	
 		List<HistoryVO> tablemetaes=tablemetaService.queryHistory(tablemeta_id);
 		return tablemetaes;
+	}
+	@RequestMapping("/tablemeta/showCreatetablesql.do")
+	@ResponseBody
+	public ResultModel showCreatetablesql(String db_id,String tablemeta_id){
+		String sql= tablemetaService.showCreatetablesql(db_id,tablemeta_id);
+		return ResultModel.getInstance().setRoot(sql);
 	}
 
 	@RequestMapping("/tablemeta/load.do")
