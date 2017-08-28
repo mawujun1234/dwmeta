@@ -159,6 +159,14 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 		builder.append(");");
 		builder.append("\n");
 		
+		//为表添加注释//COMMENT ON table t1 IS '个人信息';
+		if(tablemetaDTO.getTablemeta().getRemark()!=null){
+			builder.append("comment on table "+tablemetaDTO.getTablemeta().getTablename()+" is '"+tablemetaDTO.getTablemeta().getRemark()+"';");
+			builder.append("\n");
+		}
+		
+		
+		
 		for(ConstraintsVO vo:tablemetaDTO.getCreateConstraints()){
 			if(vo.getType()==ConstraintsType.Primary){
 				builder.append("alter table "+tablemetaDTO.getTablemeta().getTablename()+" add constraint "+vo.getName()+" primary key ("+vo.getCol_name()+");");
@@ -187,8 +195,15 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 	private String sql_update(TablemetaDTO tablemetaDTO) {
 		String db_id=tablemetaDTO.getTablemeta().getDb_id();
 		DB db=dbservice.get(db_id);
-		
 		StringBuilder builder=new StringBuilder("");
+		
+//		//为表添加注释//COMMENT ON table t1 IS '个人信息';
+//		if(tablemetaDTO.getTablemeta().getRemark()!=null){
+//			builder.append("comment on table "+tablemetaDTO.getTablemeta().getTablename()+" is '"+tablemetaDTO.getTablemeta().getRemark()+"';");
+//			builder.append("\n");
+//		}
+		
+		
 		for(Columnmeta columnmeta:tablemetaDTO.getDeletecoles()) {
 			builder.append("alter table "+tablemetaDTO.getTablemeta().getTablename()+" drop column "+columnmeta.getColname()+";");
 			builder.append("\n");

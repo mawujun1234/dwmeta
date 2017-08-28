@@ -53,6 +53,7 @@ public class HistoryService extends AbstractService<History, String>{
 		historytabmeta.setHistory_id(history_id);
 		historytabmeta.setTablemeta_id(tablemeta.getId());
 		historytabmeta.setHis_createDate(createdate);
+		
 		hisTabmetaService.create(historytabmeta);
 		
 	}
