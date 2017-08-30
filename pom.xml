@@ -33,9 +33,9 @@
 				<jdbc.username>dwmeta</jdbc.username>
 				<jdbc.password>dwmeta</jdbc.password>
 				<hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
-				<reble.classes.dir>E:\eclipse\aaa\dwmeta\target\classes</reble.classes.dir>
-				<reble.web-resources.dir>E:\eclipse\aaa\dwmeta\target\m2e-wtp\web-resources</reble.web-resources.dir>
-				<reble.webapp.dir>E:\eclipse\aaa\dwmeta\src\main\webapp</reble.webapp.dir>
+				<reble.classes.dir>E:\eclipse\aaa\dbmm\target\classes</reble.classes.dir>
+				<reble.web-resources.dir>E:\eclipse\aaa\dbmm\target\m2e-wtp\web-resources</reble.web-resources.dir>
+				<reble.webapp.dir>E:\eclipse\aaa\dbmm\src\main\webapp</reble.webapp.dir>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -53,9 +53,9 @@
 				<jdbc.username>dwmeta</jdbc.username>
 				<jdbc.password>dwmeta</jdbc.password>
 				<hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
-				<reble.classes.dir>D:\mawujun\workspace\dwmeta\target\classes</reble.classes.dir>
-				<reble.web-resources.dir>D:\mawujun\workspace\dwmeta\target\m2e-wtp\web-resources</reble.web-resources.dir>
-				<reble.webapp.dir>D:\mawujun\workspace\dwmeta\src\main\webapp</reble.webapp.dir>
+				<reble.classes.dir>D:\mawujun\workspace\dbmm\target\classes</reble.classes.dir>
+				<reble.web-resources.dir>D:\mawujun\workspace\dbmm\target\m2e-wtp\web-resources</reble.web-resources.dir>
+				<reble.webapp.dir>D:\mawujun\workspace\dbmm\src\main\webapp</reble.webapp.dir>
 			</properties>
 		</profile>
 		<profile>
@@ -70,9 +70,9 @@
 				<jdbc.username>emsnew</jdbc.username>
 				<jdbc.password>emsnew</jdbc.password>
 				<hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
-				<reble.classes.dir>E:\eclipse\aaa\dwmeta\target\classes</reble.classes.dir>
-				<reble.web-resources.dir>E:\eclipse\aaa\dwmeta\target\m2e-wtp\web-resources</reble.web-resources.dir>
-				<reble.webapp.dir>E:\eclipse\aaa\dwmeta\src\main\webapp</reble.webapp.dir>
+				<reble.classes.dir>E:\eclipse\aaa\dbmm\target\classes</reble.classes.dir>
+				<reble.web-resources.dir>E:\eclipse\aaa\dbmm\target\m2e-wtp\web-resources</reble.web-resources.dir>
+				<reble.webapp.dir>E:\eclipse\aaa\dbmm\src\main\webapp</reble.webapp.dir>
 			</properties>
 
 		</profile>
@@ -88,9 +88,9 @@
 				<jdbc.username>emsnew</jdbc.username>
 				<jdbc.password>emsneworacle</jdbc.password>
 				<hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
-				<reble.classes.dir>E:\eclipse\aaa\dwmeta\target\classes</reble.classes.dir>
-				<reble.web-resources.dir>E:\eclipse\aaa\dwmeta\target\m2e-wtp\web-resources</reble.web-resources.dir>
-				<reble.webapp.dir>E:\eclipse\aaa\dwmeta\src\main\webapp</reble.webapp.dir>
+				<reble.classes.dir>E:\eclipse\aaa\dbmm\target\classes</reble.classes.dir>
+				<reble.web-resources.dir>E:\eclipse\aaa\dbmm\target\m2e-wtp\web-resources</reble.web-resources.dir>
+				<reble.webapp.dir>E:\eclipse\aaa\dbmm\src\main\webapp</reble.webapp.dir>
 			</properties>
 		</profile>
 

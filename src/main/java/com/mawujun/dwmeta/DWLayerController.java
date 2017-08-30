@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mawujun.controller.spring.mvc.ResultModel;
 import com.mawujun.repository.cnd.Cnd;
 import com.mawujun.utils.M;
 /**
@@ -46,6 +47,13 @@ public class DWLayerController {
 	}
 	
 
+	@RequestMapping("/dWLayer/testConn.do")
+	@ResponseBody
+	public ResultModel testConn(String jdbc_driver,String jdbc_url,String jdbc_username,String jdbc_password) {
+		 dWLayerService.testConn(jdbc_driver, jdbc_url, jdbc_username, jdbc_password);
+		 return ResultModel.getInstance();
+	}
+	
 	@RequestMapping("/dWLayer/load.do")
 	@ResponseBody
 	public DWLayer load(String id) {

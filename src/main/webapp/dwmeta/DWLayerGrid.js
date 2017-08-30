@@ -116,6 +116,14 @@ Ext.define('Ems.dwmeta.DWLayerGrid',{
 					grid.getStore().reload();
 				},
 				iconCls: 'icon-refresh'
+			},{
+				text: '测试连接',
+				
+				handler: function(btn){
+					var grid=btn.up("grid");
+					grid.testConn();
+				},
+				iconCls:'icon-bolt'
 			}]
 		});
 
@@ -207,5 +215,35 @@ Ext.define('Ems.dwmeta.DWLayerGrid',{
 				});
 			}
 		});
-    }
+    },
+    testConn:function(){
+		var me=this;
+		var record=me.getSelectionModel( ).getLastSelected( );
+
+		if(!record){
+		    Ext.Msg.alert("消息","请先选择一行数据");	
+			return;
+		}
+		Ext.Ajax.request({
+			headers:{ 'Accept':'application/json;'},
+			url:Ext.ContextPath+'/dWLayer/testConn.do',
+			params:{
+				jdbc_driver:record.get("jdbc_driver"),
+				jdbc_url:record.get("jdbc_url"),
+				jdbc_username:record.get("jdbc_username"),
+				jdbc_password:record.get("jdbc_password")
+			},
+			method:'POST',
+			success:function(response){
+				var obj=Ext.decode(response.responseText);
+				//alert(obj.success);
+				if(obj.success==false){
+					Ext.Msg.alert("消息",obj.msg);
+				} else {
+					Ext.Msg.alert("消息","测试连接成功!");
+				}
+			}
+		
+		});
+	}
 });

@@ -107,13 +107,46 @@ Ext.define('Ems.dwmeta.DWLayerForm',{
 				
 				}
 			},{
+				text : '测试连接',
+				iconCls:'icon-bolt',
+				handler : function(button){
+					var formpanel = button.up('form');
+					formpanel.testConn();
+				}
+	    	},{
 				text : '关闭',
 				itemId : 'close',
 				glyph : 0xf00d,
 				handler : function(button){
 					button.up('window').close();
 				}
-	    });
+	    	});
       me.callParent();
+	},
+	testConn:function(){
+		var me=this;
+		me.updateRecord();
+		var record=me.getForm().getRecord();
+		Ext.Ajax.request({
+			headers:{ 'Accept':'application/json;'},
+			url:Ext.ContextPath+'/dWLayer/testConn.do',
+			params:{
+				jdbc_driver:record.get("jdbc_driver"),
+				jdbc_url:record.get("jdbc_url"),
+				jdbc_username:record.get("jdbc_username"),
+				jdbc_password:record.get("jdbc_password")
+			},
+			method:'POST',
+			success:function(response){
+				var obj=Ext.decode(response.responseText);
+				//alert(obj.success);
+				if(obj.success==false){
+					Ext.Msg.alert("消息",obj.msg);
+				} else {
+					Ext.Msg.alert("消息","测试连接成功!");
+				}
+			}
+		
+		});
 	}
 });
