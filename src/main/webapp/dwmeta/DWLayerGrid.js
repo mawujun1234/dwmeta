@@ -22,6 +22,10 @@ Ext.define('Ems.dwmeta.DWLayerGrid',{
         },
 		{dataIndex:'jdbc_password',header:'密码'
         },
+        {dataIndex:'catalogName',header:'catalog'
+        },
+        {dataIndex:'schemaName',header:'schema'
+        },
 		{dataIndex:'remark',header:'备注'
         }
       ];
@@ -158,7 +162,7 @@ Ext.define('Ems.dwmeta.DWLayerGrid',{
     		title:'新增',
     		modal:true,
     		width:400,
-    		height:300,
+    		height:340,
     		closeAction:'hide',
     		items:[formpanel],
     		listeners:{
@@ -187,7 +191,7 @@ Ext.define('Ems.dwmeta.DWLayerGrid',{
     		title:'更新',
     		modal:true,
     		width:400,
-    		height:300,
+    		height:340,
     		closeAction:'hide',
     		items:[formpanel]
     	});

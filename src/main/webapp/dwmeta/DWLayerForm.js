@@ -64,6 +64,24 @@ Ext.define('Ems.dwmeta.DWLayerForm',{
             selectOnFocus:true,
 	        xtype:'textfield'
 	    },
+	    {
+	        fieldLabel: 'catalog',
+	        name: 'catalogName',
+//            allowBlank: false,
+//            afterLabelTextTpl: Ext.required,
+//            blankText:"密码不允许为空",
+            selectOnFocus:true,
+	        xtype:'textfield'
+	    },
+	    {
+	        fieldLabel: 'schema',
+	        name: 'schemaName',
+//            allowBlank: false,
+//            afterLabelTextTpl: Ext.required,
+//            blankText:"密码不允许为空",
+            selectOnFocus:true,
+	        xtype:'textfield'
+	    },
 		{
 	        fieldLabel: '备注',
 	        name: 'remark',

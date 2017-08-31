@@ -39,6 +39,10 @@ public class Columnmeta {
 	@Column(length=30,nullable=false,unique=false)
 	@FieldDefine(title="类型",sort=6)
 	private String coltype;
+	@FieldDefine(title="长度",sort=6)
+	private int colprecision;//长度，如果是数字类型就是数字的总长度，如果是字符类型就是字符的长度。如果是时间类型就是。如果是二进制类型就是二进制的长度。如果是null就表示这个类型不适合设置长度
+	@FieldDefine(title="小数位数",sort=6)
+	private int colscale;
 //	@FieldDefine(title="是否主键",sort=6)
 //	private Boolean ispk;
 	@FieldDefine(title="可否为空",sort=6)
@@ -145,4 +149,22 @@ public class Columnmeta {
 	public void setReasons(String reasons) {
 		this.reasons = reasons;
 	}
+
+	public int getColprecision() {
+		return colprecision;
+	}
+
+	public void setColprecision(int colprecision) {
+		this.colprecision = colprecision;
+	}
+
+	public int getColscale() {
+		return colscale;
+	}
+
+	public void setColscale(int colscale) {
+		this.colscale = colscale;
+	}
+
+	
 }

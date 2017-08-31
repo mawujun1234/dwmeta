@@ -3,9 +3,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mawujun.dwmeta.cd.ColClassify;
 import com.mawujun.dwmeta.cd.ColClassifyService;
+import com.mawujun.dwmeta.loader.compare.MetaCompareService;
+import com.mawujun.dwmeta.loader.schema.ColumnType;
 import com.mawujun.exception.BusinessException;
 import com.mawujun.permission.Menu;
 import com.mawujun.permission.MenuService;
@@ -33,6 +37,8 @@ public class DBController {
 	private MenuService menuService;
 	@Resource
 	private ColClassifyService colClassifyService;
+	@Autowired
+	private MetaCompareService metaCompareService;
 
 
 //	/**
@@ -77,23 +83,30 @@ public class DBController {
 		return dBService.get(id);
 	}
 	
-	@RequestMapping("/dB/getDBVO.do")
+	@RequestMapping("/dB/getColumnTypes.do")
 	@ResponseBody
-	public DBVO getDBVO(String id) {
-		DB db= dBService.get(id);
-		if(db==null){
-			throw new BusinessException("请先建立数据库!");
-		}
-		DBVO vo=BeanUtils.copyOrCast(db, DBVO.class);
-
-		List<String[]> aaa=new ArrayList<String[]>();
-		String[] bbb=db.getDbtype().getFieldtypes();
-		for(String b:bbb){
-			aaa.add(new String[]{b});
-		}
-		vo.setFieldtypes(aaa);
-		return vo;
+	public Set<ColumnType> getColumnTypes(String dwlayer_id) {
+		Set<ColumnType> columnTypes=metaCompareService.getColumnTypes(dwlayer_id);
+		return columnTypes;
+		
 	}
+//	@RequestMapping("/dB/getDBVO.do")
+//	@ResponseBody
+//	public DBVO getDBVO(String id) {
+//		DB db= dBService.get(id);
+//		if(db==null){
+//			throw new BusinessException("请先建立数据库!");
+//		}
+//		DBVO vo=BeanUtils.copyOrCast(db, DBVO.class);
+//
+//		List<String[]> aaa=new ArrayList<String[]>();
+//		String[] bbb=db.getDbtype().getFieldtypes();
+//		for(String b:bbb){
+//			aaa.add(new String[]{b});
+//		}
+//		vo.setFieldtypes(aaa);
+//		return vo;
+//	}
 	
 	@RequestMapping("/dB/create.do")
 	@ResponseBody

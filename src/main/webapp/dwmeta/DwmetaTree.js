@@ -46,6 +46,7 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
 				//show_deleted:false,
 				dwlayer_id:node.get("dwlayer_id")
 			});
+			
 		});
 		me.on("itemclick",function( view, record, item, index, e, eOpts ){
 			window.tableTabPanel.dwlayer_id=record.get("dwlayer_id");
@@ -53,6 +54,22 @@ Ext.define('Ems.dwmeta.DwmetaTree', {
 			if(record.get("type")=="tablemeta"){
 				window.tableTabPanel.createTablemeta(record.get("id"),record.get("text"));
 			}
+			if(node.get("type")=='dwmeta'){
+				//开始获取这个数据库支持的数据类型
+				Ext.Ajax.request({
+			    	url:Ext.ContextPath+'/dB/getColumnTypes.do',
+			    	method:'POST',
+			    	params:{
+			    		dwlayer_id:node.get("dwlayer_id")
+			    	},
+			    	success:function(response){
+			    		var obj=Ext.decode(response.responseText);
+			    		window.fieldtypes=obj.fieldtypes;
+			    		//console.log(window.fieldtypes);
+			    	}
+			    });
+			}
+			
 			
 		});
 		me.initAction();

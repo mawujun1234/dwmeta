@@ -9,19 +9,19 @@ Ext.onReady(function(){
 		alert("请先设置数据库的id!");
 		return;
 	}
-	//获取数据库类型和该数据库类型下的字段类型
-	Ext.Ajax.request({
-    	url:Ext.ContextPath+'/dB/getDBVO.do',
-    	method:'POST',
-    	params:{
-    		id:window.db_id
-    	},
-    	success:function(response){
-    		var obj=Ext.decode(response.responseText);
-    		window.fieldtypes=obj.fieldtypes;
-    		//console.log(window.fieldtypes);
-    	}
-    });
+//	//获取数据库类型和该数据库类型下的字段类型
+//	Ext.Ajax.request({
+//    	url:Ext.ContextPath+'/dB/getDBVO.do',
+//    	method:'POST',
+//    	params:{
+//    		id:window.db_id
+//    	},
+//    	success:function(response){
+//    		var obj=Ext.decode(response.responseText);
+//    		window.fieldtypes=obj.fieldtypes;
+//    		//console.log(window.fieldtypes);
+//    	}
+//    });
 	
 	
 	//window.history_id=(new Date()).getTime()

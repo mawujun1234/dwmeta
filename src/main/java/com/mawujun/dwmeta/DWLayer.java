@@ -44,6 +44,12 @@ public class DWLayer {
 	@Column(length=50,nullable=false,unique=false)
 	@FieldDefine(title="密码",sort=6)
 	private String jdbc_password;
+	@Column(length=50,nullable=true,unique=false)
+	@FieldDefine(title="catalog",sort=6)
+	private String catalogName;
+	@Column(length=50,nullable=true,unique=false)
+	@FieldDefine(title="schema",sort=6)
+	private String schemaName;
 	
 	@Column(length=150)
 	@FieldDefine(title="备注")
@@ -116,6 +122,22 @@ public class DWLayer {
 
 	public void setDb_id(String db_id) {
 		this.db_id = db_id;
+	}
+
+	public String getCatalogName() {
+		return catalogName;
+	}
+
+	public void setCatalogName(String catalogName) {
+		this.catalogName = catalogName;
+	}
+
+	public String getSchemaName() {
+		return schemaName;
+	}
+
+	public void setSchemaName(String schemaName) {
+		this.schemaName = schemaName;
 	}
 	
 }
