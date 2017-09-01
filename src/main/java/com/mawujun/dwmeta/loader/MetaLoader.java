@@ -9,6 +9,11 @@ import com.mawujun.dwmeta.loader.schema.Table;
 
 public interface MetaLoader {
 	public Connection getConnection();
+	/**
+	 * 获取数据库支持的字段类型
+	 * @author mawujun qq:16064988 mawujun1234@163.com
+	 * @return
+	 */
 	public  Set<ColumnType> getColumnTypes();
 	/**
 	 * 默认使用用户名作为schema
@@ -23,5 +28,11 @@ public interface MetaLoader {
 	 * @return
 	 */
 	public Set<String> getTableNames(SchemaInfo schemaInfo);
+	/**
+	 * 根据表名获取单个表
+	 * @author mawujun qq:16064988 mawujun1234@163.com
+	 * @param tableName
+	 * @return
+	 */
 	public Table getTable(String tableName);
 }

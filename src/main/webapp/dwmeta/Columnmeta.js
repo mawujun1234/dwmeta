@@ -6,6 +6,8 @@ Ext.define("Ems.dwmeta.Columnmeta",{
 		{name:'coltype',type:'string'},
 		{name:'coltype1',type:'string'},
 		{name:'collen',type:'string'},
+		{name:'colprecision',type:'string'},
+		{name:'colscale',type:'string'},
 		{name:'ispk',type:'bool'},
 		{name:'nullable',type:'bool'},
 		{name:'defaultvalue',type:'string'},

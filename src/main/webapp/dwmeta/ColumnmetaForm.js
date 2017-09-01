@@ -50,20 +50,25 @@ Ext.define('Ems.dwmeta.ColumnmetaForm',{
 		    allowBlank: false,
             afterLabelTextTpl: Ext.required,
             blankText:"类型不允许为空",
-		    store: Ext.create('Ext.data.ArrayStore', {
-				fields: ['name'],
-				data : window.fieldtypes
+		    store: Ext.create('Ext.data.Store', {
+				fields: ['type_name','canprecision'],
+				data : window.columnTypes
 			}),
 		    queryMode: 'local',
-		    displayField: 'name',
-		    valueField: 'name'
+		    displayField: 'type_name',
+		    valueField: 'type_name'
 		}),
 		{
 	        fieldLabel: '长度',
-	        name: 'collen',
-	        hidden:true,
+	        name: 'colprecision',
             selectOnFocus:true,
-	        xtype:'textfield'
+	        xtype:'numberfield'
+	    },
+	    {
+	        fieldLabel: '小数位数',
+	        name: 'colscale',
+            selectOnFocus:true,
+	        xtype:'numberfield'
 	    },
 //        {
 //        	fieldLabel: '是否主键',

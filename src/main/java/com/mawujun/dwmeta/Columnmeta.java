@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -40,9 +39,9 @@ public class Columnmeta {
 	@FieldDefine(title="类型",sort=6)
 	private String coltype;
 	@FieldDefine(title="长度",sort=6)
-	private int colprecision;//长度，如果是数字类型就是数字的总长度，如果是字符类型就是字符的长度。如果是时间类型就是。如果是二进制类型就是二进制的长度。如果是null就表示这个类型不适合设置长度
+	private Integer colprecision;//长度，如果是数字类型就是数字的总长度，如果是字符类型就是字符的长度。如果是时间类型就是。如果是二进制类型就是二进制的长度。如果是null就表示这个类型不适合设置长度
 	@FieldDefine(title="小数位数",sort=6)
-	private int colscale;
+	private Integer colscale;
 //	@FieldDefine(title="是否主键",sort=6)
 //	private Boolean ispk;
 	@FieldDefine(title="可否为空",sort=6)
@@ -150,19 +149,19 @@ public class Columnmeta {
 		this.reasons = reasons;
 	}
 
-	public int getColprecision() {
+	public Integer getColprecision() {
 		return colprecision;
 	}
 
-	public void setColprecision(int colprecision) {
+	public void setColprecision(Integer colprecision) {
 		this.colprecision = colprecision;
 	}
 
-	public int getColscale() {
+	public Integer getColscale() {
 		return colscale;
 	}
 
-	public void setColscale(int colscale) {
+	public void setColscale(Integer colscale) {
 		this.colscale = colscale;
 	}
 

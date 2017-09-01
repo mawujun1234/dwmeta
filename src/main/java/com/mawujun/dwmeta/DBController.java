@@ -1,6 +1,7 @@
 package com.mawujun.dwmeta;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,11 +18,9 @@ import com.mawujun.dwmeta.cd.ColClassify;
 import com.mawujun.dwmeta.cd.ColClassifyService;
 import com.mawujun.dwmeta.loader.compare.MetaCompareService;
 import com.mawujun.dwmeta.loader.schema.ColumnType;
-import com.mawujun.exception.BusinessException;
 import com.mawujun.permission.Menu;
 import com.mawujun.permission.MenuService;
 import com.mawujun.permission.MenuType;
-import com.mawujun.utils.bean.BeanUtils;
 /**
  * @author mawujun qq:16064988 e-mail:mawujun1234@163.com 
  * @version 1.0
@@ -85,9 +84,22 @@ public class DBController {
 	
 	@RequestMapping("/dB/getColumnTypes.do")
 	@ResponseBody
-	public Set<ColumnType> getColumnTypes(String dwlayer_id) {
+	public List<Map<String,Object>> getColumnTypes(String dwlayer_id) {
 		Set<ColumnType> columnTypes=metaCompareService.getColumnTypes(dwlayer_id);
-		return columnTypes;
+		List<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+		Set<String> aaaa=new HashSet<String>();
+		for(ColumnType columnType:columnTypes){
+			if(aaaa.contains(columnType.getType_name())){
+				continue;
+			}
+			aaaa.add(columnType.getType_name());
+			Map<String,Object> map=new HashMap<String,Object>();
+			map.put("type_name", columnType.getType_name());
+			map.put("canprecision", columnType.getCanprecision());
+			
+			list.add(map);
+		}
+		return list;
 		
 	}
 //	@RequestMapping("/dB/getDBVO.do")

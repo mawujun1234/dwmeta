@@ -22,7 +22,9 @@ Ext.define('Ems.dwmeta.ColumnmetaGrid',{
         },
 		{dataIndex:'coltype',header:'类型'
         },
-		{dataIndex:'collen',header:'长度',hidden:true
+		{dataIndex:'colprecision',header:'长度',width:60
+        },
+        {dataIndex:'colscale',header:'小数位数',width:80
         },
 //		{dataIndex:'ispk',header:'是否主键',xtype: 'checkcolumn'	
 //            ,stopSelection :false,

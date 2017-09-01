@@ -74,12 +74,18 @@ public class ConstraintsService extends AbstractService<Constraints, String>{
 						col_id+=","+constraintscols.get(i).getCol_id();
 						col_name+=","+constraintscols.get(i).getCol_name();
 					}
-					col_id=col_id.substring(1);
+					if(col_id!=null && !"".equals(col_id)){
+						col_id=col_id.substring(1);
+					}
+					
 					vo.setCol_id(col_id);	
-					col_name=col_name.substring(1);
+					if(col_name!=null && !"".equals(col_name)){
+						col_name=col_name.substring(1);
+					}
+					
 					vo.setCol_name(col_name);
 				}
-				return vo;
+				return vo;	
 	}
 	
 	public List<Tablemeta> querySameUserTable(String dwlayer_id){

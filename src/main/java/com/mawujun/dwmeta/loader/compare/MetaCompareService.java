@@ -21,6 +21,7 @@ import com.mawujun.dwmeta.loader.JDBCUtils;
 import com.mawujun.dwmeta.loader.MetaLoader;
 import com.mawujun.dwmeta.loader.schema.ColumnType;
 import com.mawujun.dwmeta.loader.schema.SchemaInfo;
+import com.mawujun.dwmeta.loader.schema.Table;
 @Service
 public class MetaCompareService {
 	private static Logger logger=LogManager.getLogger(MetaCompareService.class);
@@ -59,27 +60,45 @@ public class MetaCompareService {
 		
 		return datasource;
 	}
-	public MetaLoader getMetaLoader(String dwlayer_id,String jdbc_driver,String jdbc_url,String jdbc_username,String jdbc_password){
+	public DataSource getDataSource(String dwlayer_id,String jdbc_driver,String jdbc_url,String jdbc_username,String jdbc_password){
 		DataSource datasource=dataSources.get(dwlayer_id);
 		if(datasource==null){
 			datasource=initDataSource( jdbc_driver, jdbc_url, jdbc_username, jdbc_password);
 			dataSources.put(dwlayer_id, datasource);
 		}
-		
-		Connection con = JDBCUtils.getConnection(datasource);
-		MetaLoader metaloader=factory.newInstance(con);
-		return metaloader;
+		return datasource;
 	}
+//	public MetaLoader getMetaLoader(String dwlayer_id,String jdbc_driver,String jdbc_url,String jdbc_username,String jdbc_password){
+//		DataSource datasource=dataSources.get(dwlayer_id);
+//		if(datasource==null){
+//			datasource=initDataSource( jdbc_driver, jdbc_url, jdbc_username, jdbc_password);
+//			dataSources.put(dwlayer_id, datasource);
+//		}
+//		
+//		
+//		MetaLoader metaloader=factory.newInstance(con);
+//		return metaloader;
+//	}
 	
 	public Set<ColumnType> getColumnTypes(String dwlayer_id) {
 		Connection con =null;
 		try{
 			DWLayer dwlayer=dWLayerService.get(dwlayer_id);
-			MetaLoader metaloader=getMetaLoader(dwlayer_id,dwlayer.getJdbc_driver(),dwlayer.getJdbc_url(),dwlayer.getJdbc_username(),dwlayer.getJdbc_password());
-			con =metaloader.getConnection();
+			con = JDBCUtils.getConnection(getDataSource(dwlayer_id,dwlayer.getJdbc_driver(),dwlayer.getJdbc_url(),dwlayer.getJdbc_username(),dwlayer.getJdbc_password()));
+			MetaLoader metaloader=factory.newInstance(con);
+			//MetaLoader metaloader=getMetaLoader(dwlayer_id,dwlayer.getJdbc_driver(),dwlayer.getJdbc_url(),dwlayer.getJdbc_username(),dwlayer.getJdbc_password());
+			//con =metaloader.getConnection();
 			
 			Set<ColumnType> bbb=metaloader.getColumnTypes();
-			
+//			int i=0;
+//			 for(ColumnType ct:bbb){
+//				 System.out.println(i+"------类型");i++;
+//				 System.out.println(ct.getType_name()+"---data_type:"+ct.getData_type());
+//				 System.out.println(ct.getLocal_type_name());
+//				 System.out.println(ct.getPrecision());
+//				 System.out.println(ct.getCanprecision());
+//				 System.out.println(ct.getMinimum_scale()+"-----"+ct.getMaximum_scale());
+//			 }
 			return bbb;
 		} finally {
 			JDBCUtils.closeConnection(con);
@@ -87,27 +106,17 @@ public class MetaCompareService {
 	}
 	
 	public Set<String> getTableNames(String dwlayer_id) {	
-//		DataSource datasource=dataSources.get(dwlayer_id);
-//		DWLayer dwlayer=dWLayerService.get(dwlayer_id);
-//		if(dataSources.get(dwlayer_id)==null){
-//			datasource=initDataSource(dwlayer);
-//		}
-//		Connection con = JDBCUtils.getConnection(datasource);
-//		
+	
 		DWLayer dwlayer=dWLayerService.get(dwlayer_id);
-		MetaLoader metaloader=getMetaLoader(dwlayer_id,dwlayer.getJdbc_driver(),dwlayer.getJdbc_url(),dwlayer.getJdbc_username(),dwlayer.getJdbc_password());
-		Connection con =metaloader.getConnection();
+		Connection con = JDBCUtils.getConnection(getDataSource(dwlayer_id,dwlayer.getJdbc_driver(),dwlayer.getJdbc_url(),dwlayer.getJdbc_username(),dwlayer.getJdbc_password()));
+		MetaLoader metaloader=factory.newInstance(con);
+		//MetaLoader metaloader=getMetaLoader(dwlayer_id,dwlayer.getJdbc_driver(),dwlayer.getJdbc_url(),dwlayer.getJdbc_username(),dwlayer.getJdbc_password());
+
+//		MetaLoader metaloader=getMetaLoader(dwlayer_id,dwlayer.getJdbc_driver(),dwlayer.getJdbc_url(),dwlayer.getJdbc_username(),dwlayer.getJdbc_password());
+//		Connection con =metaloader.getConnection();
 		try{
 			metaloader=factory.newInstance(con);
-			 Set<ColumnType> bbb=metaloader.getColumnTypes();
-			 int i=0;
-			 for(ColumnType ct:bbb){
-				 System.out.println(i+"------类型");i++;
-				 System.out.println(ct.getType_name()+"---data_type:"+ct.getData_type());
-				 System.out.println(ct.getLocal_type_name());
-				 System.out.println(ct.getPrecision());
-				 System.out.println(ct.getMinimum_scale()+"-----"+ct.getMaximum_scale());
-			 }
+
 			if(StringUtils.hasText(dwlayer.getCatalogName()) || StringUtils.hasText(dwlayer.getSchemaName())) {
 				SchemaInfo aaa=new SchemaInfo();
 				aaa.setCatalogName(dwlayer.getCatalogName());
@@ -116,6 +125,22 @@ public class MetaCompareService {
 			} else {
 				return metaloader.getTableNames();
 			}
+
+		} finally {
+			JDBCUtils.closeConnection(con);
+		}
+	}
+	
+	
+	public Table getTable(String dwlayer_id,String tableName){	
+		DWLayer dwlayer=dWLayerService.get(dwlayer_id);
+		Connection con = JDBCUtils.getConnection(getDataSource(dwlayer_id,dwlayer.getJdbc_driver(),dwlayer.getJdbc_url(),dwlayer.getJdbc_username(),dwlayer.getJdbc_password()));
+		MetaLoader metaloader=factory.newInstance(con);
+		
+		try{
+			metaloader=factory.newInstance(con);
+
+			return metaloader.getTable(tableName);
 
 		} finally {
 			JDBCUtils.closeConnection(con);

@@ -5,16 +5,15 @@ import java.io.Serializable;
 public class Column implements Serializable{
 	private static final long serialVersionUID = 7510687871404901852L;
 	
-	private String name;
-	private String comment;
-	private boolean nullable;
-	private int type;//just the java.sql.Type
-	private String typeName;//column type name
-	private int length;
+	private String name;//列名
+	private String comment;//列的注释
+	private boolean nullable;//是否可以为null
+	//private int type;//just the java.sql.Type
+	private String type_name;//column type name
 	private int precision;
 	private int scale;
 	private String defaultValue;
-	 
+	
 	public String getName() {
 		return name;
 	}
@@ -33,23 +32,11 @@ public class Column implements Serializable{
 	public void setNullable(boolean nullable) {
 		this.nullable = nullable;
 	}
-	public int getType() {
-		return type;
+	public String getType_name() {
+		return type_name;
 	}
-	public void setType(int type) {
-		this.type = type;
-	}
-	public String getTypeName() {
-		return typeName;
-	}
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
-	}
-	public int getLength() {
-		return length;
-	}
-	public void setLength(int length) {
-		this.length = length;
+	public void setType_name(String type_name) {
+		this.type_name = type_name;
 	}
 	public int getPrecision() {
 		return precision;
@@ -68,11 +55,6 @@ public class Column implements Serializable{
 	}
 	public void setDefaultValue(String defaultValue) {
 		this.defaultValue = defaultValue;
-	}
-	
-	public String toString() {
-		return "Column [name=" + name + ", comment=" + comment + ", nullable=" + nullable + ", type=" + type + ", typeName=" + typeName + ", length=" + length
-				+ ", precision=" + precision + ", scale=" + scale + ", defaultValue=" + defaultValue + "]";
 	}
 
 	
