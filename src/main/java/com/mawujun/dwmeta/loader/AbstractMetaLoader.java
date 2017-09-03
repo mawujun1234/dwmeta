@@ -41,16 +41,16 @@ public abstract class AbstractMetaLoader implements MetaLoader{
 	public AbstractMetaLoader() {
 
 	}
-	
-	public Connection getConnection(){
-		try {
-			return dbm.getConnection();
-		} catch (SQLException e) {
-			logger.error(e);
-			e.printStackTrace();
-			throw new BusinessException("getConnection():获取数据库连接失败!");
-		}
-	}
+//	@Override
+//	public Connection getConnection(){
+//		try {
+//			return dbm.getConnection();
+//		} catch (SQLException e) {
+//			logger.error(e);
+//			e.printStackTrace();
+//			throw new BusinessException("getConnection():获取数据库连接失败!");
+//		}
+//	}
 	
 	@Override
 	public Set<ColumnType> getColumnTypes() {

@@ -8,7 +8,7 @@ import com.mawujun.dwmeta.loader.schema.SchemaInfo;
 import com.mawujun.dwmeta.loader.schema.Table;
 
 public interface MetaLoader {
-	public Connection getConnection();
+	//public Connection getConnection();
 	/**
 	 * 获取数据库支持的字段类型
 	 * @author mawujun qq:16064988 mawujun1234@163.com
