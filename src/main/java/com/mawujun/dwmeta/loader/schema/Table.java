@@ -1,5 +1,6 @@
 package com.mawujun.dwmeta.loader.schema;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Table {
@@ -10,6 +11,12 @@ public class Table {
 	private PrimaryKey primaryKey;
 	private Map<String,ForeignKey> foreignkeys;
 	private Map<String,UniqueKey> uniqueKeys;
+	public void addColumn(Column col){
+		if(columns==null){
+			columns=new HashMap<String, Column>();
+		}
+		this.columns.put(col.getName(), col);
+	}
 
 	public String getName() {
 		return name;

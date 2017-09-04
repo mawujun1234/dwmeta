@@ -29,10 +29,17 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     		and a.status=1
     	</if>
     </select> 
-    
+    <!--
     <select id="exists_tablename" parameterType="map" resultType="int">
     	select count(a.id) from dw_tablemeta a,dw_classify b,dw_dwlayer c
 		where a.classify_id=b.id and b.dwlayer_id=c.id 
+		and c.db_id=#{db_id}
+		and a.tablename=trim(#{tablename})
+    </select>
+    -->
+    <select id="exists_tablename" parameterType="map" resultType="int">
+    	select count(a.id) from dw_tablemeta a
+		where a.dwlayer_id=#{dwlayer_id}
 		and c.db_id=#{db_id}
 		and a.tablename=trim(#{tablename})
     </select>

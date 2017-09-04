@@ -7,7 +7,7 @@ public class Column implements Serializable{
 	
 	private String name;//列名
 	private String comment;//列的注释
-	private boolean nullable;//是否可以为null
+	private Boolean nullable;//是否可以为null
 	//private int type;//just the java.sql.Type
 	private String type_name;//column type name
 	private int precision;
@@ -26,12 +26,7 @@ public class Column implements Serializable{
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public boolean isNullable() {
-		return nullable;
-	}
-	public void setNullable(boolean nullable) {
-		this.nullable = nullable;
-	}
+
 	public String getType_name() {
 		return type_name;
 	}
@@ -55,6 +50,12 @@ public class Column implements Serializable{
 	}
 	public void setDefaultValue(String defaultValue) {
 		this.defaultValue = defaultValue;
+	}
+	public Boolean getNullable() {
+		return nullable;
+	}
+	public void setNullable(Boolean nullable) {
+		this.nullable = nullable;
 	}
 
 	

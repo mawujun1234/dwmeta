@@ -15,7 +15,7 @@ import com.mawujun.repository.IRepository;
 @Repository
 public interface TablemetaRepository extends IRepository<Tablemeta, String>{
 	public List<ClassifyNode> query4tree(@Param("classify_id")String classify_id,@Param("dwlayer_id")String dwlayer_id,@Param("show_deleted")Boolean show_deleted);
-	public int exists_tablename(@Param("db_id")String db_id,@Param("tablename")String tablename);
+	public int exists_tablename(@Param("dwlayer_id")String dwlayer_id,@Param("tablename")String tablename);
 	
 	public List<HistoryVO> queryHistory(@Param("tablemeta_id")String tablemeta_id);
 }

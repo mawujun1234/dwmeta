@@ -11,7 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.mawujun.dwmeta.history.History;
 import com.mawujun.dwmeta.history.HistoryService;
 import com.mawujun.dwmeta.history.HistoryVO;
-import com.mawujun.dwmeta.history.OperateType;
+import com.mawujun.dwmeta.loader.schema.Column;
+import com.mawujun.dwmeta.loader.schema.Table;
 import com.mawujun.exception.BusinessException;
 import com.mawujun.permission.ShiroUtils;
 import com.mawujun.repository.cnd.Cnd;
@@ -47,7 +48,7 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 	@Override
 	public String create(Tablemeta entity) {
 		//判断表名是否重复
-		int count=tablemetaRepository.exists_tablename(entity.getDb_id(), entity.getTablename());
+		int count=tablemetaRepository.exists_tablename(entity.getDwlayer_id(), entity.getTablename());
 		if(count>0){
 			throw new BusinessException("在当前数据库表名已经存在，不准添加，请修改!");
 		}
@@ -80,6 +81,9 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 			this.update(tablemetaDTO.getTablemeta());
 			tablemeta_id=tablemetaDTO.getTablemeta().getId();
 		} else {
+			//判断该表是否已经创建了
+			
+			
 			tablemeta_id=create(tablemetaDTO.getTablemeta());
 			creteaTable=true;
 		}
@@ -325,6 +329,50 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 		columnmetaService.deleteBatch(Cnd.delete().andEquals(M.Columnmeta.tablemeta_id, tablemeta_id));
 		//删除表
 		this.deleteBatch(Cnd.delete().andEquals(M.Tablemeta.id, tablemeta_id));
+		
+	}
+	/**
+	 * 返回完整的Table对象
+	 * @param dwlayer_id
+	 * @param tablename
+	 * @return
+	 */
+	public Table getTable(String dwlayer_id,String tablename) {
+		List<Tablemeta> tablemetaes=this.query(Cnd.select().andEquals(M.Tablemeta.dwlayer_id, dwlayer_id)
+				.andEquals(M.Tablemeta.tablename, tablename));
+		if(tablemetaes.size()==0){
+			throw new BusinessException("该表名不存在!");
+		}
+		Tablemeta tablemeta=tablemetaes.get(0);
+		Table table=new Table();
+		table.setName(tablemeta.getTablename());
+		table.setComment(tablemeta.getRemark());
+		//获取列
+		List<Columnmeta> columnmetaes=columnmetaService.query(Cnd.select().andEquals(M.Columnmeta.tablemeta_id, tablemeta.getId()));
+		for(Columnmeta cm:columnmetaes){
+			Column column=new Column();
+			column.setName(cm.getColname());
+			column.setType_name(cm.getColtype());
+			column.setPrecision(column.getPrecision());
+			column.setScale(column.getScale());
+			column.setNullable(column.getNullable());
+			column.setDefaultValue(cm.getDefaultvalue());
+			column.setComment(column.getComment());
+			table.addColumn(column);
+		}
+		//获取约束
+		List<ConstraintsVO> constraintsVOs=constraintsService.queryVOs( tablemeta.getId());
+		for(ConstraintsVO vo:constraintsVOs){
+			if(vo.getType()==ConstraintsType.Primary){
+				
+			} else if(vo.getType()==ConstraintsType.Foreign){
+				
+			} else if(vo.getType()==ConstraintsType.Unique){
+				
+			}
+			
+		}
+		
 		
 	}
 

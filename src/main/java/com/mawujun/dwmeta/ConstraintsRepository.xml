@@ -25,5 +25,13 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     	select distinct a.* from dw_tablemeta a
 		where a.dwlayer_id=#{dwlayer_id} and a.status=1
     </select>
+    
+    <resultmap>
+    	
+    </resultmap>
+    <select id="queryVO1"  resultType="com.mawujun.dwmeta.ConstraintsVO1" parameterType="map">
+    	select * from dw_constraints a,dw_cons_cols b
+    	where a.id=b.constraints_id and a.tablemeta_id=#{tablemeta_id}
+    </select>
 </mapper>
 

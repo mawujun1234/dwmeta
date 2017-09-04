@@ -37,6 +37,10 @@ public class ConstraintsService extends AbstractService<Constraints, String>{
 		return constraintsRepository;
 	}
 	
+	public List<ConstraintsVO1> queryVO1(String tablemeta_id){
+		
+	}
+	
 	public List<ConstraintsVO> queryAll(String tablemeta_id)  {	
 		List<Constraints> constraintses=constraintsRepository.query(Cnd.select()
 				.andEquals(M.Constraints.tablemeta_id, tablemeta_id));
@@ -99,6 +103,13 @@ public class ConstraintsService extends AbstractService<Constraints, String>{
 	}
 	
 	public String create(ConstraintsVO vo) {
+		if(vo.getType()==ConstraintsType.Primary){
+			int count=this.queryCount(Cnd.count().andEquals(M.Constraints.tablemeta_id, vo.getTablemeta_id())
+					.andEquals(M.Constraints.type, ConstraintsType.Primary));
+			if(count>0){
+				throw new BusinessException("一个表只能添加一个主键");
+			}
+		}
 		
 		String ben_column=vo.getCol_id();
 		if(!StringUtils.hasText(vo.getCol_id())){
