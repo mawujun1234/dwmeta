@@ -1,7 +1,10 @@
 package com.mawujun.dwmeta.loader.compare;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,17 +19,23 @@ import org.springframework.util.StringUtils;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.mawujun.dwmeta.DWLayer;
 import com.mawujun.dwmeta.DWLayerService;
+import com.mawujun.dwmeta.Tablemeta;
+import com.mawujun.dwmeta.TablemetaService;
 import com.mawujun.dwmeta.loader.DefaultMetaLoaderFactory;
 import com.mawujun.dwmeta.loader.JDBCUtils;
 import com.mawujun.dwmeta.loader.MetaLoader;
 import com.mawujun.dwmeta.loader.schema.ColumnType;
 import com.mawujun.dwmeta.loader.schema.SchemaInfo;
 import com.mawujun.dwmeta.loader.schema.Table;
+import com.mawujun.repository.cnd.Cnd;
+import com.mawujun.utils.M;
 @Service
 public class MetaCompareService {
 	private static Logger logger=LogManager.getLogger(MetaCompareService.class);
 	@Autowired
 	private DWLayerService dWLayerService;
+	@Autowired
+	private TablemetaService tablemetaService;
 	
 	private Map<String,DataSource> dataSources=new HashMap<String,DataSource>();
 	
@@ -105,6 +114,51 @@ public class MetaCompareService {
 		}
 	}
 	
+	public List<DiffMsg> checkChayi(String dwlayer_id){
+		Set<String> db_tablemetaes=getTableNames(dwlayer_id);
+		
+		List<Tablemeta> tablemetaes=tablemetaService.query(Cnd.select().andEquals(M.Tablemeta.dwlayer_id,dwlayer_id));
+		
+		Set<String> sametablename=new HashSet<String>();
+		//比较获取出两个数据库之间的差异
+		List<DiffMsg> list=new ArrayList<DiffMsg>();
+		//本地比数据库多的时候
+		for(Tablemeta tt:tablemetaes){
+			DiffMsg chayi=new DiffMsg();
+			if(db_tablemetaes.contains(tt.getTablename())){
+				sametablename.add(tt.getTablename());
+				continue;
+			} else {
+				chayi.setTablename(tt.getTablename());
+				chayi.setDiffMsgType(DiffMsgType.table_more);
+			}
+			list.add(chayi);
+		}
+		for(String tablename:db_tablemetaes){
+			DiffMsg chayi=new DiffMsg();
+			if(tablemetaes.contains(tablename)){
+				continue;
+			} else {
+				chayi.setTablename(tablename);
+				chayi.setDiffMsgType(DiffMsgType.table_less);
+			}
+			list.add(chayi);
+		}
+		
+		
+		for(String tablename:sametablename){
+			Table db_table=this.getTable(dwlayer_id, tablename);
+			Table table=tablemetaService.getTable(dwlayer_id,tablename);
+			
+		}
+		
+		//检查表的注释是否一致
+		//简化表的列信息是否一致
+		//检查表的约束是否一致
+		
+		return list;
+	}
+	
 	public Set<String> getTableNames(String dwlayer_id) {	
 	
 		DWLayer dwlayer=dWLayerService.get(dwlayer_id);
@@ -114,6 +168,7 @@ public class MetaCompareService {
 
 //		MetaLoader metaloader=getMetaLoader(dwlayer_id,dwlayer.getJdbc_driver(),dwlayer.getJdbc_url(),dwlayer.getJdbc_username(),dwlayer.getJdbc_password());
 //		Connection con =metaloader.getConnection();
+		Set<String> db_tablemetaes=new HashSet<String>();
 		try{
 			metaloader=factory.newInstance(con);
 
@@ -121,14 +176,16 @@ public class MetaCompareService {
 				SchemaInfo aaa=new SchemaInfo();
 				aaa.setCatalogName(dwlayer.getCatalogName());
 				aaa.setSchemaName(dwlayer.getSchemaName());
-				return metaloader.getTableNames(aaa);
+				db_tablemetaes= metaloader.getTableNames(aaa);
 			} else {
-				return metaloader.getTableNames();
+				db_tablemetaes= metaloader.getTableNames();
 			}
 
 		} finally {
 			JDBCUtils.closeConnection(con);
 		}
+		
+		return db_tablemetaes;			
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.mawujun.dwmeta.loader.compare;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +17,11 @@ public class MetaCompareController {
 	@ResponseBody
 	public Set<String> getTableNames(String dwlayer_id) {
 		return metaCompareService.getTableNames(dwlayer_id);
+	}
+	
+	@RequestMapping("/metacompare/checkChayi.do")
+	@ResponseBody
+	public List<DiffMsg> checkChayi(String dwlayer_id) {
+		return metaCompareService.checkChayi(dwlayer_id);
 	}
 }
