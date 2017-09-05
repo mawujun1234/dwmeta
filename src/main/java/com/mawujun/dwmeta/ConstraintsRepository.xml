@@ -26,12 +26,35 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 		where a.dwlayer_id=#{dwlayer_id} and a.status=1
     </select>
     
-    <resultmap>
+    <resultMap id="constraintsVO1" type="com.mawujun.dwmeta.ConstraintsVO1">
+    	<id property="id" column="id"/>
+    	<result property="name" column="name"/>
+    	<result property="type" column="type"/>
+    	<result property="tablemeta_id" column="tablemeta_id"/>
+    	<result property="createTime" column="createTime"/>
+    	<result property="creater" column="creater"/>
     	
-    </resultmap>
-    <select id="queryVO1"  resultType="com.mawujun.dwmeta.ConstraintsVO1" parameterType="map">
-    	select * from dw_constraints a,dw_cons_cols b
-    	where a.id=b.constraints_id and a.tablemeta_id=#{tablemeta_id}
+    	<collection property="posts" ofType="com.mawujun.dwmeta.ConstraintsCols">
+    		<id property="id" column="cons_cols_id"/>
+    		<result property="col_id" column="col_id"/>
+    		<result property="ref_table_id" column="ref_table_id"/>
+    		<result property="ref_col_id" column="ref_col_id"/>
+    		<result property="constraints_id" column="constraints_id"/>
+    		<result property="col_name" column="col_name"/>
+    		<result property="ref_col_name" column="ref_col_name"/>
+    		<result property="ref_table_name" column="ref_table_name"/>
+    	</collection>
+    </resultMap>
+    <select id="queryVO1"  resultMap="constraintsVO1" parameterType="map">
+    	select a.*,aa.tablename as tablemeta_name,b.id as cons_cols_id,b.col_id,b.ref_table_id,b.ref_col_id,b.constraints_id, 
+    	,c.colname as col_name,d.colname as ref_col_name,e.tablename as ref_table_name
+    	from dw_constraints a 
+    	inner join dw_tablemeta aa on a.tablemeta_id=aa.id
+    	inner join dw_cons_cols b on a.id=b.constraints_id 
+    	inner join dw_columnmeta c on b.col_id=c.id
+		left join dw_columnmeta d on b.ref_col_id=d.id
+		left join dw_tablemeta e on b.ref_table_id=e.id
+		where a.tablemeta_id=#{tablemeta_id}
     </select>
 </mapper>
 

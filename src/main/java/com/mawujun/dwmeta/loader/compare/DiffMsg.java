@@ -8,7 +8,7 @@ public class DiffMsg {
 	private String tablename;//
 	private DiffMsgType diffMsgType;
 	
-	public String getMsg() {
+	public String getDiffMsg() {
 		if(diffMsgType==null){
 			return "";
 		}

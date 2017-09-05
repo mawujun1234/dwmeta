@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.sql.DataSource;
@@ -24,7 +25,9 @@ import com.mawujun.dwmeta.TablemetaService;
 import com.mawujun.dwmeta.loader.DefaultMetaLoaderFactory;
 import com.mawujun.dwmeta.loader.JDBCUtils;
 import com.mawujun.dwmeta.loader.MetaLoader;
+import com.mawujun.dwmeta.loader.schema.Column;
 import com.mawujun.dwmeta.loader.schema.ColumnType;
+import com.mawujun.dwmeta.loader.schema.PrimaryKey;
 import com.mawujun.dwmeta.loader.schema.SchemaInfo;
 import com.mawujun.dwmeta.loader.schema.Table;
 import com.mawujun.repository.cnd.Cnd;
@@ -144,19 +147,105 @@ public class MetaCompareService {
 			}
 			list.add(chayi);
 		}
+		//
 		
 		
 		for(String tablename:sametablename){
 			Table db_table=this.getTable(dwlayer_id, tablename);
 			Table table=tablemetaService.getTable(dwlayer_id,tablename);
-			
+			//检查表的注释是否一致
+			//检查表的列信息是否一致
+			DiffMsgType aaa=this.checkColumn(db_table, table);
+			if(aaa!=null){
+				DiffMsg chayi=new DiffMsg();
+				chayi.setTablename(tablename);
+				chayi.setDiffMsgType(aaa);
+				list.add(chayi);
+			}
+			//检查表的约束是否一致
+			DiffMsgType bbb=this.checkConstraints(db_table, table);
+			if(bbb!=null){
+				DiffMsg chayi=new DiffMsg();
+				chayi.setTablename(tablename);
+				chayi.setDiffMsgType(bbb);
+				list.add(chayi);
+			}
 		}
 		
-		//检查表的注释是否一致
-		//简化表的列信息是否一致
-		//检查表的约束是否一致
+		
 		
 		return list;
+	}
+	/**
+	 * 判断列是否一致
+	 * @author mawujun qq:16064988 mawujun1234@163.com
+	 * @param db_table
+	 * @param table
+	 * @return
+	 */
+	private DiffMsgType checkColumn(Table db_table,Table table) {
+		 Map<String, Column> db_columns=db_table.getColumns();
+		 Map<String, Column> columns=table.getColumns();
+		 
+		 if(db_columns.size()!=columns.size()){
+			 return DiffMsgType.column_change;
+		 }
+		 for(Entry<String,Column> entry:db_columns.entrySet()) {
+			 Column db_column=entry.getValue();
+			 Column column=columns.get(db_column.getName());
+			 //列不存在
+			 if(column==null){
+				 return DiffMsgType.column_change;
+			 }
+			 //比较列的信息是不是一致
+			 if(db_column.getType_name()!=null && !db_column.getType_name().equals(column.getType_name())) {
+				 return DiffMsgType.column_change;
+			 }
+			 if( db_column.getPrecision()!=column.getPrecision()) {
+				 return DiffMsgType.column_change;
+			 }
+			 if( db_column.getScale()!=column.getScale()) {
+				 return DiffMsgType.column_change;
+			 }
+			 if(db_column.getNullable()!=null && !db_column.getNullable().equals(column.getNullable())) {
+				 return DiffMsgType.column_change;
+			 }
+			 if(db_column.getDefaultValue()!=null && !db_column.getDefaultValue().equals(column.getDefaultValue())) {
+				 return DiffMsgType.column_change;
+			 }
+			 if(db_column.getComment()!=null && !db_column.getComment().equals(column.getComment())) {
+				 return DiffMsgType.column_change;
+			 }
+		 }
+		 return null;
+	}
+	
+	private DiffMsgType checkConstraints(Table db_table,Table table) {
+		PrimaryKey db_pk=db_table.getPrimaryKey();
+		PrimaryKey pk=table.getPrimaryKey();
+		if(!db_pk.getName().equals(pk.getName())) {
+			return DiffMsgType.pk_name;
+		}
+//		if(!db_pk.getTable_name().equals(pk.getTable_name())) {
+//			return DiffMsgType.pk_table_name;
+//		}
+		List<String> db_columns=db_pk.getColumns();
+		List<String> columns=pk.getColumns();
+		if(db_columns.size()!=columns.size()){
+			return DiffMsgType.pk_column_diff;
+		}
+		for(String db_col:db_columns){
+			if(!columns.contains(db_col)){
+				return DiffMsgType.pk_column_diff;
+			}
+		}
+		
+		
+		//比较外键
+		dd
+		
+		//比较唯一键
+		return null;
 	}
 	
 	public Set<String> getTableNames(String dwlayer_id) {	

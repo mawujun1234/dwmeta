@@ -12,7 +12,11 @@ import com.mawujun.dwmeta.history.History;
 import com.mawujun.dwmeta.history.HistoryService;
 import com.mawujun.dwmeta.history.HistoryVO;
 import com.mawujun.dwmeta.loader.schema.Column;
+import com.mawujun.dwmeta.loader.schema.ForeignKey;
+import com.mawujun.dwmeta.loader.schema.ForeignKeyColumn;
+import com.mawujun.dwmeta.loader.schema.PrimaryKey;
 import com.mawujun.dwmeta.loader.schema.Table;
+import com.mawujun.dwmeta.loader.schema.UniqueKey;
 import com.mawujun.exception.BusinessException;
 import com.mawujun.permission.ShiroUtils;
 import com.mawujun.repository.cnd.Cnd;
@@ -361,18 +365,40 @@ public class TablemetaService extends AbstractService<Tablemeta, String>{
 			table.addColumn(column);
 		}
 		//获取约束
-		List<ConstraintsVO> constraintsVOs=constraintsService.queryVOs( tablemeta.getId());
-		for(ConstraintsVO vo:constraintsVOs){
+		List<ConstraintsVO1> constraintsVOs=constraintsService.queryVO1( tablemeta.getId());
+		for(ConstraintsVO1 vo:constraintsVOs){
 			if(vo.getType()==ConstraintsType.Primary){
-				
+				PrimaryKey pk=new PrimaryKey();
+				pk.setTable_name(vo.getTablemeta_name());
+				pk.setName(vo.getName());
+				for (ConstraintsColsVO colsvo: vo.getConstraintscols()) {
+					pk.addColumn(colsvo.getCol_name());
+				}
 			} else if(vo.getType()==ConstraintsType.Foreign){
+				ForeignKey fk=new ForeignKey();
+				fk.setName(vo.getName());
+				for (ConstraintsColsVO colsvo: vo.getConstraintscols()) {
+					ForeignKeyColumn fcr=new ForeignKeyColumn();
+					fcr.setTable_name(vo.getTablemeta_name());
+					fcr.setColumn_name(colsvo.getCol_name());
+					fcr.setRef_table_name(colsvo.getRef_table_name());
+					fcr.setRef_column_name(colsvo.getRef_col_name());
+					fcr.setKeySeq( 0);
+					fk.addColumn(fcr);
+				}
+				
 				
 			} else if(vo.getType()==ConstraintsType.Unique){
-				
+				UniqueKey pk=new UniqueKey();
+				pk.setTable_name(vo.getTablemeta_name());
+				pk.setName(vo.getName());
+				for (ConstraintsColsVO colsvo: vo.getConstraintscols()) {
+					pk.addColumn(colsvo.getCol_name());
+				}
 			}
 			
 		}
-		
+		return table;
 		
 	}
 

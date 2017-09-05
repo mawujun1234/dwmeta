@@ -1,6 +1,5 @@
 package com.mawujun.dwmeta.loader;
 
-import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 import com.mawujun.dwmeta.loader.schema.Column;
 import com.mawujun.dwmeta.loader.schema.ColumnType;
 import com.mawujun.dwmeta.loader.schema.ForeignKey;
+import com.mawujun.dwmeta.loader.schema.ForeignKeyColumn;
 import com.mawujun.dwmeta.loader.schema.PrimaryKey;
 import com.mawujun.dwmeta.loader.schema.SchemaInfo;
 import com.mawujun.dwmeta.loader.schema.Table;
@@ -158,7 +158,7 @@ public abstract class AbstractMetaLoader implements MetaLoader{
 
 		// crawl foreign
 		//if (level.isRetrieveForeignKeys()) {
-			Map<String, ForeignKey> foreignKeys = crawlForeignKey(tableName, schemaInfo);
+			Map<String, ForeignKey> foreignKeys = getForeignKey(tableName, schemaInfo);
 			table.setForeignkeys(foreignKeys);
 		//}
 
@@ -286,7 +286,7 @@ public abstract class AbstractMetaLoader implements MetaLoader{
 		return pk;
 	}
 	
-	protected Map<String, ForeignKey> crawlForeignKey(String tableName, SchemaInfo schemaInfo) {
+	protected Map<String, ForeignKey> getForeignKey(String tableName, SchemaInfo schemaInfo) {
 		Map<String, ForeignKey> foreignKeys = new HashMap<String, ForeignKey>();
 		ResultSet rs = null;
 		try {
@@ -295,6 +295,7 @@ public abstract class AbstractMetaLoader implements MetaLoader{
 			} else {
 				rs = dbm.getImportedKeys(schemaInfo.getCatalogName(), schemaInfo.getSchemaName(), tableName);
 			}
+			
 			while (rs.next()) {
 				String fk_name = rs.getString("FK_NAME");
 				ForeignKey key;
@@ -310,11 +311,13 @@ public abstract class AbstractMetaLoader implements MetaLoader{
 				}
 				//ForeignKeyColumnReference fcr = packForeignKeyColumnReference(rs);
 				//key.getColumnReferences().add(fcr);
-				key.setTable_name(rs.getString("PKTABLE_NAME"));
-				key.setColumn_name(rs.getString("PKCOLUMN_NAME"));
-				key.setRef_table_name(rs.getString("FKTABLE_NAME"));
-				key.setRef_column_name(rs.getString("FKCOLUMN_NAME"));
-				key.setKeySeq( rs.getInt("KEY_SEQ"));
+				ForeignKeyColumn fcr=new ForeignKeyColumn();
+				fcr.setTable_name(rs.getString("PKTABLE_NAME"));
+				fcr.setColumn_name(rs.getString("PKCOLUMN_NAME"));
+				fcr.setRef_table_name(rs.getString("FKTABLE_NAME"));
+				fcr.setRef_column_name(rs.getString("FKCOLUMN_NAME"));
+				fcr.setKeySeq( rs.getInt("KEY_SEQ"));
+				key.addColumn(fcr);
 			}
 		} catch (SQLException e) {
 			logger.error(e);

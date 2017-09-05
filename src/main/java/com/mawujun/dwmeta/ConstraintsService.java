@@ -38,7 +38,7 @@ public class ConstraintsService extends AbstractService<Constraints, String>{
 	}
 	
 	public List<ConstraintsVO1> queryVO1(String tablemeta_id){
-		
+		return constraintsRepository.queryVO1(tablemeta_id);
 	}
 	
 	public List<ConstraintsVO> queryAll(String tablemeta_id)  {	

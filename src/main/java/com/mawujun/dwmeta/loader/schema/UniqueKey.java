@@ -7,6 +7,12 @@ public class UniqueKey {
 	private String name;
 	private List<String> columns = new ArrayList<String>();
 	private String table_name;
+	public void addColumn(String name) {
+		if(this.columns==null){
+			this.columns=new ArrayList<String>();
+		}
+		this.columns.add(name);
+	}
 	
 	public String getName() {
 		return name;

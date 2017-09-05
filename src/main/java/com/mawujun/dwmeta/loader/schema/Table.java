@@ -17,6 +17,12 @@ public class Table {
 		}
 		this.columns.put(col.getName(), col);
 	}
+	public void addForeignKey(String fk_name,ForeignKey fk){
+		if(foreignkeys==null){
+			foreignkeys=new HashMap<String, ForeignKey>();
+		}
+		this.foreignkeys.put(fk_name,  fk);
+	}
 
 	public String getName() {
 		return name;
