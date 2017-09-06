@@ -5,6 +5,8 @@ package com.mawujun.dwmeta.loader.compare;
  *
  */
 public class DiffMsg {
+	private String dbname;
+	private String layername;
 	private String tablename;//
 	private DiffMsgType diffMsgType;
 	
@@ -27,6 +29,26 @@ public class DiffMsg {
 	}
 	public void setDiffMsgType(DiffMsgType diffMsgType) {
 		this.diffMsgType = diffMsgType;
+	}
+
+
+	public String getDbname() {
+		return dbname;
+	}
+
+
+	public void setDbname(String dbname) {
+		this.dbname = dbname;
+	}
+
+
+	public String getLayername() {
+		return layername;
+	}
+
+
+	public void setLayername(String layername) {
+		this.layername = layername;
 	}
 	
 	
