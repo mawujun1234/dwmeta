@@ -120,6 +120,16 @@ public class MetaCompareService {
 		}
 	}
 	
+	public DiffTable copy2DiffTable(Table table){
+		DiffTable difftable=new DiffTable();
+		difftable.setName(table.getName());
+		difftable.setComment(table.getComment());
+		Map<String,Column> columns=table.getColumns();
+		for(Entry<String,Column> entry:columns.entrySet()){
+			
+		}
+		
+	}
 	public List<DiffMsg> checkChayi(String dwlayer_id){
 		Set<String> db_tablemetaes=getTableNames(dwlayer_id);
 		
@@ -127,7 +137,7 @@ public class MetaCompareService {
 		
 		Set<String> sametablename=new HashSet<String>();
 		//比较获取出两个数据库之间的差异
-		List<DiffMsg> list=new ArrayList<DiffMsg>();
+		Map<String,DiffMsg> list=new HashMap<String,DiffMsg>();
 		//本地比数据库多的时候
 		for(Tablemeta tt:tablemetaes){
 			DiffMsg chayi=new DiffMsg();
@@ -138,7 +148,11 @@ public class MetaCompareService {
 				chayi.setTablename(tt.getTablename());
 				chayi.setDiffMsgType(DiffMsgType.table_more);
 			}
-			list.add(chayi);
+			//list.add(chayi);
+			Table table=tablemetaService.getTable(dwlayer_id,tt.getTablename());
+			DiffTable diffTable=Bean
+			chayi.setDiffTable(table);
+			list.put(tt.getTablename(), );
 		}
 		for(String tablename:db_tablemetaes){
 			DiffMsg chayi=new DiffMsg();
@@ -148,7 +162,9 @@ public class MetaCompareService {
 				chayi.setTablename(tablename);
 				chayi.setDiffMsgType(DiffMsgType.table_less);
 			}
-			list.add(chayi);
+			DiffTable diffTable=Bean
+			chayi.setDiffTable(table);
+			//list.add(chayi);
 		}
 		//
 		

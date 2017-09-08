@@ -10,6 +10,8 @@ public class DiffMsg {
 	private String tablename;//
 	private DiffMsgType diffMsgType;
 	
+	private DiffTable diffTable;
+	
 	public String getDiffMsg() {
 		if(diffMsgType==null){
 			return "";
@@ -49,6 +51,16 @@ public class DiffMsg {
 
 	public void setLayername(String layername) {
 		this.layername = layername;
+	}
+
+
+	public DiffTable getDiffTable() {
+		return diffTable;
+	}
+
+
+	public void setDiffTable(DiffTable diffTable) {
+		this.diffTable = diffTable;
 	}
 	
 	
