@@ -46,7 +46,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     	</collection>
     </resultMap>
     <select id="queryVO1"  resultMap="constraintsVO1" parameterType="map">
-    	select a.*,aa.tablename as tablemeta_name,b.id as cons_cols_id,b.col_id,b.ref_table_id,b.ref_col_id,b.constraints_id, 
+    	select a.*,aa.tablename as tablemeta_name,b.id as cons_cols_id,b.col_id,b.ref_table_id,b.ref_col_id,b.constraints_id
     	,c.colname as col_name,d.colname as ref_col_name,e.tablename as ref_table_name
     	from dw_constraints a 
     	inner join dw_tablemeta aa on a.tablemeta_id=aa.id

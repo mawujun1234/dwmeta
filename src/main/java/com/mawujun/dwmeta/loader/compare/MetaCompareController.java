@@ -1,6 +1,8 @@
 package com.mawujun.dwmeta.loader.compare;
 
-import java.util.List;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,8 @@ public class MetaCompareController {
 	
 	@RequestMapping("/metacompare/checkChayi.do")
 	@ResponseBody
-	public List<DiffMsg> checkChayi(String dwlayer_id) {
-		return metaCompareService.checkChayi(dwlayer_id);
+	public Collection<DiffMsg> checkChayi(String dwlayer_id) throws IllegalAccessException, InvocationTargetException {
+		 Map<String,DiffMsg> result= metaCompareService.checkChayi(dwlayer_id);
+		 return result.values();
 	}
 }

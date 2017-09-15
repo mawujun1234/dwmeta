@@ -13,6 +13,7 @@ public class Column implements Serializable{
 	private int precision;
 	private int scale;
 	private String defaultValue;
+
 	
 	public String getName() {
 		return name;

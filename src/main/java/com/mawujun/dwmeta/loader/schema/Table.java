@@ -17,11 +17,17 @@ public class Table {
 		}
 		this.columns.put(col.getName(), col);
 	}
-	public void addForeignKey(String fk_name,ForeignKey fk){
+	public void addForeignKey(ForeignKey fk){
 		if(foreignkeys==null){
 			foreignkeys=new HashMap<String, ForeignKey>();
 		}
-		this.foreignkeys.put(fk_name,  fk);
+		this.foreignkeys.put(fk.getName(),  fk);
+	}
+	public void addUniqueKey(UniqueKey uk){
+		if(uniqueKeys==null){
+			uniqueKeys=new HashMap<String, UniqueKey>();
+		}
+		this.uniqueKeys.put(uk.getName(),  uk);
 	}
 
 	public String getName() {

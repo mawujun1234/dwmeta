@@ -3,20 +3,18 @@ package com.mawujun.dwmeta.loader.compare;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mawujun.dwmeta.loader.schema.Table;
+import com.mawujun.dwmeta.loader.schema.UniqueKey;
 
-public class DiffTable extends Table{
-	private List<DiffPrimaryKey> primaryKeyes;
-	
+public class DiffUniqueKey extends UniqueKey {
 	private DiffMsgType diffMsgType;
+	private List<String> diff_columns = new ArrayList<String>();
 	
-	public void addDiffPrimaryKey(DiffPrimaryKey diffprimarykey){
-		if(primaryKeyes==null){
-			primaryKeyes=new ArrayList<DiffPrimaryKey>();
+	public void addDiff_columns(String name) {
+		if(this.diff_columns==null){
+			this.diff_columns=new ArrayList<String>();
 		}
-		primaryKeyes.add(diffprimarykey);
+		this.diff_columns.add(name);
 	}
-	
 	
 	public String getDiffMsgType_name() {
 		if(diffMsgType==null){
@@ -32,7 +30,4 @@ public class DiffTable extends Table{
 	public void setDiffMsgType(DiffMsgType diffMsgType) {
 		this.diffMsgType = diffMsgType;
 	}
-
-	
-
 }
