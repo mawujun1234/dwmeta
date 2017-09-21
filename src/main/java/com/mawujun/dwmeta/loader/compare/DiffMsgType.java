@@ -2,12 +2,12 @@ package com.mawujun.dwmeta.loader.compare;
 
 public enum DiffMsgType {
 	none("无差异")
-	,table_change("表新增")
-	,table_more("表新增")//本地比数据库多了
+	,table_change("表变更")
+	,table_more("新增表")//本地比数据库多了
 	,table_less("表未登记")//本地比数据库少了
 	
 	,column_change("列变更")
-	,column_more("列新增")
+	,column_more("新增列")
 	,column_less("列未登记")
 	
 	

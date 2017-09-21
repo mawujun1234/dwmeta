@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.mawujun.dwmeta.DB;
+import com.mawujun.dwmeta.DBService;
 import com.mawujun.dwmeta.DWLayer;
 import com.mawujun.dwmeta.DWLayerService;
 import com.mawujun.dwmeta.Tablemeta;
@@ -39,6 +42,8 @@ import com.mawujun.utils.M;
 @Service
 public class MetaCompareService {
 	private static Logger logger=LogManager.getLogger(MetaCompareService.class);
+	@Autowired
+	private DBService dbService;
 	@Autowired
 	private DWLayerService dWLayerService;
 	@Autowired
@@ -187,17 +192,37 @@ public class MetaCompareService {
 		return difftable;
 		
 	}
+	public  Map<String,DiffMsg> checkChayiByDB(String db_id) throws IllegalAccessException, InvocationTargetException {
+		List<DWLayer> list=dWLayerService.query(Cnd.select().andEquals(M.DWLayer.db_id, db_id));
+		Map<String,DiffMsg> result=new LinkedHashMap<String,DiffMsg>();
+		for(DWLayer dwlayer:list) {
+			Map<String,DiffMsg>  aa=checkChayi(dwlayer);
+			result.putAll(aa);
+		}
+		return result;
+	}
+	
 	public Map<String,DiffMsg> checkChayi(String dwlayer_id) throws IllegalAccessException, InvocationTargetException{
-		Set<String> db_tablemetaes=getTableNames(dwlayer_id);
+		DWLayer dwlayer=dWLayerService.get(dwlayer_id);
+		return checkChayi(dwlayer);
+	}
+	public Map<String,DiffMsg> checkChayi(DWLayer dwlayer) throws IllegalAccessException, InvocationTargetException{
+		//DWLayer dwlayer=dWLayerService.get(dwlayer_id);
+		String dwlayer_id=dwlayer.getId();
+		DB db=dbService.get(dwlayer.getDb_id());
+		
+		Set<String> db_tablemetaes=getTableNames(dwlayer);
 		
 		List<Tablemeta> tablemetaes=tablemetaService.query(Cnd.select().andEquals(M.Tablemeta.dwlayer_id,dwlayer_id));
 		
 		Set<String> sametablename=new HashSet<String>();
 		//比较获取出两个数据库之间的差异
-		Map<String,DiffMsg> list=new HashMap<String,DiffMsg>();
+		Map<String,DiffMsg> list=new LinkedHashMap<String,DiffMsg>();
 		//本地比数据库多的时候，在这里登记了，但还未在系统中建立的表结构
 		for(Tablemeta tt:tablemetaes){
 			DiffMsg chayi=new DiffMsg();
+			chayi.setLayername(dwlayer.getName());
+			chayi.setDbname(db.getName());
 			if(db_tablemetaes.contains(tt.getTablename())){
 				sametablename.add(tt.getTablename());
 				continue;
@@ -238,10 +263,21 @@ public class MetaCompareService {
 		}
 		//未在本系统中登记的表结构
 		for(String tablename:db_tablemetaes){
+			
+			boolean bool=false;
+			for(Tablemeta tt:tablemetaes) {
+				if(tt.getTablename().equals(tablename)) {
+					bool=true;
+					break;
+				}
+			}
+			
 			DiffMsg chayi=new DiffMsg();
-			if(tablemetaes.contains(tablename)){
+			if(bool){
 				continue;
 			} else {
+				chayi.setLayername(dwlayer.getName());
+				chayi.setDbname(db.getName());
 				chayi.setTablename(tablename);
 				chayi.setDiffMsgType(DiffMsgType.table_less);
 			}
@@ -259,13 +295,19 @@ public class MetaCompareService {
 				((DiffPrimaryKey)diffTable.getPrimaryKey()).setDiffMsgType(DiffMsgType.pk_less);
 			}
 			//外键设置为多了
-			for(Entry<String,ForeignKey> entry:diffTable.getForeignkeys().entrySet()){
-				((DiffForeignKey)entry.getValue()).setDiffMsgType(DiffMsgType.fk_less);
+			if(diffTable.getForeignkeys()!=null) {
+				for(Entry<String,ForeignKey> entry:diffTable.getForeignkeys().entrySet()){
+					((DiffForeignKey)entry.getValue()).setDiffMsgType(DiffMsgType.fk_less);
+				}
 			}
+			
 			//唯一键设置为多了
-			for(Entry<String,UniqueKey> entry:diffTable.getUniqueKeys().entrySet()){
-				((DiffUniqueKey)entry.getValue()).setDiffMsgType(DiffMsgType.uk_less);
+			if(diffTable.getUniqueKeys()!=null) {
+				for(Entry<String,UniqueKey> entry:diffTable.getUniqueKeys().entrySet()){
+					((DiffUniqueKey)entry.getValue()).setDiffMsgType(DiffMsgType.uk_less);
+				}
 			}
+			
 			list.put(tablename, chayi);
 		}
 		//
@@ -280,6 +322,8 @@ public class MetaCompareService {
 			boolean bool=this.checkColumn(db_table, difftable);
 			if(!bool){
 				DiffMsg chayi=new DiffMsg();
+				chayi.setLayername(dwlayer.getName());
+				chayi.setDbname(db.getName());
 				chayi.setTablename(tablename);
 				chayi.setDiffMsgType(DiffMsgType.table_change);
 				chayi.setDiffTable(difftable);
@@ -289,6 +333,8 @@ public class MetaCompareService {
 			boolean bbb=this.checkConstraints(db_table, difftable);
 			if(bool && !bbb){
 				DiffMsg chayi=new DiffMsg();
+				chayi.setLayername(dwlayer.getName());
+				chayi.setDbname(db.getName());
 				chayi.setTablename(tablename);
 				chayi.setDiffMsgType(DiffMsgType.table_change);
 				chayi.setDiffTable(difftable);
@@ -577,10 +623,10 @@ public class MetaCompareService {
 		return issame;
 	}
 	
-	public Set<String> getTableNames(String dwlayer_id) {	
+	public Set<String> getTableNames(DWLayer dwlayer) {	
 	
-		DWLayer dwlayer=dWLayerService.get(dwlayer_id);
-		Connection con = JDBCUtils.getConnection(getDataSource(dwlayer_id,dwlayer.getJdbc_driver(),dwlayer.getJdbc_url(),dwlayer.getJdbc_username(),dwlayer.getJdbc_password()));
+		
+		Connection con = JDBCUtils.getConnection(getDataSource(dwlayer.getId(),dwlayer.getJdbc_driver(),dwlayer.getJdbc_url(),dwlayer.getJdbc_username(),dwlayer.getJdbc_password()));
 		MetaLoader metaloader=factory.newInstance(con);
 		//MetaLoader metaloader=getMetaLoader(dwlayer_id,dwlayer.getJdbc_driver(),dwlayer.getJdbc_url(),dwlayer.getJdbc_username(),dwlayer.getJdbc_password());
 

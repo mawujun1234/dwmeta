@@ -25,7 +25,7 @@ public class OracleMetaLoader  extends AbstractMetaLoader {
 	public final static String GET_CONSTRAINT_SQL = "select a.constraint_name ,a.constraint_type ,a.search_condition ,a.deferrable,  b.column_name"
 			+ " from All_Constraints a"
 			+ " inner join all_cons_columns B on a.owner=b.owner and A.constraint_name=B.constraint_name and A.table_name=B.table_name"
-			+ "where  lower(a.owne)r=lower(?) and lower(a.TABLE_NAME)=lower(?) and   a.Constraint_Type='U' ";
+			+ " where  lower(a.owner)=lower(?) and lower(a.TABLE_NAME)=lower(?) and   a.Constraint_Type='U' ";
 	
 	public OracleMetaLoader() {
 
