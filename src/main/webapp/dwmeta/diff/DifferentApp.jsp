@@ -15,7 +15,17 @@ String db_id=request.getParameter("db_id");
 	window.db_id='<%=db_id%>'
 	</script>
 	
-	<%@include file="../common/init.jsp" %>
+	<%@include file="../../common/init.jsp" %>
+	
+	<script>
+	Ext.Loader.setConfig({
+	enabled: true,
+	paths:{
+		'Ems':'../..',
+		'Ext.ux':'../ext6/packages/ux/classic/src'
+	}
+});
+	</script>
 	<script type="text/javascript" src="DifferentApp.js"></script>
 	<style>
 	.greennode{

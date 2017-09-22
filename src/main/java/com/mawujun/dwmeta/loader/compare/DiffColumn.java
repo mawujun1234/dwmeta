@@ -2,13 +2,22 @@ package com.mawujun.dwmeta.loader.compare;
 
 import com.mawujun.dwmeta.loader.schema.Column;
 
-public class DiffColumn extends Column {
+public class DiffColumn  {
 	/**
 	 * @author mawujun qq:16064988 mawujun1234@163.com
 	 */
 	private static final long serialVersionUID = 1L;
 	
 	private DiffMsgType diffMsgType;
+	
+	private String name;//列名
+	private String comment;//列的注释
+	private Boolean nullable;//是否可以为null
+	//private int type;//just the java.sql.Type
+	private String type_name;//column type name
+	private int precision;
+	private int scale;
+	private String defaultValue;
 	
 	
 	private String diff_name;//列名
@@ -89,5 +98,61 @@ public class DiffColumn extends Column {
 
 	public void setDiff_defaultValue(String diff_defaultValue) {
 		this.diff_defaultValue = diff_defaultValue;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public Boolean getNullable() {
+		return nullable;
+	}
+
+	public void setNullable(Boolean nullable) {
+		this.nullable = nullable;
+	}
+
+	public String getType_name() {
+		return type_name;
+	}
+
+	public void setType_name(String type_name) {
+		this.type_name = type_name;
+	}
+
+	public int getPrecision() {
+		return precision;
+	}
+
+	public void setPrecision(int precision) {
+		this.precision = precision;
+	}
+
+	public int getScale() {
+		return scale;
+	}
+
+	public void setScale(int scale) {
+		this.scale = scale;
+	}
+
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+
+	public void setDefaultValue(String defaultValue) {
+		this.defaultValue = defaultValue;
 	}
 }

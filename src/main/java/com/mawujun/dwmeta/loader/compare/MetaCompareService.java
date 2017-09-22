@@ -237,7 +237,7 @@ public class MetaCompareService {
 			chayi.setDiffTable(diffTable);
 			
 			//列设置为多了	
-			for(Entry<String,Column> entry:diffTable.getColumns().entrySet()){
+			for(Entry<String,DiffColumn> entry:diffTable.getColumns().entrySet()){
 				((DiffColumn)entry.getValue()).setDiffMsgType(DiffMsgType.column_more);
 			}
 			//主键设置为多了
@@ -246,14 +246,14 @@ public class MetaCompareService {
 			}
 			//外键设置为多了
 			if(diffTable.getForeignkeys()!=null) {
-				for(Entry<String,ForeignKey> entry:diffTable.getForeignkeys().entrySet()){
+				for(Entry<String,DiffForeignKey> entry:diffTable.getForeignkeys().entrySet()){
 					((DiffForeignKey)entry.getValue()).setDiffMsgType(DiffMsgType.fk_more);
 				}
 			}
 			
 			//唯一键设置为多了
 			if(diffTable.getUniqueKeys()!=null) {
-				for(Entry<String,UniqueKey> entry:diffTable.getUniqueKeys().entrySet()){
+				for(Entry<String,DiffUniqueKey> entry:diffTable.getUniqueKeys().entrySet()){
 					((DiffUniqueKey)entry.getValue()).setDiffMsgType(DiffMsgType.uk_more);
 				}
 			}
@@ -287,7 +287,7 @@ public class MetaCompareService {
 			chayi.setDiffTable(diffTable);
 			
 			//列设置为多了	
-			for(Entry<String,Column> entry:diffTable.getColumns().entrySet()){
+			for(Entry<String,DiffColumn> entry:diffTable.getColumns().entrySet()){
 				((DiffColumn)entry.getValue()).setDiffMsgType(DiffMsgType.column_less);
 			}
 			//主键设置为多了
@@ -296,14 +296,14 @@ public class MetaCompareService {
 			}
 			//外键设置为多了
 			if(diffTable.getForeignkeys()!=null) {
-				for(Entry<String,ForeignKey> entry:diffTable.getForeignkeys().entrySet()){
+				for(Entry<String,DiffForeignKey> entry:diffTable.getForeignkeys().entrySet()){
 					((DiffForeignKey)entry.getValue()).setDiffMsgType(DiffMsgType.fk_less);
 				}
 			}
 			
 			//唯一键设置为多了
 			if(diffTable.getUniqueKeys()!=null) {
-				for(Entry<String,UniqueKey> entry:diffTable.getUniqueKeys().entrySet()){
+				for(Entry<String,DiffUniqueKey> entry:diffTable.getUniqueKeys().entrySet()){
 					((DiffUniqueKey)entry.getValue()).setDiffMsgType(DiffMsgType.uk_less);
 				}
 			}
@@ -358,7 +358,7 @@ public class MetaCompareService {
 	private boolean checkColumn(Table db_table,DiffTable difftable) throws IllegalAccessException, InvocationTargetException {
 		
 		 Map<String, Column> db_columns=db_table.getColumns();
-		 Map<String, Column> columns=difftable.getColumns();
+		 Map<String, DiffColumn> columns=difftable.getColumns();
 		 
 //		 if(db_columns.size()!=columns.size()){
 //			 return DiffMsgType.column_change;
@@ -366,7 +366,7 @@ public class MetaCompareService {
 		 Boolean issame=true;
 		 for(Entry<String,Column> entry:db_columns.entrySet()) {
 			 Column db_column=entry.getValue();
-			 Column column=columns.get(db_column.getName());
+			 DiffColumn column=columns.get(db_column.getName());
 			 DiffColumn diffcol=new DiffColumn();
 			 
 			 //列不存在
@@ -429,7 +429,7 @@ public class MetaCompareService {
 	private boolean checkConstraints(Table db_table,DiffTable difftable) throws IllegalAccessException, InvocationTargetException {
 		boolean issame=true;
 		PrimaryKey db_pk=db_table.getPrimaryKey();
-		PrimaryKey pk=difftable.getPrimaryKey();
+		DiffPrimaryKey pk=difftable.getPrimaryKey();
 		if(db_pk!=null && pk==null){
 			issame=false;
 			DiffPrimaryKey db_diffpk=new DiffPrimaryKey();
@@ -483,7 +483,7 @@ public class MetaCompareService {
 		
 		//比较外键
 		Map<String,ForeignKey> db_fk=db_table.getForeignkeys();
-		Map<String,ForeignKey> fk=difftable.getForeignkeys();
+		Map<String,DiffForeignKey> fk=difftable.getForeignkeys();
 //		if(db_fk.size()!=fk.size()){
 //			return DiffMsgType.fk_size_diff;
 //		}
@@ -491,7 +491,7 @@ public class MetaCompareService {
 			db_fk=new HashMap<String,ForeignKey>();
 		}
 		if(fk==null){
-			fk=new HashMap<String,ForeignKey>();
+			fk=new HashMap<String,DiffForeignKey>();
 		}
 		for(String db_key:db_fk.keySet()){
 			if(!fk.containsKey(db_key)) {
@@ -562,12 +562,12 @@ public class MetaCompareService {
 		
 		//比较唯一键
 		Map<String,UniqueKey> db_uk=db_table.getUniqueKeys();
-		Map<String,UniqueKey> uk=difftable.getUniqueKeys();
+		Map<String,DiffUniqueKey> uk=difftable.getUniqueKeys();
 		if(db_uk==null){
 			db_uk=new HashMap<String,UniqueKey>();
 		}
 		if(uk==null){
-			uk=new HashMap<String,UniqueKey>();
+			uk=new HashMap<String,DiffUniqueKey>();
 		}
 
 		for(String db_key:db_uk.keySet()){

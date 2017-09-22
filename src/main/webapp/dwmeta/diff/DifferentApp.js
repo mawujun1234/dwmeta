@@ -1,4 +1,4 @@
-//Ext.require('Ems.dwmeta.DwmetaTree');
+Ext.require('Ems.dwmeta.diff.DiffTablePanel');
 Ext.onReady(function(){
 	
 	var diffmsg_store=Ext.create('Ext.data.Store', {
@@ -51,7 +51,7 @@ Ext.onReady(function(){
 		split:true,
 		columns: [
 			{ text: '差异类型', dataIndex: 'diffMsg' },
-			{ text: '表名', dataIndex: 'tablename', flex: 1 },
+			{ text: '表名', dataIndex: 'tablename', minWidth:120 },
 			{ text: 'schema', dataIndex: 'layername',width:80 },
 	        { text: '数据库', dataIndex: 'dbname',width:80 }
 	    ],
@@ -87,10 +87,12 @@ Ext.onReady(function(){
 	    }]
 	});
 	
-	
+	var diffTablePanel=Ext.create('Ems.dwmeta.diff.DiffTablePanel',{
+		region:'center'
+	});
 	var viewPort=Ext.create('Ext.container.Viewport',{
 		layout:'border',
-		items:[diffmsg_grid,{html:1111}]
+		items:[diffmsg_grid,diffTablePanel]
 	});
 
 

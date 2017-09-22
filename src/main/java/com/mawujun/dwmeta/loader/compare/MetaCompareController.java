@@ -2,13 +2,12 @@ package com.mawujun.dwmeta.loader.compare;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
+import org.apache.shiro.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +61,51 @@ public class MetaCompareController {
 			list.add(aaa);
 		}
 		return list;
+	}
+	
+	@RequestMapping("/metacompare/queryDiffTable.do")
+	@ResponseBody
+	public List<DiffMsg> queryDiffTable(String db_id,String table_name)  {
+		
+		DiffMsg diffMsg=db_diffMsgs.get(db_id).get(table_name);
+		DiffTable diffTable=diffMsg.getDiffTable();
+		Map<String,Object> table=new HashMap<String,Object>();
+		//table.put("name", diffTable.getName());
+		table.put("tablename", diffTable.getName());
+		List<DiffColumn> columns=new ArrayList<DiffColumn>();
+		for(Entry<String,DiffColumn> entry:diffTable.getColumns().entrySet()) {
+			columns.add(entry.getValue());
+		}
+		table.put("columns", columns);
+		
+		
+		if(diffTable.getPrimaryKeyes()!=null) {
+			for(DiffPrimaryKey pk:diffTable.getPrimaryKeyes()) {
+				Map<String,Object> map=new HashMap<String,Object>();
+				map.put("diffMsgType_name", pk.getDiffMsgType_name());
+				map.put("diffMsgType", pk.getDiffMsgType());
+				map.put("type", "主键");
+				map.put("name", pk.getName());
+				map.put("col_name", StringUtils.toString(pk.getColumns().toArray()));
+				//map.put("ref_table_name", );
+				//map.put("ref_col_name", );
+			}
+		}
+		if(diffTable.getForeignkeys()!=null) {
+			for(Entry<String,DiffForeignKey> entry:diffTable.getForeignkeys().entrySet()) {
+				DiffForeignKey fk=entry.getValue();
+				Map<String,Object> map=new HashMap<String,Object>();
+				map.put("diffMsgType_name", fk.getDiffMsgType_name());
+				map.put("diffMsgType", fk.getDiffMsgType());
+				map.put("type", "外键");
+				map.put("name", fk.getName());
+				map.put("col_name", );
+				map.put("ref_table_name", );
+				map.put("ref_col_name", );
+			}
+		}
+		
+		
 	}
 	
 	

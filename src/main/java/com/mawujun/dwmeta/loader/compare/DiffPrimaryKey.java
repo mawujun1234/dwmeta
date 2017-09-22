@@ -3,11 +3,14 @@ package com.mawujun.dwmeta.loader.compare;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mawujun.dwmeta.loader.schema.PrimaryKey;
-
-public class DiffPrimaryKey extends PrimaryKey {
+public class DiffPrimaryKey {// extends PrimaryKey {
 	private DiffMsgType diffMsgType;
 	
+	private String name;
+	private List<String> columns = new ArrayList<String>();
+	private String table_name;
+	
+
 	//private String diff_name;
 	private List<String> diff_columns = new ArrayList<String>();
 	
@@ -23,6 +26,31 @@ public class DiffPrimaryKey extends PrimaryKey {
 			return "";
 		}
 		return diffMsgType.getMsg();
+	}
+	public void addColumn(String name) {
+		if(this.columns==null){
+			this.columns=new ArrayList<String>();
+		}
+		this.columns.add(name);
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public List<String> getColumns() {
+		return columns;
+	}
+	public void setColumns(List<String> columns) {
+		this.columns = columns;
+	}
+	public String getTable_name() {
+		return table_name;
+	}
+	public void setTable_name(String table_name) {
+		this.table_name = table_name;
 	}
 
 	public DiffMsgType getDiffMsgType() {
